@@ -162,7 +162,7 @@ export default function QuickBookingModal({ isOpen, onClose, bookingData = null,
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="98480xxxxx"
+                  placeholder="63094xxxxx"
                   required
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl py-1.5 pl-8 pr-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
                 />
@@ -179,7 +179,7 @@ export default function QuickBookingModal({ isOpen, onClose, bookingData = null,
               <LocationInput
                 value={formData.pickup}
                 onChange={(val) => setFormData((prev) => ({ ...prev, pickup: val }))}
-                placeholder="e.g. 522006, Guntur"
+                placeholder="e.g. 522002, Guntur"
                 icon={MapPin}
                 required
               />
@@ -215,11 +215,14 @@ export default function QuickBookingModal({ isOpen, onClose, bookingData = null,
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl py-1.5 pl-8 pr-2 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 truncate"
                 >
                   <option value="Maruti Swift Dzire Sedan">Swift Dzire (4+1)</option>
+                  <option value="Toyota Etios">Toyota Etios (4+1)</option>
+                  <option value="Maruti Suzuki Ciaz">Maruti Ciaz (4+1)</option>
                   <option value="Maruti Suzuki Ertiga">Ertiga (6+1)</option>
                   <option value="Kia Carens">Kia Carens (6+1)</option>
                   <option value="Toyota Innova Classic">Innova Classic (7+1)</option>
                   <option value="Toyota Innova Crysta">Innova Crysta (7+1)</option>
-                  <option value="Force Tempo Traveller">Tempo Traveller</option>
+                  <option value="Force Tempo Traveller">Tempo Traveller (12-26s)</option>
+                  <option value="Force Urbania Luxury Van">Force Urbania VIP (10-17s)</option>
                 </select>
               </div>
             </div>

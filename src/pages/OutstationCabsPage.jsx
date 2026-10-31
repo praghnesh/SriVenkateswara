@@ -173,7 +173,7 @@ Hello, please check vehicle availability and confirm this outstation cab booking
                   <LocationInput
                     value={pickupCity}
                     onChange={(val) => setPickupCity(val)}
-                    placeholder="e.g. 522006, Brodipet Guntur, Benz Circle"
+                    placeholder="e.g. 522002, Arundelpet Guntur, Benz Circle"
                     icon={MapPin}
                   />
                 </div>

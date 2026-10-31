@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
-import { Calculator, CheckCircle2, ShieldAlert, ArrowRight, MessageSquare, Sparkles } from 'lucide-react';
-import { TARIFF_TABLE_DATA } from '../data/travelData';
+import { Calculator, CheckCircle2, ShieldAlert, ArrowRight, MessageSquare, Sparkles, Clock, Car } from 'lucide-react';
+import { TARIFF_TABLE_DATA, HOURLY_RENTAL_TARIFFS } from '../data/travelData';
 import { openWhatsApp } from '../utils/whatsapp';
 
 export default function TariffEstimator() {
   const [selectedVehicle, setSelectedVehicle] = useState('Swift Dzire');
   const [distance, setDistance] = useState(250);
+  const [tariffTab, setTariffTab] = useState('hourly');
 
   const vehicleRates = {
     'Swift Dzire': { rate: 12, batta: 400, label: 'Swift Dzire Sedan — ₹12 / Km' },
+    'Toyota Etios': { rate: 12, batta: 400, label: 'Toyota Etios Sedan — ₹12 / Km' },
+    'Maruti Ciaz': { rate: 14, batta: 400, label: 'Maruti Ciaz Executive — ₹14 / Km' },
     'Maruti Ertiga': { rate: 15, batta: 400, label: 'Maruti Ertiga (6+1) — ₹15 / Km' },
     'Kia Carens': { rate: 16, batta: 400, label: 'Kia Carens (6+1) — ₹16 / Km' },
     'Toyota Innova': { rate: 18, batta: 400, label: 'Toyota Innova (7+1) — ₹18 / Km' },
     'Innova Crysta': { rate: 21, batta: 500, label: 'Innova Crysta Luxury — ₹21 / Km' },
-    'Tempo Traveller': { rate: 26, batta: 600, label: 'Tempo Traveller (12/17s) — ₹26 / Km' }
+    'Tempo Traveller': { rate: 26, batta: 600, label: 'Tempo Traveller (12/17s) — ₹26 / Km' },
+    'Force Urbania': { rate: 32, batta: 700, label: 'Force Urbania VIP (10/17s) — ₹32 / Km' }
   };
 
   const currentInfo = vehicleRates[selectedVehicle] || vehicleRates['Swift Dzire'];
@@ -175,39 +179,159 @@ Hello, I would like to reserve this vehicle for my upcoming trip with this tarif
           </div>
         </div>
 
-        {/* Complete Standard Tariff Table */}
+        {/* Complete Standard Tariff Table with Tabs */}
         <div className="space-y-6">
-          <div className="text-center">
-            <h3 className="text-2xl font-black text-gray-900">Official Fleet Tariff Master Table</h3>
-            <p className="text-xs text-gray-500 mt-1">Standard tariffs valid for all Guntur &amp; Vijayawada bookings</p>
+          <div className="text-center space-y-2">
+            <h3 className="text-2xl sm:text-3xl font-black text-gray-900">Official Fleet Tariff Master Table</h3>
+            <p className="text-xs sm:text-sm text-gray-500 max-w-xl mx-auto">Standard transparent tariffs valid for all Guntur &amp; Vijayawada bookings</p>
+            
+            {/* Tariff Switcher Tabs */}
+            <div className="inline-flex p-1 bg-slate-100 rounded-2xl border border-slate-200 mt-2">
+              <button
+                type="button"
+                onClick={() => setTariffTab('hourly')}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-1.5 ${
+                  tariffTab === 'hourly'
+                    ? 'bg-[#0077c8] text-white shadow-md'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <Clock className="w-4 h-4" />
+                <span>Local Hourly Rentals (4h &amp; 8h)</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setTariffTab('outstation')}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-1.5 ${
+                  tariffTab === 'outstation'
+                    ? 'bg-blue-600 text-white shadow-md'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <Car className="w-4 h-4" />
+                <span>Outstation Highway Rates</span>
+              </button>
+            </div>
           </div>
 
-          <div className="overflow-x-auto rounded-3xl border border-gray-100 shadow-sm">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-gray-900 text-white text-xs uppercase tracking-wider">
-                <tr>
-                  <th className="py-4 px-6 font-bold">Vehicle Model</th>
-                  <th className="py-4 px-6 font-bold">Seating</th>
-                  <th className="py-4 px-6 font-bold">Outstation Rate</th>
-                  <th className="py-4 px-6 font-bold">Local Package (8h/80km)</th>
-                  <th className="py-4 px-6 font-bold">Extra Km</th>
-                  <th className="py-4 px-6 font-bold">Driver Batta</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 bg-white">
-                {TARIFF_TABLE_DATA.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-blue-50/40 transition-colors">
-                    <td className="py-4 px-6 font-bold text-gray-900">{row.model}</td>
-                    <td className="py-4 px-6 font-semibold text-gray-600">{row.seating}</td>
-                    <td className="py-4 px-6 font-black text-blue-600">{row.outstationRate}</td>
-                    <td className="py-4 px-6 font-semibold text-gray-800">{row.localPackage}</td>
-                    <td className="py-4 px-6 font-medium text-gray-500">{row.extraKm}</td>
-                    <td className="py-4 px-6 font-semibold text-gray-700">{row.batta}</td>
+          {/* Tab 1: Local Hourly Rentals Table (Styled exactly like user's image) */}
+          {tariffTab === 'hourly' && (
+            <div className="rounded-2xl border-2 border-[#0077c8] overflow-hidden shadow-lg bg-white">
+              <div className="overflow-x-auto">
+                <table className="w-full text-center border-collapse text-xs sm:text-sm">
+                  <thead>
+                    <tr className="bg-[#0077c8] text-white font-black uppercase text-[11px] sm:text-xs tracking-wider">
+                      <th className="py-3.5 px-3 sm:px-4 text-left border-r border-white/20">Local Use</th>
+                      <th className="py-3.5 px-2.5 sm:px-3 border-r border-white/20 whitespace-nowrap">4Hrs/40Km</th>
+                      <th className="py-3.5 px-2.5 sm:px-3 border-r border-white/20 whitespace-nowrap">8Hrs/100Km</th>
+                      <th className="py-3.5 px-2 sm:px-3 border-r border-white/20 whitespace-nowrap">Extra Km</th>
+                      <th className="py-3.5 px-2 sm:px-3 border-r border-white/20 whitespace-nowrap">Extra Hr</th>
+                      <th className="py-3.5 px-2 sm:px-3 border-r border-white/20 whitespace-nowrap">Driver Beta</th>
+                      <th className="py-3.5 px-3 whitespace-nowrap">Booking</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {HOURLY_RENTAL_TARIFFS.map((row, idx) => {
+                      const isBlueRow = idx % 2 === 1;
+                      return (
+                        <tr
+                          key={idx}
+                          className={`transition-colors border-t border-slate-200/60 ${
+                            isBlueRow
+                              ? 'bg-[#0077c8] text-white font-medium hover:bg-[#006bb5]'
+                              : 'bg-white text-slate-800 font-medium hover:bg-slate-50'
+                          }`}
+                        >
+                          <td className="py-3 px-3 sm:px-4 text-left border-r border-slate-200/40 font-bold whitespace-nowrap sm:whitespace-normal">
+                            <div className="leading-tight">{row.vehicle}</div>
+                            <div className={`text-[10px] ${isBlueRow ? 'text-blue-100' : 'text-slate-500'} font-normal`}>
+                              {row.type}
+                            </div>
+                          </td>
+                          <td className="py-3 px-2.5 sm:px-3 border-r border-slate-200/40 font-black">
+                            ₹{row.fourHrsFortyKm}
+                          </td>
+                          <td className="py-3 px-2.5 sm:px-3 border-r border-slate-200/40 font-black">
+                            ₹{row.eightHrsHundredKm}
+                          </td>
+                          <td className="py-3 px-2 sm:px-3 border-r border-slate-200/40 font-bold">
+                            ₹{row.extraKm}
+                          </td>
+                          <td className="py-3 px-2 sm:px-3 border-r border-slate-200/40 font-bold">
+                            ₹{row.extraHr}
+                          </td>
+                          <td className="py-3 px-2 sm:px-3 border-r border-slate-200/40 font-bold">
+                            <span className={`px-2 py-0.5 rounded-md text-[11px] font-black ${
+                              isBlueRow ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            }`}>
+                              *included*
+                            </span>
+                          </td>
+                          <td className="py-3 px-3 whitespace-nowrap">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const msg = `*HOURLY RENTAL BOOKING* ⏱️\n*Sri Venkateswara Car Travels*\n\n• *Vehicle:* ${row.vehicle}\n• *4h/40km:* ₹${row.fourHrsFortyKm}\n• *8h/100km:* ₹${row.eightHrsHundredKm}\n• *Extra Km:* ₹${row.extraKm}/km\n• *Extra Hr:* ₹${row.extraHr}/hr\n• *Driver Batta:* Included\n\nPlease confirm availability for local city use.`;
+                                openWhatsApp(msg);
+                              }}
+                              className={`px-3 py-1 rounded-lg text-xs font-black transition-all cursor-pointer ${
+                                isBlueRow
+                                  ? 'bg-white text-[#0077c8] hover:bg-slate-100 shadow-xs'
+                                  : 'bg-blue-600 hover:bg-blue-700 text-white shadow-xs'
+                              }`}
+                            >
+                              Reserve
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Notes Footer */}
+              <div className="bg-slate-50 p-3 sm:p-4 border-t border-slate-200 text-slate-600 text-[11px] sm:text-xs space-y-1">
+                <div className="flex items-center gap-1.5 font-bold text-slate-800">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Driver Beta (Batta) is 100% INCLUDED in all 4h &amp; 8h local packages.</span>
+                </div>
+                <div className="text-slate-500 pl-5">
+                  • Toll gates, parking charges, and entry permits are not included and payable as per actuals.
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 2: Outstation Highway Table */}
+          {tariffTab === 'outstation' && (
+            <div className="overflow-x-auto rounded-3xl border border-gray-100 shadow-sm bg-white">
+              <table className="w-full text-left text-sm">
+                <thead className="bg-gray-900 text-white text-xs uppercase tracking-wider">
+                  <tr>
+                    <th className="py-4 px-6 font-bold">Vehicle Model</th>
+                    <th className="py-4 px-6 font-bold">Seating</th>
+                    <th className="py-4 px-6 font-bold">Outstation Rate</th>
+                    <th className="py-4 px-6 font-bold">Local Package (8h/100km)</th>
+                    <th className="py-4 px-6 font-bold">Extra Km</th>
+                    <th className="py-4 px-6 font-bold">Driver Batta</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-gray-100 bg-white">
+                  {TARIFF_TABLE_DATA.map((row, idx) => (
+                    <tr key={idx} className="hover:bg-blue-50/40 transition-colors">
+                      <td className="py-4 px-6 font-bold text-gray-900">{row.model}</td>
+                      <td className="py-4 px-6 font-semibold text-gray-600">{row.seating}</td>
+                      <td className="py-4 px-6 font-black text-blue-600">{row.outstationRate}</td>
+                      <td className="py-4 px-6 font-semibold text-gray-800">{row.localPackage}</td>
+                      <td className="py-4 px-6 font-medium text-gray-500">{row.extraKm}</td>
+                      <td className="py-4 px-6 font-semibold text-gray-700">{row.batta}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
 
       </div>

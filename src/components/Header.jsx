@@ -21,9 +21,10 @@ export default function Header({ onOpenBookingModal }) {
 
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'Fleet & Cars', href: '/fleet' },
+    { name: 'Airport Cabs', href: '/airport-cabs' },
     { name: 'Tour Packages', href: '/tour-packages' },
     { name: 'Hourly Rentals', href: '/hourly-rentals' },
+    { name: 'Fleet & Cars', href: '/fleet' },
     { name: 'Reviews', href: '/why-us' },
     { name: 'FAQ', href: '/faq' },
     { name: 'Contact', href: '/contact' },
@@ -114,7 +115,7 @@ export default function Header({ onOpenBookingModal }) {
                 key={link.name}
                 to={link.href}
                 end={link.href === '/'}
-                className={({ isActive }) => `px-3 py-1.5 rounded-full text-[13.5px] font-semibold transition-all whitespace-nowrap ${
+                className={({ isActive }) => `px-2.5 xl:px-3 py-1.5 rounded-full text-[12.5px] xl:text-[13.5px] font-semibold transition-all whitespace-nowrap ${
                   isActive
                     ? isTransparent
                       ? 'bg-amber-400/20 text-amber-300 font-bold border border-amber-400/30'

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MapPin, Search } from 'lucide-react';
-import { searchLocations } from '../data/locationData';
+import { MapPin, Search, Loader2, Sparkles } from 'lucide-react';
+import { searchLocations, searchAllIndiaLocations } from '../data/locationData';
 
 export default function LocationInput({
   value,
@@ -13,15 +13,43 @@ export default function LocationInput({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const wrapperRef = useRef(null);
+  const debounceRef = useRef(null);
 
   useEffect(() => {
-    if (value && value.trim().length >= 2) {
-      const results = searchLocations(value);
-      setSuggestions(results);
-    } else {
+    if (!value || value.trim().length < 2) {
       setSuggestions([]);
+      setIsLoading(false);
+      return;
     }
+
+    // 1. Instant local search (0ms response)
+    const instant = searchLocations(value);
+    setSuggestions(instant);
+
+    // 2. Debounced All-India Pincode & Area Lookup
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    setIsLoading(true);
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const allIndia = await searchAllIndiaLocations(value);
+        if (allIndia && allIndia.length > 0) {
+          setSuggestions(allIndia);
+        }
+      } catch (err) {
+        // silent fallback
+      } finally {
+        setIsLoading(false);
+      }
+    }, 250);
+
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
   }, [value]);
 
   // Click outside to close dropdown
@@ -36,8 +64,8 @@ export default function LocationInput({
   }, []);
 
   const handleSelect = (loc) => {
-    // Format: "Dwaraka Nagar / RTC Complex, Visakhapatnam (530016)"
-    const formatted = `${loc.area}, ${loc.city} (${loc.pincode})`;
+    // Format: "Area, City (Pincode)"
+    const formatted = `${loc.area}, ${loc.city}${loc.pincode ? ` (${loc.pincode})` : ''}`;
     onChange(formatted);
     setIsOpen(false);
   };
@@ -53,7 +81,6 @@ export default function LocationInput({
           autoComplete={autoComplete}
           onFocus={() => {
             if (value && value.trim().length >= 2) {
-              setSuggestions(searchLocations(value));
               setIsOpen(true);
             }
           }}
@@ -62,21 +89,29 @@ export default function LocationInput({
             setIsOpen(true);
           }}
           placeholder={placeholder}
-          className="w-full bg-slate-50 border border-slate-200 rounded-xl py-2.5 pl-10 pr-3.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium"
+          className="w-full bg-slate-50 border border-slate-200 rounded-xl py-2.5 pl-10 pr-8 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium"
         />
+
+        {/* Loading Spinner */}
+        {isLoading && (
+          <Loader2 className="w-3.5 h-3.5 text-blue-600 animate-spin absolute right-3 top-3.5 pointer-events-none" />
+        )}
       </div>
 
       {/* Autocomplete Dropdown */}
       {isOpen && suggestions.length > 0 && (
         <div className="absolute z-50 left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden max-h-64 overflow-y-auto divide-y divide-slate-100 animate-in fade-in zoom-in-95 duration-150">
           <div className="px-3 py-1.5 bg-slate-50 text-[10px] font-black uppercase tracking-wider text-slate-500 flex items-center justify-between">
-            <span>Matching Areas &amp; Pincodes</span>
-            <span className="text-blue-600">{suggestions.length} Found</span>
+            <span className="flex items-center gap-1">
+              <Sparkles className="w-3 h-3 text-amber-500" />
+              <span>All-India Pincodes &amp; Areas</span>
+            </span>
+            <span className="text-blue-600 font-bold">{suggestions.length} Found</span>
           </div>
 
           {suggestions.map((loc, idx) => (
             <button
-              key={`${loc.pincode}-${idx}`}
+              key={`${loc.pincode || loc.area}-${idx}`}
               type="button"
               onMouseDown={(e) => {
                 e.preventDefault(); // prevent blur
@@ -91,14 +126,16 @@ export default function LocationInput({
                     {loc.area}
                   </div>
                   <div className="text-[11px] text-slate-500">
-                    {loc.city}, {loc.state}
+                    {loc.city}{loc.state ? `, ${loc.state}` : ''}
                   </div>
                 </div>
               </div>
 
-              <span className="shrink-0 bg-blue-100/70 group-hover:bg-blue-600 group-hover:text-white text-blue-800 font-mono text-[11px] font-bold px-2 py-0.5 rounded-md transition-colors">
-                {loc.pincode}
-              </span>
+              {loc.pincode && (
+                <span className="shrink-0 bg-blue-100/70 group-hover:bg-blue-600 group-hover:text-white text-blue-800 font-mono text-[11px] font-bold px-2 py-0.5 rounded-md transition-colors">
+                  {loc.pincode}
+                </span>
+              )}
             </button>
           ))}
         </div>

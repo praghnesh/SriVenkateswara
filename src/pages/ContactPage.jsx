@@ -182,7 +182,7 @@ Please get in touch with me as soon as possible.`;
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    placeholder="e.g. 98480 22338"
+                    placeholder="e.g. 63094 26620"
                     required
                     className="w-full bg-slate-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />

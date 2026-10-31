@@ -1,10 +1,10 @@
 export const CONTACT_INFO = {
-  primaryPhone: '+91 98480 22338',
-  primaryPhoneRaw: '919848022338',
-  altPhone: '+91 9603 666 188',
-  altPhoneRaw: '919603666188',
+  primaryPhone: '+91 63094 26620',
+  primaryPhoneRaw: '916309426620',
+  altPhone: '+91 63094 26620',
+  altPhoneRaw: '916309426620',
   email: 'bookings@srivenkateswaracartravels.com',
-  address: 'Near Old Bus Stand, 1st Line, Brindavan Gardens, Guntur, Andhra Pradesh 522006',
+  address: '18/2 18/2, near Siva theater, beside chandana hospital, Arundelpet, Guntur, Andhra Pradesh 522002.',
   operatingHours: 'Available 24 Hours / 7 Days a Week',
   experienceYears: '12+',
   happyPassengers: '2500+',
@@ -35,7 +35,7 @@ export const FLEET_VEHICLES = [
     name: 'Maruti Swift Dzire',
     category: 'sedan',
     categoryLabel: 'Compact Sedan',
-    submodels: 'Swift Dzire / Toyota Etios / Hyundai Aura',
+    submodels: 'Swift Dzire / Dual Airbags / Smooth Cruiser',
     ratePerKm: 12,
     rateText: '₹12 / Km',
     image: '/assets/images/dzire-sedan.jpg?v=front2026',
@@ -45,6 +45,40 @@ export const FLEET_VEHICLES = [
     features: [
       'Ideal for airport drops, city commutes & couples',
       'Best fuel economy & quiet highway cruising'
+    ]
+  },
+  {
+    id: 'toyota-etios',
+    name: 'Toyota Etios',
+    category: 'sedan',
+    categoryLabel: 'Reliable Sedan',
+    submodels: 'Massive Boot Space • Smooth Highway Ride',
+    ratePerKm: 12,
+    rateText: '₹12 / Km',
+    image: '/assets/images/etios.jpg',
+    seats: '4+1 Seats',
+    acType: 'Full AC',
+    luggage: '3 Large Bags',
+    features: [
+      'Class-leading 592L boot space for heavy travel luggage',
+      'Reliable Toyota suspension for comfortable city & highway trips'
+    ]
+  },
+  {
+    id: 'maruti-ciaz',
+    name: 'Maruti Suzuki Ciaz',
+    category: 'sedan',
+    categoryLabel: 'Executive Sedan',
+    submodels: 'Executive Legroom • Premium Plush Interiors',
+    ratePerKm: 14,
+    rateText: '₹14 / Km',
+    image: '/assets/images/ciaz.jpg',
+    seats: '4+1 Seats',
+    acType: 'Climate AC',
+    luggage: '3 Bags',
+    features: [
+      'Executive comfort with extra rear legroom & plush upholstery',
+      'Preferred for business meetings, corporate delegates & weddings'
     ]
   },
   {
@@ -62,6 +96,40 @@ export const FLEET_VEHICLES = [
     features: [
       'Most popular choice for family pilgrimages & functions',
       'Foldable 3rd row for extra luggage carrier capacity'
+    ]
+  },
+  {
+    id: 'kia-carens',
+    name: 'Kia Carens',
+    category: 'mpv',
+    categoryLabel: 'Modern MPV',
+    submodels: '6+1 Seating • Modern Plush Interiors',
+    ratePerKm: 16,
+    rateText: '₹16 / Km',
+    image: '/assets/images/kia-carens.jpg?v=front2026',
+    seats: '6+1 Seats',
+    acType: 'Climate AC',
+    luggage: '3 Bags',
+    features: [
+      'Premium cabin sound insulation with smooth ride quality',
+      'Type-C charging ports for all seat rows'
+    ]
+  },
+  {
+    id: 'innova-classic',
+    name: 'Toyota Innova Classic',
+    category: 'mpv',
+    categoryLabel: 'Highway MUV',
+    submodels: '7+1 Seating • Rugged Highway Performance',
+    ratePerKm: 18,
+    rateText: '₹18 / Km',
+    image: '/assets/images/innova-crysta.jpg?v=front2026',
+    seats: '7+1 Seats',
+    acType: 'Full AC',
+    luggage: '4 Bags',
+    features: [
+      'The most trusted highway workhorse across India',
+      'Great suspension for comfortable long-distance travel'
     ]
   },
   {
@@ -94,44 +162,28 @@ export const FLEET_VEHICLES = [
     image: '/assets/images/tempo-traveller.jpg?v=front2026',
     seats: '12-26 Seats',
     acType: 'AC / Non-AC',
-    luggage: 'Rooftop Carrier',
+    luggage: 'Roof Carrier',
     features: [
       'Reclining pushback seats, surround audio & LED TV',
       'Perfect for large joint families, temple tours & marriages'
     ]
   },
   {
-    id: 'innova-classic',
-    name: 'Toyota Innova Classic',
-    category: 'mpv',
-    categoryLabel: 'Highway MUV',
-    submodels: '7+1 Seating • Rugged Highway Performance',
-    ratePerKm: 18,
-    rateText: '₹18 / Km',
-    image: '/assets/images/innova-crysta.jpg?v=front2026',
-    seats: '7+1 Seats',
-    acType: 'Full AC',
-    luggage: '4 Bags',
+    id: 'force-urbania',
+    name: 'Force Urbania Luxury Van',
+    category: 'group',
+    categoryLabel: 'VIP Luxury Coach',
+    categoryTagStyle: { background: '#0f766e' },
+    submodels: '10 / 13 / 17 VIP Recliner Luxury Seating',
+    ratePerKm: 32,
+    rateText: '₹32 / Km',
+    image: '/assets/images/urbania.jpg',
+    seats: '10-17 VIP',
+    acType: 'Individual AC',
+    luggage: 'Roof Carrier',
     features: [
-      'The most trusted highway workhorse across India',
-      'Great suspension for comfortable long-distance travel'
-    ]
-  },
-  {
-    id: 'kia-carens',
-    name: 'Kia Carens',
-    category: 'mpv',
-    categoryLabel: 'Modern MPV',
-    submodels: '6+1 Seating • Modern Plush Interiors',
-    ratePerKm: 16,
-    rateText: '₹16 / Km',
-    image: '/assets/images/kia-carens.jpg?v=front2026',
-    seats: '6+1 Seats',
-    acType: 'Climate AC',
-    luggage: '3 Bags',
-    features: [
-      'Premium cabin sound insulation with smooth ride quality',
-      'Type-C charging ports for all seat rows'
+      'World-class European styling with individual AC vents & USB ports',
+      'Panoramic windows, mood lighting & supreme highway comfort for VIPs'
     ]
   }
 ];
@@ -299,54 +351,120 @@ export const SERVICES_LIST = [
   }
 ];
 
+export const HOURLY_RENTAL_TARIFFS = [
+  {
+    vehicle: 'Swift / Etios Liva',
+    type: 'Hatchback (4+1)',
+    fourHrsFortyKm: 1300,
+    eightHrsHundredKm: 2000,
+    extraKm: 13,
+    extraHr: 150,
+    driverBatta: 'Included'
+  },
+  {
+    vehicle: 'Etios / Swift Dzire / Honda Amaze',
+    type: 'Prime Sedan (4+1)',
+    fourHrsFortyKm: 1400,
+    eightHrsHundredKm: 2000,
+    extraKm: 13,
+    extraHr: 150,
+    driverBatta: 'Included'
+  },
+  {
+    vehicle: 'Honda City / Volkswagen Vento',
+    type: 'Executive Sedan (4+1)',
+    fourHrsFortyKm: 1300,
+    eightHrsHundredKm: 2000,
+    extraKm: 13,
+    extraHr: 150,
+    driverBatta: 'Included'
+  },
+  {
+    vehicle: 'Toyota Innova (7+1)',
+    type: 'Family MUV (7+1)',
+    fourHrsFortyKm: 2000,
+    eightHrsHundredKm: 3000,
+    extraKm: 16,
+    extraHr: 300,
+    driverBatta: 'Included'
+  },
+  {
+    vehicle: 'Toyota Innova Crysta (7+1)',
+    type: 'Luxury Captain (7+1)',
+    fourHrsFortyKm: 2000,
+    eightHrsHundredKm: 3000,
+    extraKm: 16,
+    extraHr: 300,
+    driverBatta: 'Included'
+  },
+  {
+    vehicle: 'Chevrolet Tavera (9+1)',
+    type: 'Group MUV (9+1)',
+    fourHrsFortyKm: 1800,
+    eightHrsHundredKm: 2800,
+    extraKm: 15,
+    extraHr: 250,
+    driverBatta: 'Included'
+  },
+  {
+    vehicle: 'Tempo Traveller (12+1)',
+    type: 'Minibus / Coach (12+1)',
+    fourHrsFortyKm: 2800,
+    eightHrsHundredKm: 4000,
+    extraKm: 19,
+    extraHr: 300,
+    driverBatta: 'Included'
+  }
+];
+
 export const TARIFF_TABLE_DATA = [
   {
     model: 'Maruti Swift Dzire / Etios',
     seating: '4 + 1 Passengers',
     outstationRate: '₹12 / Km',
-    localPackage: '₹2,200',
-    extraKm: '₹12 / km',
-    batta: '₹400 / day'
+    localPackage: '₹2,000 (8h/100km)',
+    extraKm: '₹13 / km',
+    batta: 'Included'
   },
   {
-    model: 'Maruti Ertiga MPV',
-    seating: '6 + 1 Passengers',
+    model: 'Maruti Ertiga / Tavera MPV',
+    seating: '6+1 to 9+1',
     outstationRate: '₹15 / Km',
-    localPackage: '₹2,800',
+    localPackage: '₹2,800 (8h/100km)',
     extraKm: '₹15 / km',
-    batta: '₹400 / day'
+    batta: 'Included'
   },
   {
     model: 'Kia Carens Luxury',
     seating: '6 + 1 Passengers',
     outstationRate: '₹16 / Km',
-    localPackage: '₹3,100',
-    extraKm: '₹16 / km',
-    batta: '₹400 / day'
+    localPackage: '₹2,800 (8h/100km)',
+    extraKm: '₹15 / km',
+    batta: 'Included'
   },
   {
-    model: 'Toyota Innova Classic',
+    model: 'Toyota Innova (7+1)',
     seating: '7 + 1 Passengers',
     outstationRate: '₹18 / Km',
-    localPackage: '₹3,400',
-    extraKm: '₹18 / km',
-    batta: '₹400 / day'
+    localPackage: '₹3,000 (8h/100km)',
+    extraKm: '₹16 / km',
+    batta: 'Included'
   },
   {
-    model: 'Toyota Innova Crysta',
-    seating: '7 + 1 Passengers',
+    model: 'Toyota Innova Crysta (7+1)',
+    seating: '7 + 1 Luxury',
     outstationRate: '₹21 / Km',
-    localPackage: '₹4,200',
-    extraKm: '₹21 / km',
-    batta: '₹500 / day'
+    localPackage: '₹3,000 (8h/100km)',
+    extraKm: '₹16 / km',
+    batta: 'Included'
   },
   {
-    model: 'Force Tempo Traveller',
+    model: 'Force Tempo Traveller (12+1)',
     seating: '12 to 26 Seater',
     outstationRate: '₹26 / Km',
-    localPackage: '₹6,000',
-    extraKm: '₹26 / km',
-    batta: '₹600 / day'
+    localPackage: '₹4,000 (8h/100km)',
+    extraKm: '₹19 / km',
+    batta: 'Included'
   }
 ];
 

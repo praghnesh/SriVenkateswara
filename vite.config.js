@@ -9,6 +9,13 @@ export default defineConfig({
   ],
   server: {
     port: 3000,
-    open: false
+    open: false,
+    proxy: {
+      '/api-postal': {
+        target: 'https://api.postalpincode.in',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api-postal/, '')
+      }
+    }
   }
 });

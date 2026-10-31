@@ -14,7 +14,7 @@ import {
   Plane,
   Navigation
 } from 'lucide-react';
-import { CONTACT_INFO, FLEET_VEHICLES } from '../data/travelData';
+import { CONTACT_INFO, FLEET_VEHICLES, HOURLY_RENTAL_TARIFFS } from '../data/travelData';
 import { openWhatsApp } from '../utils/whatsapp';
 
 export default function HourlyRentalsPage({ onOpenBookingModal }) {
@@ -32,12 +32,12 @@ export default function HourlyRentalsPage({ onOpenBookingModal }) {
       label: '4 Hrs / 40 Kms',
       badge: 'Half Day Quick Errands',
       rates: {
-        'swift-dzire': { base: 1400, extraKm: 12, extraHr: 150 },
-        'maruti-ertiga': { base: 1800, extraKm: 15, extraHr: 200 },
-        'innova-classic': { base: 2100, extraKm: 18, extraHr: 250 },
-        'innova-crysta': { base: 2600, extraKm: 21, extraHr: 300 },
-        'kia-carens': { base: 1950, extraKm: 16, extraHr: 220 },
-        'tempo-traveller': { base: 3500, extraKm: 26, extraHr: 400 }
+        'swift-dzire': { base: 1400, extraKm: 13, extraHr: 150 },
+        'maruti-ertiga': { base: 1800, extraKm: 15, extraHr: 250 },
+        'innova-classic': { base: 2000, extraKm: 16, extraHr: 300 },
+        'innova-crysta': { base: 2000, extraKm: 16, extraHr: 300 },
+        'kia-carens': { base: 1800, extraKm: 15, extraHr: 250 },
+        'tempo-traveller': { base: 2800, extraKm: 19, extraHr: 300 }
       }
     },
     {
@@ -47,57 +47,57 @@ export default function HourlyRentalsPage({ onOpenBookingModal }) {
       label: '6 Hrs / 60 Kms',
       badge: 'City Tour / Shopping',
       rates: {
-        'swift-dzire': { base: 1800, extraKm: 12, extraHr: 150 },
-        'maruti-ertiga': { base: 2400, extraKm: 15, extraHr: 200 },
-        'innova-classic': { base: 2800, extraKm: 18, extraHr: 250 },
-        'innova-crysta': { base: 3400, extraKm: 21, extraHr: 300 },
-        'kia-carens': { base: 2550, extraKm: 16, extraHr: 220 },
-        'tempo-traveller': { base: 4500, extraKm: 26, extraHr: 400 }
+        'swift-dzire': { base: 1700, extraKm: 13, extraHr: 150 },
+        'maruti-ertiga': { base: 2300, extraKm: 15, extraHr: 250 },
+        'innova-classic': { base: 2500, extraKm: 16, extraHr: 300 },
+        'innova-crysta': { base: 2500, extraKm: 16, extraHr: 300 },
+        'kia-carens': { base: 2300, extraKm: 15, extraHr: 250 },
+        'tempo-traveller': { base: 3400, extraKm: 19, extraHr: 300 }
       }
     },
     {
       id: '8h',
       hours: 8,
-      km: 80,
-      label: '8 Hrs / 80 Kms',
+      km: 100,
+      label: '8 Hrs / 100 Kms',
       badge: 'Most Popular Full Day',
       rates: {
-        'swift-dzire': { base: 2200, extraKm: 12, extraHr: 150 },
-        'maruti-ertiga': { base: 2900, extraKm: 15, extraHr: 200 },
-        'innova-classic': { base: 3400, extraKm: 18, extraHr: 250 },
-        'innova-crysta': { base: 4200, extraKm: 21, extraHr: 300 },
-        'kia-carens': { base: 3100, extraKm: 16, extraHr: 220 },
-        'tempo-traveller': { base: 5600, extraKm: 26, extraHr: 400 }
+        'swift-dzire': { base: 2000, extraKm: 13, extraHr: 150 },
+        'maruti-ertiga': { base: 2800, extraKm: 15, extraHr: 250 },
+        'innova-classic': { base: 3000, extraKm: 16, extraHr: 300 },
+        'innova-crysta': { base: 3000, extraKm: 16, extraHr: 300 },
+        'kia-carens': { base: 2800, extraKm: 15, extraHr: 250 },
+        'tempo-traveller': { base: 4000, extraKm: 19, extraHr: 300 }
       }
     },
     {
       id: '10h',
       hours: 10,
-      km: 100,
-      label: '10 Hrs / 100 Kms',
+      km: 120,
+      label: '10 Hrs / 120 Kms',
       badge: 'Extended Day / Suburbs',
       rates: {
-        'swift-dzire': { base: 2600, extraKm: 12, extraHr: 150 },
-        'maruti-ertiga': { base: 3400, extraKm: 15, extraHr: 200 },
-        'innova-classic': { base: 4000, extraKm: 18, extraHr: 250 },
-        'innova-crysta': { base: 4900, extraKm: 21, extraHr: 300 },
-        'kia-carens': { base: 3600, extraKm: 16, extraHr: 220 },
-        'tempo-traveller': { base: 6500, extraKm: 26, extraHr: 400 }
+        'swift-dzire': { base: 2300, extraKm: 13, extraHr: 150 },
+        'maruti-ertiga': { base: 3300, extraKm: 15, extraHr: 250 },
+        'innova-classic': { base: 3600, extraKm: 16, extraHr: 300 },
+        'innova-crysta': { base: 3600, extraKm: 16, extraHr: 300 },
+        'kia-carens': { base: 3300, extraKm: 15, extraHr: 250 },
+        'tempo-traveller': { base: 4600, extraKm: 19, extraHr: 300 }
       }
     },
     {
       id: '12h',
       hours: 12,
-      km: 120,
-      label: '12 Hrs / 120 Kms',
+      km: 140,
+      label: '12 Hrs / 140 Kms',
       badge: 'All-Day / Wedding Function',
       rates: {
-        'swift-dzire': { base: 3000, extraKm: 12, extraHr: 150 },
-        'maruti-ertiga': { base: 3900, extraKm: 15, extraHr: 200 },
-        'innova-classic': { base: 4600, extraKm: 18, extraHr: 250 },
-        'innova-crysta': { base: 5600, extraKm: 21, extraHr: 300 },
-        'kia-carens': { base: 4100, extraKm: 16, extraHr: 220 },
-        'tempo-traveller': { base: 7400, extraKm: 26, extraHr: 400 }
+        'swift-dzire': { base: 2600, extraKm: 13, extraHr: 150 },
+        'maruti-ertiga': { base: 3800, extraKm: 15, extraHr: 250 },
+        'innova-classic': { base: 4200, extraKm: 16, extraHr: 300 },
+        'innova-crysta': { base: 4200, extraKm: 16, extraHr: 300 },
+        'kia-carens': { base: 3800, extraKm: 15, extraHr: 250 },
+        'tempo-traveller': { base: 5200, extraKm: 19, extraHr: 300 }
       }
     }
   ];
@@ -118,7 +118,7 @@ export default function HourlyRentalsPage({ onOpenBookingModal }) {
   ];
 
   const handleBookVehicle = (vehicle) => {
-    const rateInfo = currentPkg.rates[vehicle.id] || { base: 2200, extraKm: 12, extraHr: 150 };
+    const rateInfo = currentPkg.rates[vehicle.id] || { base: 2000, extraKm: 13, extraHr: 150 };
 
     if (onOpenBookingModal) {
       onOpenBookingModal({
@@ -131,6 +131,23 @@ export default function HourlyRentalsPage({ onOpenBookingModal }) {
       });
     } else {
       const msg = `*HOURLY CAB RENTAL RESERVATION* ⏱️\n*Sri Venkateswara Car Travels*\n\n• *Rental Package:* ${currentPkg.label} (${currentPkg.badge})\n• *Vehicle:* ${vehicle.name} (${vehicle.categoryLabel})\n• *Package Base Price:* ₹${rateInfo.base.toLocaleString('en-IN')}\n• *Extra Km Rate:* ₹${rateInfo.extraKm}/km\n• *Extra Hour Rate:* ₹${rateInfo.extraHr}/hr\n• *Pickup Location:* ${pickupCity}\n\nHello, I want to book this hourly rental package. Please confirm cab availability and driver details.`;
+      openWhatsApp(msg);
+    }
+  };
+
+  const handleBookFromTable = (item, pkgType = '8Hrs/100Km') => {
+    const fare = pkgType === '4Hrs/40Km' ? item.fourHrsFortyKm : item.eightHrsHundredKm;
+    if (onOpenBookingModal) {
+      onOpenBookingModal({
+        serviceType: `Hourly Rental (${pkgType})`,
+        hoursPackage: pkgType,
+        vehicle: item.vehicle,
+        fare: fare,
+        pickup: pickupCity,
+        destination: `Local City Rental (${pkgType})`
+      });
+    } else {
+      const msg = `*LOCAL HOURLY RENTAL RESERVATION* ⏱️\n*Sri Venkateswara Car Travels*\n\n• *Vehicle:* ${item.vehicle}\n• *Rental Package:* ${pkgType}\n• *Package Fare:* ₹${fare.toLocaleString('en-IN')}\n• *Extra Km Rate:* ₹${item.extraKm}/km\n• *Extra Hour Rate:* ₹${item.extraHr}/hr\n• *Driver Batta:* Included\n• *Pickup Location:* ${pickupCity}\n\nHello, I would like to book this local hourly rental cab. Please confirm availability.`;
       openWhatsApp(msg);
     }
   };
@@ -186,6 +203,125 @@ export default function HourlyRentalsPage({ onOpenBookingModal }) {
       <section className="py-10 lg:py-14">
         <div className="container mx-auto px-4 max-w-6xl">
           
+          {/* ========================================================================
+               OFFICIAL LOCAL USE / HOURLY RENTALS TARIFF CARD (Matching User's Image)
+               ======================================================================== */}
+          <div className="mb-14" id="tariff-table">
+            <div className="text-center mb-6 space-y-1">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider">
+                <span>Official Rate Card</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                Local Hourly Rental Tariff Chart
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 max-w-xl mx-auto">
+                Fixed transparent rates for Guntur &amp; Vijayawada local city usage with certified private chauffeurs.
+              </p>
+            </div>
+
+            {/* Table Container Styled Exactly Like User's Image */}
+            <div className="rounded-2xl border-2 border-[#0077c8] overflow-hidden shadow-lg bg-white">
+              <div className="overflow-x-auto">
+                <table className="w-full text-center border-collapse text-xs sm:text-sm">
+                  <thead>
+                    <tr className="bg-[#0077c8] text-white font-black uppercase text-[11px] sm:text-xs tracking-wider">
+                      <th className="py-3.5 px-3 sm:px-4 text-left border-r border-white/20">Local Use</th>
+                      <th className="py-3.5 px-2.5 sm:px-3 border-r border-white/20 whitespace-nowrap">4Hrs/40Km</th>
+                      <th className="py-3.5 px-2.5 sm:px-3 border-r border-white/20 whitespace-nowrap">8Hrs/100Km</th>
+                      <th className="py-3.5 px-2 sm:px-3 border-r border-white/20 whitespace-nowrap">Extra Km</th>
+                      <th className="py-3.5 px-2 sm:px-3 border-r border-white/20 whitespace-nowrap">Extra Hr</th>
+                      <th className="py-3.5 px-2 sm:px-3 border-r border-white/20 whitespace-nowrap">Driver Beta</th>
+                      <th className="py-3.5 px-3 whitespace-nowrap">Instant Book</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {HOURLY_RENTAL_TARIFFS.map((row, idx) => {
+                      const isBlueRow = idx % 2 === 1; // Alternating blue and white like the image!
+                      return (
+                        <tr
+                          key={idx}
+                          className={`transition-colors border-t border-slate-200/60 ${
+                            isBlueRow
+                              ? 'bg-[#0077c8] text-white font-medium hover:bg-[#006bb5]'
+                              : 'bg-white text-slate-800 font-medium hover:bg-slate-50'
+                          }`}
+                        >
+                          <td className="py-3 px-3 sm:px-4 text-left border-r border-slate-200/40 font-bold whitespace-nowrap sm:whitespace-normal">
+                            <div className="leading-tight">{row.vehicle}</div>
+                            <div className={`text-[10px] ${isBlueRow ? 'text-blue-100' : 'text-slate-500'} font-normal`}>
+                              {row.type}
+                            </div>
+                          </td>
+                          <td className="py-3 px-2.5 sm:px-3 border-r border-slate-200/40 font-black">
+                            ₹{row.fourHrsFortyKm}
+                          </td>
+                          <td className="py-3 px-2.5 sm:px-3 border-r border-slate-200/40 font-black">
+                            ₹{row.eightHrsHundredKm}
+                          </td>
+                          <td className="py-3 px-2 sm:px-3 border-r border-slate-200/40 font-bold">
+                            ₹{row.extraKm}
+                          </td>
+                          <td className="py-3 px-2 sm:px-3 border-r border-slate-200/40 font-bold">
+                            ₹{row.extraHr}
+                          </td>
+                          <td className="py-3 px-2 sm:px-3 border-r border-slate-200/40 font-bold">
+                            <span className={`px-2 py-0.5 rounded-md text-[11px] font-black ${
+                              isBlueRow ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            }`}>
+                              *included*
+                            </span>
+                          </td>
+                          <td className="py-3 px-3 whitespace-nowrap">
+                            <div className="flex items-center justify-center gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => handleBookFromTable(row, '4Hrs/40Km')}
+                                title="Book 4Hrs/40Km"
+                                className={`px-2.5 py-1 rounded-lg text-[10px] sm:text-[11px] font-black transition-all cursor-pointer ${
+                                  isBlueRow
+                                    ? 'bg-white text-[#0077c8] hover:bg-slate-100 shadow-xs'
+                                    : 'bg-blue-600 hover:bg-blue-700 text-white shadow-xs'
+                                }`}
+                              >
+                                4h Book
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleBookFromTable(row, '8Hrs/100Km')}
+                                title="Book 8Hrs/100Km"
+                                className={`px-2.5 py-1 rounded-lg text-[10px] sm:text-[11px] font-black transition-all cursor-pointer ${
+                                  isBlueRow
+                                    ? 'bg-amber-400 text-slate-950 hover:bg-amber-300 shadow-xs'
+                                    : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs'
+                                }`}
+                              >
+                                8h Book
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Terms / Notes Footer matching user image */}
+              <div className="bg-slate-50 p-3 sm:p-4 border-t border-slate-200 text-slate-600 text-[11px] sm:text-xs space-y-1">
+                <div className="flex items-center gap-1.5 font-bold text-slate-800">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Driver Beta (Batta) is 100% INCLUDED in all 4h &amp; 8h local packages.</span>
+                </div>
+                <div className="text-slate-500 pl-5">
+                  • Toll gates, parking charges, and entry permits are not included and payable as per actuals.
+                </div>
+                <div className="text-slate-500 pl-5">
+                  • Standard night allowance of ₹200 applies for driving between 10:00 PM and 6:00 AM.
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Package Selector Cards (4h, 6h, 8h, 10h, 12h) - User requested adding 6 and 10 and scroll down */}
           <div className="mb-10">
             <div className="text-center mb-6">

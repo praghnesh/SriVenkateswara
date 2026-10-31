@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { 
   Plane, 
   MapPin, 
@@ -22,11 +22,17 @@ import LocationInput from '../components/LocationInput';
 
 export default function AirportCabsPage({ onOpenBookingModal }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const today = new Date().toISOString().split('T')[0];
 
-  const [transferType, setTransferType] = useState('drop'); // 'drop' or 'pickup'
+  const [transferType, setTransferType] = useState(() => location.state?.transferType || 'drop'); // 'drop' or 'pickup'
   const [selectedAirport, setSelectedAirport] = useState('vga');
-  const [cityLocality, setCityLocality] = useState('Guntur City Center');
+  const [cityLocality, setCityLocality] = useState(() => {
+    if (location.state?.transferType === 'pickup') {
+      return location.state?.destination || 'Guntur';
+    }
+    return location.state?.pickup || 'Guntur';
+  });
   const [flightNo, setFlightNo] = useState('');
   const [date, setDate] = useState(today);
   const [time, setTime] = useState('06:00');
@@ -40,11 +46,14 @@ export default function AirportCabsPage({ onOpenBookingModal }) {
       distanceFromGuntur: '55 Kms (~1.2 Hrs)',
       fares: {
         'swift-dzire': 1499,
+        'toyota-etios': 1499,
+        'maruti-ciaz': 1699,
         'maruti-ertiga': 1999,
+        'kia-carens': 2199,
+        'innova-classic': 2399,
         'innova-crysta': 2699,
         'tempo-traveller': 3999,
-        'innova-classic': 2399,
-        'kia-carens': 2199
+        'force-urbania': 4999
       }
     },
     {
@@ -54,11 +63,14 @@ export default function AirportCabsPage({ onOpenBookingModal }) {
       distanceFromGuntur: '290 Kms (~4.5 Hrs)',
       fares: {
         'swift-dzire': 4199,
+        'toyota-etios': 4199,
+        'maruti-ciaz': 4699,
         'maruti-ertiga': 5399,
+        'kia-carens': 5699,
+        'innova-classic': 6299,
         'innova-crysta': 6899,
         'tempo-traveller': 9899,
-        'innova-classic': 6299,
-        'kia-carens': 5699
+        'force-urbania': 12999
       }
     }
   ];
@@ -208,7 +220,7 @@ Hello Sri Venkateswara Travels, please confirm cab availability for this airport
                   <LocationInput
                     value={cityLocality}
                     onChange={(val) => setCityLocality(val)}
-                    placeholder="e.g. 522006, Brodipet Guntur, Benz Circle"
+                    placeholder="e.g. 522002, Arundelpet Guntur, Benz Circle"
                     icon={MapPin}
                   />
                 </div>

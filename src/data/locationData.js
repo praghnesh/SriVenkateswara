@@ -25,10 +25,11 @@ export const POPULAR_LOCATIONS = [
   // --- GUNTUR ---
   { area: 'Old Bus Stand / Kothapet', city: 'Guntur', state: 'AP', pincode: '522001' },
   { area: 'Guntur Railway Station', city: 'Guntur', state: 'AP', pincode: '522001' },
-  { area: 'Brodipet / Arundelpet', city: 'Guntur', state: 'AP', pincode: '522002' },
+  { area: 'Arundelpet (Head Office - Near Siva Theater)', city: 'Guntur', state: 'AP', pincode: '522002' },
+  { area: 'Brodipet', city: 'Guntur', state: 'AP', pincode: '522002' },
   { area: 'Nagarampalem / Collectorate', city: 'Guntur', state: 'AP', pincode: '522004' },
   { area: 'Nallapadu', city: 'Guntur', state: 'AP', pincode: '522005' },
-  { area: 'Brindavan Gardens (Head Office)', city: 'Guntur', state: 'AP', pincode: '522006' },
+  { area: 'Brindavan Gardens', city: 'Guntur', state: 'AP', pincode: '522006' },
   { area: 'Pattabhipuram / Gujjanagundla', city: 'Guntur', state: 'AP', pincode: '522006' },
   { area: 'Lakshmipuram / Koritepadu', city: 'Guntur', state: 'AP', pincode: '522007' },
   { area: 'Vidyanagar / Ring Road', city: 'Guntur', state: 'AP', pincode: '522007' },
@@ -116,20 +117,43 @@ export const POPULAR_LOCATIONS = [
   { area: 'Whitefield / ITPL Main Road', city: 'Bengaluru', state: 'KA', pincode: '560066' },
   { area: 'Kempegowda Int. Airport (BLR), Devanahalli', city: 'Bengaluru', state: 'KA', pincode: '560300' },
   { area: 'Indiranagar / Koramangala', city: 'Bengaluru', state: 'KA', pincode: '560034' },
+  { area: 'Marathahalli / Bellandur', city: 'Bengaluru', state: 'KA', pincode: '560037' },
+  { area: 'BTM Layout / Jayanagar', city: 'Bengaluru', state: 'KA', pincode: '560076' },
   { area: 'Chennai Central / Puratchi Thalaivar Station', city: 'Chennai', state: 'TN', pincode: '600003' },
   { area: 'T Nagar / Pondy Bazaar', city: 'Chennai', state: 'TN', pincode: '600017' },
   { area: 'Chennai Airport (MAA), Meenambakkam', city: 'Chennai', state: 'TN', pincode: '600027' },
-  { area: 'OMR IT Corridor / Sholinganallur', city: 'Chennai', state: 'TN', pincode: '600119' }
+  { area: 'OMR IT Corridor / Sholinganallur', city: 'Chennai', state: 'TN', pincode: '600119' },
+  { area: 'Velachery / Guindy', city: 'Chennai', state: 'TN', pincode: '600042' },
+
+  // --- OTHER TOP INDIAN METROS & CITIES ---
+  { area: 'Nariman Point / Marine Drive', city: 'Mumbai', state: 'MH', pincode: '400021' },
+  { area: 'Bandra West / Kurla Complex (BKC)', city: 'Mumbai', state: 'MH', pincode: '400051' },
+  { area: 'Andheri East / Chhatrapati Shivaji Airport', city: 'Mumbai', state: 'MH', pincode: '400099' },
+  { area: 'Shivajinagar / FC Road', city: 'Pune', state: 'MH', pincode: '411005' },
+  { area: 'Hinjawadi IT Park', city: 'Pune', state: 'MH', pincode: '411057' },
+  { area: 'Connaught Place / Rajiv Chowk', city: 'New Delhi', state: 'DL', pincode: '110001' },
+  { area: 'IGI Airport Terminal 3', city: 'New Delhi', state: 'DL', pincode: '110037' },
+  { area: 'Sector 62 / Electronic City', city: 'Noida', state: 'UP', pincode: '201301' },
+  { area: 'Cyber City / DLF Phase 2', city: 'Gurgaon', state: 'HR', pincode: '122002' },
+  { area: 'Gandhinagar / SG Highway', city: 'Ahmedabad', state: 'GJ', pincode: '380054' },
+  { area: 'Park Street / Esplanade', city: 'Kolkata', state: 'WB', pincode: '700016' },
+  { area: 'Gandhipuram / RS Puram', city: 'Coimbatore', state: 'TN', pincode: '641012' },
+  { area: 'Kochi Infopark / Kakkanad', city: 'Kochi', state: 'KL', pincode: '682030' },
+  { area: 'Jaipur Railway Station / MI Road', city: 'Jaipur', state: 'RJ', pincode: '302001' },
+  { area: 'Hazratganj / Gomti Nagar', city: 'Lucknow', state: 'UP', pincode: '226010' }
 ];
 
 /**
- * Search locations by pincode, area name, or city name
+ * In-memory cache for fast repeat searches
+ */
+const allIndiaCache = new Map();
+
+/**
+ * Synchronous local search for instant 0ms suggestions
  */
 export function searchLocations(query) {
   if (!query || query.trim().length === 0) return [];
   const q = query.trim().toLowerCase();
-
-  // If numeric or starts with digits (pincode search)
   const isNumeric = /^\d+$/.test(q);
 
   return POPULAR_LOCATIONS.filter((loc) => {
@@ -142,5 +166,117 @@ export function searchLocations(query) {
       loc.city.toLowerCase().includes(q) ||
       loc.state.toLowerCase() === q
     );
-  }).slice(0, 8); // Top 8 relevant matches
+  }).slice(0, 8);
+}
+
+/**
+ * Asynchronous All-India Pincode and Area Search
+ * Connects to live Indian Postal Directory & Geocoding APIs
+ */
+export async function searchAllIndiaLocations(query) {
+  if (!query || query.trim().length < 2) return [];
+  const cleanQ = query.trim();
+  const lowerQ = cleanQ.toLowerCase();
+
+  // Instant local results
+  const localMatches = searchLocations(cleanQ);
+
+  if (allIndiaCache.has(lowerQ)) {
+    return allIndiaCache.get(lowerQ);
+  }
+
+  let onlineResults = [];
+
+  // A. If 6-digit Pincode, query Postal Pincode & Zippopotam
+  if (/^\d{6}$/.test(cleanQ)) {
+    const endpoints = [
+      `/api-postal/pincode/${cleanQ}`,
+      `https://api.postalpincode.in/pincode/${cleanQ}`,
+      `https://api.zippopotam.us/in/${cleanQ}`
+    ];
+
+    for (const url of endpoints) {
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 2000);
+        const res = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeout);
+
+        if (!res.ok) continue;
+        const data = await res.json();
+
+        // Postalpincode format
+        if (Array.isArray(data) && data[0]?.Status === 'Success' && Array.isArray(data[0]?.PostOffice)) {
+          onlineResults = data[0].PostOffice.map((po) => ({
+            area: po.Name,
+            city: po.District || po.Division || po.Block || cleanQ,
+            state: po.State,
+            pincode: po.Pincode || cleanQ
+          }));
+          if (onlineResults.length > 0) break;
+        }
+
+        // Zippopotam format
+        if (data?.places && Array.isArray(data.places)) {
+          onlineResults = data.places.map((pl) => ({
+            area: pl['place name'],
+            city: pl['place name'],
+            state: pl.state || 'India',
+            pincode: cleanQ
+          }));
+          if (onlineResults.length > 0) break;
+        }
+      } catch (e) {
+        // Continue to fallback
+      }
+    }
+  }
+
+  // B. Search by Area / Locality name or Pincode via OpenStreetMap Nominatim
+  if (onlineResults.length === 0 && cleanQ.length >= 3) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 2500);
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(cleanQ)}&countrycodes=in&format=json&addressdetails=1&limit=8`;
+      const res = await fetch(url, {
+        signal: controller.signal,
+        headers: { 'User-Agent': 'SriVenkateswaraTravels/1.0' }
+      });
+      clearTimeout(timeout);
+
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          onlineResults = data
+            .filter((item) => item.address?.postcode || item.address?.state)
+            .map((item) => {
+              const addr = item.address || {};
+              const area = addr.suburb || addr.neighbourhood || addr.residential || addr.road || item.name || cleanQ;
+              const city = addr.city || addr.town || addr.county || addr.city_district || addr.state_district || 'India';
+              const state = addr.state || 'India';
+              const pincode = addr.postcode || '';
+              return { area, city, state, pincode };
+            });
+        }
+      }
+    } catch (e) {
+      // Continue
+    }
+  }
+
+  // Merge and deduplicate
+  const combined = [...localMatches];
+  const seen = new Set(localMatches.map((l) => `${l.pincode}-${l.area.toLowerCase()}`));
+
+  for (const item of onlineResults) {
+    const key = `${item.pincode}-${item.area.toLowerCase()}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      combined.push(item);
+    }
+  }
+
+  const finalResults = combined.slice(0, 10);
+  allIndiaCache.set(lowerQ, finalResults);
+  return finalResults;
 }
