@@ -11,10 +11,11 @@ import {
   ChevronRight 
 } from 'lucide-react';
 import { FLEET_VEHICLES, CONTACT_INFO } from '../data/travelData';
-import { sendVehicleBooking } from '../utils/whatsapp';
+import { sendVehicleBooking, openWhatsApp } from '../utils/whatsapp';
 
 export default function Fleet({ onOpenBookingModal }) {
   const [filter, setFilter] = useState('all');
+  const [tripType, setTripType] = useState('Round Trip'); // 'Round Trip' | 'One Way'
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
   const [isPaused, setIsPaused] = useState(false);
@@ -108,6 +109,39 @@ export default function Fleet({ onOpenBookingModal }) {
           <p className="text-gray-600 max-w-xl mx-auto text-xs sm:text-sm">
             Comfortable, clean, sanitized vehicles with licensed chauffeurs for city commutes and long outstation journeys.
           </p>
+        </div>
+
+        {/* Trip Type Selector: One Way vs Round Trip */}
+        <div className="flex flex-col items-center justify-center mb-5">
+          <div className="bg-slate-900 p-1 rounded-2xl border border-amber-500/30 shadow-lg inline-flex items-center gap-1">
+            <button
+              type="button"
+              onClick={() => setTripType('Round Trip')}
+              className={`px-4 sm:px-6 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-1.5 ${
+                tripType === 'Round Trip'
+                  ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/25 scale-[1.02]'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <span>🔄 Round Trip</span>
+              <span className="hidden sm:inline text-[10.5px] opacity-75 font-semibold">(Outstation)</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setTripType('One Way')}
+              className={`px-4 sm:px-6 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-1.5 ${
+                tripType === 'One Way'
+                  ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/25 scale-[1.02]'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <span>➡️ One Way Drop</span>
+              <span className="bg-emerald-500 text-white text-[9.5px] font-black px-1.5 py-0.2 rounded">
+                Save 40%
+              </span>
+            </button>
+          </div>
         </div>
 
         {/* Filter Pills (Compact) */}
@@ -216,6 +250,16 @@ export default function Fleet({ onOpenBookingModal }) {
                         </div>
                       </div>
 
+                      {/* Mini Trip Tariff Indicator */}
+                      <div className="bg-slate-50 border border-slate-200/80 rounded-lg px-2 py-1 mb-2 text-[10px] flex items-center justify-between">
+                        <span className="font-bold text-slate-700">
+                          {tripType === 'Round Trip' ? '🔄 Round Trip' : '➡️ One Way Drop'}
+                        </span>
+                        <span className="font-black text-amber-800">
+                          {car.rateText}
+                        </span>
+                      </div>
+
                       {/* Features List (Short & compact) */}
                       <ul className="space-y-1 mb-2.5">
                         {car.features.slice(0, 2).map((feat, idx) => (
@@ -231,7 +275,13 @@ export default function Fleet({ onOpenBookingModal }) {
                     <div className="pt-2.5 border-t border-gray-100 grid grid-cols-2 gap-1.5 sm:gap-2">
                       <button
                         type="button"
-                        onClick={() => sendVehicleBooking(car.name, car.rateText)}
+                        onClick={() => {
+                          const minKm = car.minKm || (car.category === 'sedan' ? 350 : 400);
+                          const bata = car.driverBatta || (car.category === 'sedan' ? 300 : 400);
+                          const isRound = tripType === 'Round Trip';
+                          const msg = `*FLEET BOOKING ENQUIRY (${tripType.toUpperCase()})* 🚖\n*Sri Venkateswara Car Travels*\n\n• *Vehicle:* ${car.name} (${car.seats})\n• *Trip Type:* ${tripType} (${isRound ? 'Outstation Round Trip' : 'One Way Drop - Save 40%'})\n• *Running Rate:* ${car.rateText}\n${isRound ? `• *Min Distance:* ${minKm} Kms/Day\n• *Driver Bata:* ₹${bata}/Day\n` : '• *One Way Route:* Single journey drop (pay only 1-way distance)\n'}• *Pickup From:* Guntur / Vijayawada\n\nHello, I want to book this ${car.name} for a ${tripType} trip. Please check availability and confirm.`;
+                          openWhatsApp(msg);
+                        }}
                         className="bg-emerald-600 hover:bg-emerald-700 text-white py-1.5 sm:py-2 px-2 rounded-xl font-bold text-[11px] sm:text-xs flex items-center justify-center transition-all shadow-xs cursor-pointer"
                       >
                         <MessageSquare className="w-3 h-3 mr-1 shrink-0" />
@@ -244,7 +294,7 @@ export default function Fleet({ onOpenBookingModal }) {
                           if (onOpenBookingModal) {
                             onOpenBookingModal({
                               vehicle: car.name,
-                              serviceType: 'Car Rental',
+                              serviceType: `${tripType} Rental`,
                               fare: car.rateText
                             });
                           } else {
