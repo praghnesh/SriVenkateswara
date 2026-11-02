@@ -21,7 +21,7 @@ export default function StatsSection() {
                 key={i} 
                 className="text-center p-4 rounded-2xl hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100 group"
               >
-                <div className="w-13 h-13 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-3 text-blue-600 group-hover:scale-110 transition-transform shadow-xs">
+                <div className="w-13 h-13 bg-amber-50 border border-amber-200/60 rounded-2xl flex items-center justify-center mx-auto mb-3 text-amber-600 group-hover:scale-110 transition-transform shadow-xs">
                   <Icon className="w-7 h-7" />
                 </div>
                 <div className="text-2xl lg:text-3xl font-black text-gray-900 mb-0.5 tracking-tight">

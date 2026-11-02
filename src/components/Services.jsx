@@ -5,7 +5,7 @@ import {
   Navigation, 
   Plane, 
   Clock, 
-  Sparkles, 
+  Compass, 
   Building2, 
   ArrowRight,
   ShieldCheck,
@@ -25,7 +25,7 @@ export default function Services({ onOpenBookingModal }) {
       case 'hourly-rentals':
         return Clock;
       case 'pilgrimage-tours':
-        return Sparkles;
+        return Compass;
       case 'corporate-weddings':
       default:
         return Building2;
@@ -38,7 +38,7 @@ export default function Services({ onOpenBookingModal }) {
         
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16 space-y-3">
-          <div className="inline-flex items-center bg-blue-50 border border-blue-200/60 px-4 py-1.5 rounded-full text-blue-700 font-bold text-xs uppercase tracking-wider">
+          <div className="inline-flex items-center bg-amber-50 border border-amber-200/80 px-4 py-1.5 rounded-full text-amber-800 font-bold text-xs uppercase tracking-wider">
             <ShieldCheck className="w-4 h-4 mr-2" />
             Comprehensive Cab Solutions
           </div>
@@ -59,10 +59,10 @@ export default function Services({ onOpenBookingModal }) {
             return (
               <div 
                 key={srv.id} 
-                className="group bg-white p-7 sm:p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200 relative overflow-hidden flex flex-col justify-between"
+                className="group bg-white p-7 sm:p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-amber-400 relative overflow-hidden flex flex-col justify-between"
               >
                 {/* Large Background Watermark Icon */}
-                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-15 transition-opacity text-blue-600 pointer-events-none">
+                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-15 transition-opacity text-amber-500 pointer-events-none">
                   <IconComponent className="w-28 h-28" />
                 </div>
 
@@ -70,12 +70,12 @@ export default function Services({ onOpenBookingModal }) {
                   {/* Floating Icon Box */}
                   <Link 
                     to={targetRoute}
-                    className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm inline-flex"
+                    className="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 mb-6 group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-amber-600 group-hover:text-slate-950 transition-all shadow-sm inline-flex border border-amber-200/60"
                   >
                     <IconComponent className="w-7 h-7" />
                   </Link>
 
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-amber-600 transition-colors">
                     <Link to={targetRoute}>
                       {srv.title}
                     </Link>
@@ -89,7 +89,7 @@ export default function Services({ onOpenBookingModal }) {
                   <ul className="space-y-2.5 mb-8">
                     {srv.points.map((pt, idx) => (
                       <li key={idx} className="flex items-center text-sm font-medium text-gray-700">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 shrink-0"></div>
+                        <div className="w-2 h-2 bg-amber-500 rounded-full mr-3 shrink-0"></div>
                         <span>{pt}</span>
                       </li>
                     ))}
@@ -100,7 +100,7 @@ export default function Services({ onOpenBookingModal }) {
                 <div className="pt-4 border-t border-gray-100 flex items-center justify-between gap-2">
                   <Link
                     to={targetRoute}
-                    className="text-blue-600 hover:text-blue-700 font-bold text-sm flex items-center group-hover:translate-x-0.5 transition-transform"
+                    className="text-amber-700 hover:text-amber-800 font-bold text-sm flex items-center group-hover:translate-x-0.5 transition-transform"
                   >
                     <span>{srv.ctaText ? srv.ctaText.replace('→', '').trim() : 'View Details'}</span>
                     <ArrowRight className="ml-1.5 w-4 h-4" />
@@ -110,7 +110,7 @@ export default function Services({ onOpenBookingModal }) {
                     <button
                       type="button"
                       onClick={() => onOpenBookingModal(srv.title)}
-                      className="text-xs bg-slate-100 hover:bg-blue-600 text-slate-700 hover:text-white px-3.5 py-2 rounded-xl font-bold transition-all shadow-sm"
+                      className="text-xs bg-slate-100 hover:bg-gradient-to-r hover:from-amber-500 hover:to-amber-600 text-slate-800 hover:text-slate-950 px-3.5 py-2 rounded-xl font-bold transition-all shadow-sm cursor-pointer"
                     >
                       Book Now
                     </button>

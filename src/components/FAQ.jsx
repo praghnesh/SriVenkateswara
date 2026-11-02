@@ -15,7 +15,7 @@ export default function FAQ() {
 
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center bg-blue-50 border border-blue-200/60 px-4 py-1.5 rounded-full text-blue-700 font-bold text-xs uppercase tracking-wider">
+          <div className="inline-flex items-center bg-amber-50 border border-amber-200/80 px-4 py-1.5 rounded-full text-amber-800 font-bold text-xs uppercase tracking-wider">
             <HelpCircle className="w-4 h-4 mr-2" />
             Common Questions
           </div>
@@ -35,18 +35,18 @@ export default function FAQ() {
               <div
                 key={idx}
                 className={`bg-white rounded-2xl transition-all duration-200 border ${isOpen
-                  ? 'border-blue-500 shadow-md ring-1 ring-blue-500/20'
+                  ? 'border-amber-500 shadow-md ring-1 ring-amber-500/20'
                   : 'border-gray-200/80 hover:border-gray-300 shadow-xs'
                   } overflow-hidden`}
               >
                 <button
                   type="button"
-                  className="w-full py-5 px-6 text-left flex items-center justify-between gap-4 font-bold text-gray-900 hover:text-blue-600 transition-colors"
+                  className="w-full py-5 px-6 text-left flex items-center justify-between gap-4 font-bold text-gray-900 hover:text-amber-600 transition-colors cursor-pointer"
                   onClick={() => toggleIndex(idx)}
                   aria-expanded={isOpen}
                 >
                   <span className="text-base sm:text-lg">{faq.question}</span>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${isOpen ? 'bg-blue-600 text-white rotate-180' : 'bg-gray-100 text-gray-500'
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${isOpen ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black rotate-180' : 'bg-gray-100 text-gray-500'
                     }`}>
                     <ChevronDown className="w-4 h-4" />
                   </div>

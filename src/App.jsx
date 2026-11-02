@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
+import Preloader from './components/Preloader';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import FloatingActions from './components/FloatingActions';
@@ -42,6 +43,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <Preloader />
       <div className="app-root flex flex-col min-h-screen overflow-x-hidden w-full max-w-full">
         <Header onOpenBookingModal={handleOpenModal} />
         

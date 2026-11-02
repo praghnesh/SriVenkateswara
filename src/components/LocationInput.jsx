@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MapPin, Search, Loader2, Sparkles } from 'lucide-react';
+import { MapPin, Search, Loader2 } from 'lucide-react';
 import { searchLocations, searchAllIndiaLocations } from '../data/locationData';
 
 export default function LocationInput({
@@ -89,12 +89,12 @@ export default function LocationInput({
             setIsOpen(true);
           }}
           placeholder={placeholder}
-          className="w-full bg-slate-50 border border-slate-200 rounded-xl py-2.5 pl-10 pr-8 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium"
+          className="w-full bg-slate-50 border border-slate-200 rounded-xl py-2.5 pl-10 pr-8 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all font-medium"
         />
 
         {/* Loading Spinner */}
         {isLoading && (
-          <Loader2 className="w-3.5 h-3.5 text-blue-600 animate-spin absolute right-3 top-3.5 pointer-events-none" />
+          <Loader2 className="w-3.5 h-3.5 text-amber-500 animate-spin absolute right-3 top-3.5 pointer-events-none" />
         )}
       </div>
 
@@ -103,10 +103,10 @@ export default function LocationInput({
         <div className="absolute z-50 left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden max-h-64 overflow-y-auto divide-y divide-slate-100 animate-in fade-in zoom-in-95 duration-150">
           <div className="px-3 py-1.5 bg-slate-50 text-[10px] font-black uppercase tracking-wider text-slate-500 flex items-center justify-between">
             <span className="flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-amber-500" />
+              <Search className="w-3 h-3 text-amber-500" />
               <span>All-India Pincodes &amp; Areas</span>
             </span>
-            <span className="text-blue-600 font-bold">{suggestions.length} Found</span>
+            <span className="text-amber-600 font-bold">{suggestions.length} Found</span>
           </div>
 
           {suggestions.map((loc, idx) => (
@@ -115,14 +115,14 @@ export default function LocationInput({
               type="button"
               onMouseDown={(e) => {
                 e.preventDefault(); // prevent blur
-                handleSelect(loc);
               }}
-              className="w-full text-left px-3.5 py-2.5 hover:bg-blue-50/70 transition-colors flex items-center justify-between gap-2 group cursor-pointer"
+              onClick={() => handleSelect(loc)}
+              className="w-full text-left px-3.5 py-2.5 hover:bg-amber-50/80 transition-colors flex items-center justify-between gap-2 group cursor-pointer"
             >
               <div className="flex items-start gap-2.5 min-w-0">
-                <MapPin className="w-4 h-4 text-blue-600 mt-0.5 shrink-0 group-hover:scale-110 transition-transform" />
+                <MapPin className="w-4 h-4 text-amber-500 mt-0.5 shrink-0 group-hover:scale-110 transition-transform" />
                 <div className="truncate">
-                  <div className="text-xs font-bold text-slate-900 group-hover:text-blue-700 truncate">
+                  <div className="text-xs font-bold text-slate-900 group-hover:text-amber-700 truncate">
                     {loc.area}
                   </div>
                   <div className="text-[11px] text-slate-500">
@@ -132,7 +132,7 @@ export default function LocationInput({
               </div>
 
               {loc.pincode && (
-                <span className="shrink-0 bg-blue-100/70 group-hover:bg-blue-600 group-hover:text-white text-blue-800 font-mono text-[11px] font-bold px-2 py-0.5 rounded-md transition-colors">
+                <span className="shrink-0 bg-amber-100 group-hover:bg-amber-500 group-hover:text-slate-950 text-amber-900 font-mono text-[11px] font-bold px-2 py-0.5 rounded-md transition-colors border border-amber-200/60">
                   {loc.pincode}
                 </span>
               )}

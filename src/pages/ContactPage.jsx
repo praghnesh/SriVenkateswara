@@ -49,7 +49,7 @@ Please get in touch with me as soon as possible.`;
             {/* Left: Contact Info Cards */}
             <div className="lg:col-span-6 space-y-8">
               <div>
-                <span className="inline-flex items-center bg-blue-50 border border-blue-200/60 px-4 py-1.5 rounded-full text-blue-700 font-bold text-xs uppercase tracking-wider mb-4">
+                <span className="inline-flex items-center bg-amber-50 border border-amber-200/80 px-4 py-1.5 rounded-full text-amber-800 font-bold text-xs uppercase tracking-wider mb-4">
                   Head Office &amp; Booking Hub
                 </span>
                 <h2 className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight mb-4">
@@ -65,7 +65,7 @@ Please get in touch with me as soon as possible.`;
                 
                 {/* Office Location */}
                 <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center shrink-0 border border-amber-200/60">
                     <MapPin className="w-6 h-6" />
                   </div>
                   <div>
@@ -88,7 +88,7 @@ Please get in touch with me as soon as possible.`;
                       24/7 Direct Helplines
                     </h3>
                     <div className="space-y-1">
-                      <a href={`tel:${CONTACT_INFO.primaryPhoneRaw}`} className="text-blue-600 font-bold text-base hover:underline block">
+                      <a href={`tel:${CONTACT_INFO.primaryPhoneRaw}`} className="text-amber-800 font-bold text-base hover:underline block">
                         {CONTACT_INFO.primaryPhone} (Primary Dispatch)
                       </a>
                       <a href={`tel:${CONTACT_INFO.altPhoneRaw}`} className="text-gray-600 font-semibold text-sm hover:underline block">
@@ -101,12 +101,12 @@ Please get in touch with me as soon as possible.`;
                 {/* Email & Hours */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-start space-x-4">
-                    <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center shrink-0 border border-amber-200/60">
                       <Mail className="w-5 h-5" />
                     </div>
                     <div>
                       <h3 className="text-sm font-bold text-gray-900 mb-0.5">Email Bookings</h3>
-                      <a href={`mailto:${CONTACT_INFO.email}`} className="text-xs text-blue-600 hover:underline break-all">
+                      <a href={`mailto:${CONTACT_INFO.email}`} className="text-xs text-amber-800 hover:underline break-all">
                         {CONTACT_INFO.email}
                       </a>
                     </div>
@@ -144,7 +144,7 @@ Please get in touch with me as soon as possible.`;
             {/* Right: Message Form Card */}
             <div className="lg:col-span-6 bg-white p-8 sm:p-10 rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-200/50">
               <div className="mb-6">
-                <span className="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">
+                <span className="text-xs font-bold text-amber-700 uppercase tracking-wider block mb-1">
                   Send Instant Enquiry
                 </span>
                 <h3 className="text-2xl font-black text-gray-900">
@@ -168,7 +168,7 @@ Please get in touch with me as soon as possible.`;
                     onChange={handleChange}
                     placeholder="e.g. Satyanarayana Murthy"
                     required
-                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
                   />
                 </div>
 
@@ -184,7 +184,7 @@ Please get in touch with me as soon as possible.`;
                     onChange={handleChange}
                     placeholder="e.g. 63094 26620"
                     required
-                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
                   />
                 </div>
 
@@ -197,7 +197,7 @@ Please get in touch with me as soon as possible.`;
                     name="tripType"
                     value={formData.tripType}
                     onChange={handleChange}
-                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-3 px-4 text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-3 px-4 text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
                   >
                     <option value="Outstation Round Trip">Outstation Round Trip (Tirupati, Srisailam, etc.)</option>
                     <option value="One-Way Drop">One-Way Drop (Hyderabad / Vizag / Chennai)</option>
@@ -218,7 +218,7 @@ Please get in touch with me as soon as possible.`;
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="e.g. Need 7-seater Innova Crysta for 4 adults from Guntur to Tirupati on 15th Nov, 3 days package."
-                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-3 px-4 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
                   ></textarea>
                 </div>
 

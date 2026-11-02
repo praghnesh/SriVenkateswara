@@ -9,7 +9,7 @@ export default function Testimonials() {
         
         {/* Section Header */}
         <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center bg-blue-50 border border-blue-200/60 px-4 py-1.5 rounded-full text-blue-700 font-bold text-xs uppercase tracking-wider">
+          <div className="inline-flex items-center bg-amber-50 border border-amber-200/80 px-4 py-1.5 rounded-full text-amber-800 font-bold text-xs uppercase tracking-wider">
             <Star className="w-4 h-4 mr-2 fill-amber-400 text-amber-400" />
             Verified Passenger Stories
           </div>
@@ -26,7 +26,7 @@ export default function Testimonials() {
           {TESTIMONIALS.map((review) => (
             <div 
               key={review.id} 
-              className="bg-slate-50 p-8 rounded-[2rem] border border-gray-100 hover:border-blue-200 hover:shadow-xl hover:bg-white transition-all duration-300 flex flex-col justify-between group"
+              className="bg-slate-50 p-8 rounded-[2rem] border border-gray-100 hover:border-amber-300 hover:shadow-xl hover:bg-white transition-all duration-300 flex flex-col justify-between group"
             >
               <div>
                 {/* Header: Stars & Quote */}
@@ -36,7 +36,7 @@ export default function Testimonials() {
                       <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
                     ))}
                   </div>
-                  <Quote className="w-8 h-8 text-blue-200 group-hover:text-blue-500 transition-colors" />
+                  <Quote className="w-8 h-8 text-amber-200 group-hover:text-amber-500 transition-colors" />
                 </div>
 
                 {/* Review Text */}
@@ -47,12 +47,12 @@ export default function Testimonials() {
 
               {/* Reviewer Details */}
               <div className="flex items-center space-x-3 pt-4 border-t border-gray-200/60">
-                <div className="w-11 h-11 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center text-white font-black text-sm shadow-md shadow-blue-500/20">
+                <div className="w-11 h-11 bg-gradient-to-br from-amber-500 via-yellow-400 to-amber-600 rounded-full flex items-center justify-center text-slate-950 font-black text-sm shadow-md shadow-amber-500/20">
                   {review.avatar}
                 </div>
                 <div>
                   <div className="text-sm font-bold text-gray-900">{review.name}</div>
-                  <div className="text-xs text-blue-600 font-semibold">{review.trip}</div>
+                  <div className="text-xs text-amber-700 font-semibold">{review.trip}</div>
                 </div>
               </div>
             </div>

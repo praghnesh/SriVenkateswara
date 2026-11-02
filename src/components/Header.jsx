@@ -43,10 +43,14 @@ export default function Header({ onOpenBookingModal }) {
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         
-        {/* Brand Logo matching original style */}
+        {/* Brand Logo with Official SV Crest */}
         <Link to="/" className="flex items-center space-x-2.5 group">
-          <div className="w-10 h-10 bg-slate-900 border border-amber-500/40 rounded-xl flex items-center justify-center shadow-md group-hover:border-amber-400 transition-all flex-shrink-0">
-            <span className="text-amber-400 font-black text-xl tracking-tight leading-none">V</span>
+          <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-200 shadow-md group-hover:scale-105 transition-all flex-shrink-0">
+            <img 
+              src="/assets/images/sv-logo.jpg" 
+              alt="Sri Venkateswara Car Travels" 
+              className="w-full h-full object-cover rounded-full"
+            />
           </div>
           <div>
             <div className={`text-base sm:text-lg font-black tracking-tight leading-none ${isTransparent ? 'text-white' : 'text-slate-900'}`}>
@@ -180,7 +184,7 @@ export default function Header({ onOpenBookingModal }) {
                 to={link.href}
                 end={link.href === '/'}
                 className={({ isActive }) => `py-2.5 px-4 rounded-xl font-semibold text-base transition-colors ${
-                  isActive ? 'bg-blue-50 text-blue-600 font-bold' : 'text-gray-800 hover:text-blue-600 hover:bg-gray-50'
+                  isActive ? 'bg-amber-50 text-amber-800 font-bold border-l-4 border-amber-500' : 'text-gray-800 hover:text-amber-700 hover:bg-amber-50/50'
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -191,7 +195,7 @@ export default function Header({ onOpenBookingModal }) {
             <div className="pt-4 flex flex-col sm:flex-row gap-3">
               <a 
                 href={`tel:${CONTACT_INFO.primaryPhoneRaw}`} 
-                className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-xl font-bold text-sm shadow-md"
+                className="flex items-center justify-center bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 py-3 px-4 rounded-xl font-bold text-sm shadow-md"
               >
                 <Phone className="w-4 h-4 mr-2" />
                 Call: {CONTACT_INFO.primaryPhone}

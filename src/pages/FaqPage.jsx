@@ -42,17 +42,17 @@ export default function FaqPage() {
       
       {/* Top Hero Banner */}
       <section className="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white pt-28 pb-14 px-4 md:px-8 border-b border-slate-800 relative overflow-hidden text-center">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="container mx-auto max-w-4xl relative z-10">
           
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-blue-400 text-xs font-bold mb-4 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-amber-500/30 text-amber-300 text-xs font-bold mb-4 shadow-sm">
             <HelpCircle className="w-4 h-4 text-emerald-400" />
             <span>24/7 KNOWLEDGE BASE &amp; CUSTOMER SUPPORT</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
-            Frequently Asked <span className="text-blue-500">Questions</span>
+            Frequently Asked <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-200 bg-clip-text text-transparent">Questions</span>
           </h1>
 
           <p className="text-slate-300 text-sm md:text-base mt-3 max-w-2xl mx-auto leading-relaxed">
@@ -73,7 +73,7 @@ export default function FaqPage() {
               onClick={() => navigate('/airport-cabs')}
               className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 transition-all flex items-center gap-1.5 cursor-pointer"
             >
-              <Plane className="w-3.5 h-3.5 text-blue-400" />
+              <Plane className="w-3.5 h-3.5 text-amber-400" />
               <span>Airport Cabs →</span>
             </button>
           </div>
@@ -93,7 +93,7 @@ export default function FaqPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by keywords (e.g. tolls, driver bhatta, tirupati, cancellation)..."
-              className="w-full bg-white border border-gray-200 rounded-2xl py-3 pl-12 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+              className="w-full bg-white border border-gray-200 rounded-2xl py-3 pl-12 pr-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm"
             />
           </div>
 
@@ -106,19 +106,19 @@ export default function FaqPage() {
                   key={idx} 
                   className={`bg-white rounded-2xl transition-all duration-200 border ${
                     isOpen 
-                      ? 'border-blue-500 shadow-md ring-1 ring-blue-500/20' 
+                      ? 'border-amber-500 shadow-md ring-1 ring-amber-500/20' 
                       : 'border-gray-200/80 hover:border-gray-300 shadow-xs'
                   } overflow-hidden`}
                 >
                   <button
                     type="button"
-                    className="w-full py-5 px-6 text-left flex items-center justify-between gap-4 font-bold text-gray-900 hover:text-blue-600 transition-colors cursor-pointer"
+                    className="w-full py-5 px-6 text-left flex items-center justify-between gap-4 font-bold text-gray-900 hover:text-amber-600 transition-colors cursor-pointer"
                     onClick={() => toggleIndex(idx)}
                     aria-expanded={isOpen}
                   >
                     <span className="text-base sm:text-lg">{faq.question}</span>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${
-                      isOpen ? 'bg-blue-600 text-white rotate-180' : 'bg-gray-100 text-gray-500'
+                      isOpen ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black rotate-180' : 'bg-gray-100 text-gray-500'
                     }`}>
                       <ChevronDown className="w-4 h-4" />
                     </div>
@@ -136,7 +136,7 @@ export default function FaqPage() {
 
           {/* Still Have Questions Box */}
           <div className="bg-white border border-gray-100 rounded-[2.5rem] p-8 sm:p-12 text-center shadow-sm">
-            <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="w-14 h-14 bg-amber-50 text-amber-600 border border-amber-200/60 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <HelpCircle className="w-7 h-7" />
             </div>
 
@@ -159,9 +159,9 @@ export default function FaqPage() {
 
               <a 
                 href={`tel:${CONTACT_INFO.primaryPhoneRaw}`} 
-                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-6 rounded-2xl flex items-center justify-center transition-all shadow-md shadow-blue-600/20 text-sm"
+                className="w-full sm:w-auto bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-600 hover:to-yellow-500 text-slate-950 font-black py-3.5 px-6 rounded-2xl flex items-center justify-center transition-all shadow-xl shadow-amber-500/20 text-sm border border-amber-300/60"
               >
-                <Phone className="w-4 h-4 mr-2" />
+                <Phone className="w-4 h-4 mr-2 text-slate-950" />
                 <span>Call {CONTACT_INFO.primaryPhone}</span>
               </a>
             </div>

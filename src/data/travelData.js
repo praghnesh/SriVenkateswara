@@ -36,8 +36,13 @@ export const FLEET_VEHICLES = [
     category: 'sedan',
     categoryLabel: 'Compact Sedan',
     submodels: 'Swift Dzire / Dual Airbags / Smooth Cruiser',
-    ratePerKm: 12,
-    rateText: '₹12 / Km',
+    ratePerKm: 13,
+    rateText: '₹13 / Km',
+    driverBatta: 300,
+    minKm: 350,
+    extraKm: 13,
+    extraHr: 150,
+    nightHalt: 500,
     image: '/assets/images/dzire-sedan.jpg?v=front2026',
     seats: '4+1 Seats',
     acType: 'Chilled AC',
@@ -53,8 +58,13 @@ export const FLEET_VEHICLES = [
     category: 'sedan',
     categoryLabel: 'Reliable Sedan',
     submodels: 'Massive Boot Space • Smooth Highway Ride',
-    ratePerKm: 12,
-    rateText: '₹12 / Km',
+    ratePerKm: 13,
+    rateText: '₹13 / Km',
+    driverBatta: 300,
+    minKm: 350,
+    extraKm: 13,
+    extraHr: 150,
+    nightHalt: 500,
     image: '/assets/images/etios.jpg',
     seats: '4+1 Seats',
     acType: 'Full AC',
@@ -72,6 +82,11 @@ export const FLEET_VEHICLES = [
     submodels: 'Executive Legroom • Premium Plush Interiors',
     ratePerKm: 14,
     rateText: '₹14 / Km',
+    driverBatta: 350,
+    minKm: 350,
+    extraKm: 14,
+    extraHr: 180,
+    nightHalt: 600,
     image: '/assets/images/ciaz.jpg',
     seats: '4+1 Seats',
     acType: 'Climate AC',
@@ -87,8 +102,13 @@ export const FLEET_VEHICLES = [
     category: 'mpv',
     categoryLabel: 'Family MPV',
     submodels: '6+1 Family Seating • Roof AC Vents',
-    ratePerKm: 15,
-    rateText: '₹15 / Km',
+    ratePerKm: 16,
+    rateText: '₹16 / Km',
+    driverBatta: 400,
+    minKm: 400,
+    extraKm: 16,
+    extraHr: 200,
+    nightHalt: 1000,
     image: '/assets/images/ertiga.jpg?v=front2026',
     seats: '6+1 Seats',
     acType: 'Dual AC',
@@ -104,8 +124,13 @@ export const FLEET_VEHICLES = [
     category: 'mpv',
     categoryLabel: 'Modern MPV',
     submodels: '6+1 Seating • Modern Plush Interiors',
-    ratePerKm: 16,
-    rateText: '₹16 / Km',
+    ratePerKm: 18,
+    rateText: '₹18 / Km',
+    driverBatta: 500,
+    minKm: 400,
+    extraKm: 18,
+    extraHr: 200,
+    nightHalt: 1000,
     image: '/assets/images/kia-carens.jpg?v=front2026',
     seats: '6+1 Seats',
     acType: 'Climate AC',
@@ -123,6 +148,11 @@ export const FLEET_VEHICLES = [
     submodels: '7+1 Seating • Rugged Highway Performance',
     ratePerKm: 18,
     rateText: '₹18 / Km',
+    driverBatta: 500,
+    minKm: 400,
+    extraKm: 17,
+    extraHr: 250,
+    nightHalt: 1000,
     image: '/assets/images/innova-crysta.jpg?v=front2026',
     seats: '7+1 Seats',
     acType: 'Full AC',
@@ -139,8 +169,13 @@ export const FLEET_VEHICLES = [
     categoryLabel: 'Premium Luxury SUV',
     categoryTagStyle: { background: '#92400e' },
     submodels: 'Captain Recliner Seats • VIP & Long Haul Travel',
-    ratePerKm: 21,
-    rateText: '₹21 / Km',
+    ratePerKm: 18,
+    rateText: '₹18 / Km',
+    driverBatta: 600,
+    minKm: 400,
+    extraKm: 19,
+    extraHr: 300,
+    nightHalt: 1000,
     image: '/assets/images/innova-crysta.jpg?v=front2026',
     seats: '7+1 Luxury',
     acType: 'Triple Zone AC',
@@ -159,6 +194,11 @@ export const FLEET_VEHICLES = [
     submodels: '12 / 17 / 26 Seater Configuration',
     ratePerKm: 26,
     rateText: '₹26 / Km',
+    driverBatta: 600,
+    minKm: 400,
+    extraKm: 24,
+    extraHr: 400,
+    nightHalt: 1500,
     image: '/assets/images/tempo-traveller.jpg?v=front2026',
     seats: '12-26 Seats',
     acType: 'AC / Non-AC',
@@ -177,12 +217,18 @@ export const FLEET_VEHICLES = [
     submodels: '10 / 13 / 17 VIP Recliner Luxury Seating',
     ratePerKm: 32,
     rateText: '₹32 / Km',
+    driverBatta: 700,
+    minKm: 400,
+    extraKm: 32,
+    extraHr: 350,
+    nightHalt: 1000,
     image: '/assets/images/urbania.jpg',
     seats: '10-17 VIP',
     acType: 'Individual AC',
     luggage: 'Roof Carrier',
     features: [
       'World-class European styling with individual AC vents & USB ports',
+      'Ultra luxury executive travel for VIP groups & destination weddings',
       'Panoramic windows, mood lighting & supreme highway comfort for VIPs'
     ]
   }
@@ -301,7 +347,7 @@ export const SERVICES_LIST = [
     id: 'airport-transfers',
     title: 'Airport Pickup & Drop',
     route: '/airport-cabs',
-    desc: 'Guaranteed on-time transfers to Vijayawada Airport (Gannavaram) and Hyderabad Rajiv Gandhi International Airport (Shamshabad).',
+    desc: 'Guaranteed on-time doorstep transfers between Guntur / Vijayawada region and Vijayawada Airport (Gannavaram - VGA).',
     points: [
       'Flight delay monitoring & flexible wait',
       'Luggage assistance at arrival lounge',
@@ -351,69 +397,288 @@ export const SERVICES_LIST = [
   }
 ];
 
+export const VEHICLE_TARIFF_DATA = {
+  'swift-dzire': {
+    name: 'Sedan',
+    subtitle: 'Maruti Swift Dzire / Toyota Etios',
+    localPackages: [
+      { label: '4 HRS (40Km)', value: '₹1,300' },
+      { label: '8 HRS (80Km)', value: '₹2,200' },
+      { label: 'Extra Hour', value: '₹150' },
+      { label: 'Extra Kms', value: '₹13' }
+    ],
+    dayRental: [
+      { label: '12 HRS Rent', value: '₹1,300' },
+      { label: 'Oil / 1 Litre', value: '10 Km' },
+      { label: 'Driver Bata', value: '₹300' },
+      { label: 'Extra Hour', value: '₹150' }
+    ],
+    outstation: [
+      { label: 'Day Kms Min', value: '350 Kms' },
+      { label: '1 Km Rate', value: '₹13' },
+      { label: 'Driver Bata', value: '₹300' },
+      { label: 'Night Halt', value: '₹500' }
+    ]
+  },
+  'toyota-etios': {
+    name: 'Sedan',
+    subtitle: 'Toyota Etios Sedan',
+    localPackages: [
+      { label: '4 HRS (40Km)', value: '₹1,300' },
+      { label: '8 HRS (80Km)', value: '₹2,200' },
+      { label: 'Extra Hour', value: '₹150' },
+      { label: 'Extra Kms', value: '₹13' }
+    ],
+    dayRental: [
+      { label: '12 HRS Rent', value: '₹1,300' },
+      { label: 'Oil / 1 Litre', value: '10 Km' },
+      { label: 'Driver Bata', value: '₹300' },
+      { label: 'Extra Hour', value: '₹150' }
+    ],
+    outstation: [
+      { label: 'Day Kms Min', value: '350 Kms' },
+      { label: '1 Km Rate', value: '₹13' },
+      { label: 'Driver Bata', value: '₹300' },
+      { label: 'Night Halt', value: '₹500' }
+    ]
+  },
+  'maruti-ciaz': {
+    name: 'Maruti Ciaz',
+    subtitle: 'Executive Sedan',
+    localPackages: [
+      { label: '4 HRS (40Km)', value: '₹1,400' },
+      { label: '8 HRS (80Km)', value: '₹2,300' },
+      { label: 'Extra Hour', value: '₹180' },
+      { label: 'Extra Kms', value: '₹14' }
+    ],
+    dayRental: [
+      { label: '12 HRS Rent', value: '₹1,500' },
+      { label: 'Oil / 1 Litre', value: '10 Km' },
+      { label: 'Driver Bata', value: '₹350' },
+      { label: 'Extra Hour', value: '₹180' }
+    ],
+    outstation: [
+      { label: 'Day Kms Min', value: '350 Kms' },
+      { label: '1 Km Rate', value: '₹14' },
+      { label: 'Driver Bata', value: '₹350' },
+      { label: 'Night Halt', value: '₹600' }
+    ]
+  },
+  'maruti-ertiga': {
+    name: 'Maruti Ertiga',
+    subtitle: '6+1 Family MPV',
+    localPackages: [
+      { label: '4 HRS (40Km)', value: '₹1,600' },
+      { label: '8 HRS (80Km)', value: '₹2,500' },
+      { label: 'Extra Hour', value: '₹200' },
+      { label: 'Extra Kms', value: '₹16' }
+    ],
+    dayRental: [
+      { label: '12 HRS Rent', value: '₹1,800' },
+      { label: 'Oil / 1 Litre', value: '10 Km' },
+      { label: 'Driver Bata', value: '₹400' },
+      { label: 'Extra Hour', value: '₹200' }
+    ],
+    outstation: [
+      { label: 'Day Kms Min', value: '400 Kms' },
+      { label: '1 Km Rate', value: '₹16' },
+      { label: 'Driver Bata', value: '₹400' },
+      { label: 'Night Halt', value: '₹1,000' }
+    ]
+  },
+  'kia-carens': {
+    name: 'Kia Carens',
+    subtitle: '6+1 Modern MPV',
+    localPackages: [
+      { label: '4 HRS (40Km)', value: '₹2,000' },
+      { label: '8 HRS (80Km)', value: '₹3,200' },
+      { label: 'Extra Hour', value: '₹200' },
+      { label: 'Extra Kms', value: '₹18' }
+    ],
+    dayRental: [
+      { label: '12 HRS Rent', value: '₹2,000' },
+      { label: 'Oil / 1 Litre', value: '10 Km' },
+      { label: 'Driver Bata', value: '₹400' },
+      { label: 'Extra Hour', value: '₹200' }
+    ],
+    outstation: [
+      { label: 'Day Kms Min', value: '400 Kms' },
+      { label: '1 Km Rate', value: '₹18' },
+      { label: 'Driver Bata', value: '₹500' },
+      { label: 'Night Halt', value: '₹1,000' }
+    ]
+  },
+  'innova-classic': {
+    name: 'Toyota Innova',
+    subtitle: '7+1 Highway MUV',
+    localPackages: [
+      { label: '4 HRS (40Km)', value: '₹2,000' },
+      { label: '8 HRS (80Km)', value: '₹3,000' },
+      { label: 'Extra Hour', value: '₹250' },
+      { label: 'Extra Kms', value: '₹17' }
+    ],
+    dayRental: [
+      { label: '12 HRS Rent', value: '₹2,000' },
+      { label: 'Oil / 1 Litre', value: '8 Km' },
+      { label: 'Driver Bata', value: '₹500' },
+      { label: 'Extra Hour', value: '₹250' }
+    ],
+    outstation: [
+      { label: 'Day Kms Min', value: '400 Kms' },
+      { label: '1 Km Rate', value: '₹18' },
+      { label: 'Driver Bata', value: '₹500' },
+      { label: 'Night Halt', value: '₹1,000' }
+    ]
+  },
+  'innova-crysta': {
+    name: 'Innova Crysta',
+    subtitle: '7+1 Luxury SUV',
+    localPackages: [
+      { label: '4 HRS (40Km)', value: '₹2,500' },
+      { label: '8 HRS (80Km)', value: '₹3,500' },
+      { label: 'Extra Hour', value: '₹300' },
+      { label: 'Extra Kms', value: '₹19' }
+    ],
+    dayRental: [
+      { label: '12 HRS Rent', value: '₹2,500' },
+      { label: 'Oil / 1 Litre', value: '8 Km' },
+      { label: 'Driver Bata', value: '₹500' },
+      { label: 'Extra Hour', value: '₹300' }
+    ],
+    outstation: [
+      { label: 'Day Kms Min', value: '400 Kms' },
+      { label: '1 Km Rate', value: '₹18' },
+      { label: 'Driver Bata', value: '₹600' },
+      { label: 'Night Halt', value: '₹1,000' }
+    ]
+  },
+  'tempo-traveller': {
+    name: 'Tempo Traveller',
+    subtitle: '12-26 Seater Coach',
+    localPackages: [
+      { label: '4 HRS (40Km)', value: '—' },
+      { label: '8 HRS (80Km)', value: '₹4,500' },
+      { label: 'Extra Hour', value: '₹400' },
+      { label: 'Extra Kms', value: '₹24' }
+    ],
+    dayRental: [
+      { label: '12 HRS Rent', value: '₹3,500' },
+      { label: 'Oil / 1 Litre', value: '7 Km' },
+      { label: 'Driver Bata', value: '₹600' },
+      { label: 'Extra Hour', value: '₹400' }
+    ],
+    outstation: [
+      { label: 'Day Kms Min', value: '400 Kms' },
+      { label: '1 Km Rate', value: '₹26' },
+      { label: 'Driver Bata', value: '₹600' },
+      { label: 'Night Halt', value: '₹1,500' }
+    ]
+  },
+  'force-urbania': {
+    name: 'Force Urbania',
+    subtitle: '10-17 VIP Luxury Coach',
+    localPackages: [
+      { label: '4 HRS (40Km)', value: '₹3,800' },
+      { label: '8 HRS (80Km)', value: '₹5,500' },
+      { label: 'Extra Hour', value: '₹350' },
+      { label: 'Extra Kms', value: '₹32' }
+    ],
+    dayRental: [
+      { label: '12 HRS Rent', value: '₹4,500' },
+      { label: 'Oil / 1 Litre', value: '6 Km' },
+      { label: 'Driver Bata', value: '₹700' },
+      { label: 'Extra Hour', value: '₹350' }
+    ],
+    outstation: [
+      { label: 'Day Kms Min', value: '400 Kms' },
+      { label: '1 Km Rate', value: '₹32' },
+      { label: 'Driver Bata', value: '₹700' },
+      { label: 'Night Halt', value: '₹1,000' }
+    ]
+  }
+};
+
 export const HOURLY_RENTAL_TARIFFS = [
   {
     vehicle: 'Swift / Etios Liva',
     type: 'Hatchback (4+1)',
     fourHrsFortyKm: 1300,
-    eightHrsHundredKm: 2000,
+    eightHrsHundredKm: 2200,
     extraKm: 13,
     extraHr: 150,
-    driverBatta: 'Included'
+    driverBatta: '₹300'
   },
   {
-    vehicle: 'Etios / Swift Dzire / Honda Amaze',
+    vehicle: 'Maruti Swift Dzire / Toyota Etios',
     type: 'Prime Sedan (4+1)',
-    fourHrsFortyKm: 1400,
-    eightHrsHundredKm: 2000,
+    fourHrsFortyKm: 1300,
+    eightHrsHundredKm: 2200,
     extraKm: 13,
     extraHr: 150,
-    driverBatta: 'Included'
+    driverBatta: '₹300'
   },
   {
-    vehicle: 'Honda City / Volkswagen Vento',
+    vehicle: 'Maruti Ciaz',
     type: 'Executive Sedan (4+1)',
-    fourHrsFortyKm: 1300,
-    eightHrsHundredKm: 2000,
-    extraKm: 13,
-    extraHr: 150,
-    driverBatta: 'Included'
+    fourHrsFortyKm: 1400,
+    eightHrsHundredKm: 2300,
+    extraKm: 14,
+    extraHr: 180,
+    driverBatta: '₹350'
+  },
+  {
+    vehicle: 'Maruti Ertiga (6+1)',
+    type: 'Family MPV (6+1)',
+    fourHrsFortyKm: 1600,
+    eightHrsHundredKm: 2500,
+    extraKm: 16,
+    extraHr: 200,
+    driverBatta: '₹400'
+  },
+  {
+    vehicle: 'Kia Carens (6+1)',
+    type: 'Modern MPV (6+1)',
+    fourHrsFortyKm: 2000,
+    eightHrsHundredKm: 3200,
+    extraKm: 18,
+    extraHr: 200,
+    driverBatta: '₹500'
   },
   {
     vehicle: 'Toyota Innova (7+1)',
-    type: 'Family MUV (7+1)',
+    type: 'Highway MUV (7+1)',
     fourHrsFortyKm: 2000,
     eightHrsHundredKm: 3000,
-    extraKm: 16,
-    extraHr: 300,
-    driverBatta: 'Included'
+    extraKm: 17,
+    extraHr: 250,
+    driverBatta: '₹500'
   },
   {
     vehicle: 'Toyota Innova Crysta (7+1)',
     type: 'Luxury Captain (7+1)',
-    fourHrsFortyKm: 2000,
-    eightHrsHundredKm: 3000,
-    extraKm: 16,
-    extraHr: 300,
-    driverBatta: 'Included'
-  },
-  {
-    vehicle: 'Chevrolet Tavera (9+1)',
-    type: 'Group MUV (9+1)',
-    fourHrsFortyKm: 1800,
-    eightHrsHundredKm: 2800,
-    extraKm: 15,
-    extraHr: 250,
-    driverBatta: 'Included'
-  },
-  {
-    vehicle: 'Tempo Traveller (12+1)',
-    type: 'Minibus / Coach (12+1)',
-    fourHrsFortyKm: 2800,
-    eightHrsHundredKm: 4000,
+    fourHrsFortyKm: 2500,
+    eightHrsHundredKm: 3500,
     extraKm: 19,
     extraHr: 300,
-    driverBatta: 'Included'
+    driverBatta: '₹500'
+  },
+  {
+    vehicle: 'Tempo Traveller (12+1 / 17s)',
+    type: 'Minibus / Coach (12-26)',
+    fourHrsFortyKm: 3000,
+    eightHrsHundredKm: 4500,
+    extraKm: 26,
+    extraHr: 300,
+    driverBatta: '₹600'
+  },
+  {
+    vehicle: 'Force Urbania (10 / 17 VIP)',
+    type: 'VIP Luxury Coach',
+    fourHrsFortyKm: 3800,
+    eightHrsHundredKm: 5500,
+    extraKm: 32,
+    extraHr: 350,
+    driverBatta: '₹700'
   }
 ];
 
@@ -421,50 +686,66 @@ export const TARIFF_TABLE_DATA = [
   {
     model: 'Maruti Swift Dzire / Etios',
     seating: '4 + 1 Passengers',
-    outstationRate: '₹12 / Km',
-    localPackage: '₹2,000 (8h/100km)',
+    outstationRate: '₹13 / Km',
+    localPackage: '₹2,200 (8h/80km)',
     extraKm: '₹13 / km',
-    batta: 'Included'
+    batta: '₹300'
   },
   {
-    model: 'Maruti Ertiga / Tavera MPV',
-    seating: '6+1 to 9+1',
-    outstationRate: '₹15 / Km',
-    localPackage: '₹2,800 (8h/100km)',
-    extraKm: '₹15 / km',
-    batta: 'Included'
+    model: 'Maruti Suzuki Ciaz',
+    seating: '4 + 1 Passengers',
+    outstationRate: '₹14 / Km',
+    localPackage: '₹2,300 (8h/80km)',
+    extraKm: '₹14 / km',
+    batta: '₹350'
+  },
+  {
+    model: 'Maruti Ertiga MPV',
+    seating: '6 + 1 Passengers',
+    outstationRate: '₹16 / Km',
+    localPackage: '₹2,500 (8h/80km)',
+    extraKm: '₹16 / km',
+    batta: '₹400'
   },
   {
     model: 'Kia Carens Luxury',
     seating: '6 + 1 Passengers',
-    outstationRate: '₹16 / Km',
-    localPackage: '₹2,800 (8h/100km)',
-    extraKm: '₹15 / km',
-    batta: 'Included'
+    outstationRate: '₹18 / Km',
+    localPackage: '₹3,200 (8h/80km)',
+    extraKm: '₹18 / km',
+    batta: '₹500'
   },
   {
-    model: 'Toyota Innova (7+1)',
+    model: 'Toyota Innova Classic',
     seating: '7 + 1 Passengers',
     outstationRate: '₹18 / Km',
-    localPackage: '₹3,000 (8h/100km)',
-    extraKm: '₹16 / km',
-    batta: 'Included'
+    localPackage: '₹3,000 (8h/80km)',
+    extraKm: '₹17 / km',
+    batta: '₹500'
   },
   {
-    model: 'Toyota Innova Crysta (7+1)',
+    model: 'Toyota Innova Crysta',
     seating: '7 + 1 Luxury',
     outstationRate: '₹21 / Km',
-    localPackage: '₹3,000 (8h/100km)',
-    extraKm: '₹16 / km',
-    batta: 'Included'
+    localPackage: '₹3,500 (8h/80km)',
+    extraKm: '₹19 / km',
+    batta: '₹500'
   },
   {
-    model: 'Force Tempo Traveller (12+1)',
+    model: 'Force Tempo Traveller',
     seating: '12 to 26 Seater',
     outstationRate: '₹26 / Km',
-    localPackage: '₹4,000 (8h/100km)',
-    extraKm: '₹19 / km',
-    batta: 'Included'
+    localPackage: '₹4,500 (8h/80km)',
+    extraKm: '₹26 / km',
+    batta: '₹600'
+  },
+  {
+    model: 'Force Urbania Luxury Van',
+    seating: '10 to 17 VIP',
+    outstationRate: '₹32 / Km',
+    localPackage: '₹5,500 (8h/80km)',
+    extraKm: '₹32 / km',
+    batta: '₹700'
   }
 ];
 

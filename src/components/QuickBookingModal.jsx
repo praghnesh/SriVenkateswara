@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, MessageSquare, Car, Calendar, MapPin, Navigation, User, Phone, CheckCircle2, Sparkles, Clock, ShieldCheck } from 'lucide-react';
+import { X, MessageSquare, Car, Calendar, MapPin, Navigation, User, Phone, CheckCircle2, Clock, ShieldCheck } from 'lucide-react';
 import { sendModalReservation } from '../utils/whatsapp';
 import LocationInput from './LocationInput';
 
@@ -75,16 +75,16 @@ export default function QuickBookingModal({ isOpen, onClose, bookingData = null,
       className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-3 overflow-y-auto animate-fade-in"
       onClick={handleBackdropClick}
     >
-      <div 
+      <div
         className="bg-white rounded-2xl p-4 sm:p-5 max-w-md w-full shadow-2xl border border-slate-200 relative my-auto animate-in fade-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
       >
-        
+
         {/* Header: Title on Left, CLEAR PROMINENT CLOSE BUTTON on Right */}
         <div className="flex items-center justify-between pb-2.5 border-b border-slate-100 mb-2.5">
           <div className="min-w-0 pr-2">
-            <div className="flex items-center gap-1 text-[10px] font-black uppercase text-blue-700 tracking-wider">
-              <Sparkles className="w-3 h-3 text-amber-500 shrink-0" />
+            <div className="flex items-center gap-1 text-[10px] font-black uppercase text-amber-800 tracking-wider">
+              <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0" />
               <span>Instant Dispatch Booking</span>
             </div>
             <h3 className="text-base sm:text-lg font-black text-slate-900 leading-tight truncate">
@@ -105,9 +105,9 @@ export default function QuickBookingModal({ isOpen, onClose, bookingData = null,
 
         {/* Compact Pre-filled Tour / Service Strip */}
         {(formData.tourPackage || formData.serviceType || formData.fare || formData.hoursPackage) && (
-          <div className="mb-2.5 px-3 py-1.5 bg-blue-50/80 rounded-xl border border-blue-200/70 flex items-center justify-between gap-2 text-xs">
+          <div className="mb-2.5 px-3 py-1.5 bg-amber-50/80 rounded-xl border border-amber-200/70 flex items-center justify-between gap-2 text-xs">
             <div className="truncate">
-              <span className="text-[9.5px] text-blue-700 font-bold uppercase block leading-none">
+              <span className="text-[9.5px] text-amber-800 font-bold uppercase block leading-none">
                 {formData.tourPackage ? 'Tour Package' : formData.serviceType || 'Service'}
               </span>
               <span className="font-black text-slate-900 truncate block text-xs mt-0.5">
@@ -145,7 +145,7 @@ export default function QuickBookingModal({ isOpen, onClose, bookingData = null,
                   onChange={handleChange}
                   placeholder="e.g. Ramesh"
                   required
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl py-1.5 pl-8 pr-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl py-1.5 pl-8 pr-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500 font-medium"
                 />
               </div>
             </div>
@@ -164,7 +164,7 @@ export default function QuickBookingModal({ isOpen, onClose, bookingData = null,
                   onChange={handleChange}
                   placeholder="63094xxxxx"
                   required
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl py-1.5 pl-8 pr-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl py-1.5 pl-8 pr-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500 font-medium"
                 />
               </div>
             </div>
@@ -206,13 +206,13 @@ export default function QuickBookingModal({ isOpen, onClose, bookingData = null,
                 Select Vehicle
               </label>
               <div className="relative">
-                <Car className="w-3.5 h-3.5 text-blue-600 absolute left-2.5 top-2.5 pointer-events-none" />
+                <Car className="w-3.5 h-3.5 text-amber-600 absolute left-2.5 top-2.5 pointer-events-none" />
                 <select
                   id="modalCarSelect"
                   name="car"
                   value={formData.car}
                   onChange={handleChange}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl py-1.5 pl-8 pr-2 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 truncate"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl py-1.5 pl-8 pr-2 text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500 truncate"
                 >
                   <option value="Maruti Swift Dzire Sedan">Swift Dzire (4+1)</option>
                   <option value="Toyota Etios">Toyota Etios (4+1)</option>
@@ -240,7 +240,7 @@ export default function QuickBookingModal({ isOpen, onClose, bookingData = null,
                   value={formData.date}
                   onChange={handleChange}
                   required
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl py-1.5 pl-8 pr-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl py-1.5 pl-8 pr-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500 font-medium"
                 />
               </div>
             </div>

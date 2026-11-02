@@ -143,7 +143,7 @@ export default function Hero({ onOpenBookingModal }) {
       return `e.g. Local City Sightseeing (${localHours})`;
     }
     if (tripType === 'Airport Transfer') {
-      return airportTransferType === 'drop' ? 'Vijayawada (VGA) / Hyderabad (RGIA)' : 'e.g. Guntur, Vijayawada, Amaravati';
+      return airportTransferType === 'drop' ? 'Vijayawada Airport (VGA - Gannavaram)' : 'e.g. Guntur, Vijayawada, Amaravati';
     }
     return 'Destination City / Place...';
   };
@@ -186,14 +186,14 @@ export default function Hero({ onOpenBookingModal }) {
         
         {/* Left Column: Headlines & Trust Signals (Hidden on mobile as user requested: "mobile screen lo first form ravali ela mobile lo tesey ra") */}
         <div className="hidden lg:block text-white space-y-6">
-          <div className="inline-flex items-center bg-blue-600/20 backdrop-blur-md border border-blue-500/30 px-4 py-2 rounded-full text-blue-400 font-semibold text-sm">
-            <Star className="w-4 h-4 mr-2 fill-current" />
+          <div className="inline-flex items-center bg-amber-500/20 backdrop-blur-md border border-amber-400/40 px-4 py-2 rounded-full text-amber-300 font-semibold text-sm">
+            <Star className="w-4 h-4 mr-2 fill-current text-amber-400" />
             Top Rated Cab Service in Guntur &amp; Vijayawada
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight tracking-tight">
             Reliable Rides for <br />
-            <span className="text-blue-500">Every Journey.</span>
+            <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-200 bg-clip-text text-transparent">Every Journey.</span>
           </h1>
 
           <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-lg leading-relaxed">
@@ -204,7 +204,7 @@ export default function Hero({ onOpenBookingModal }) {
           {/* 4-Box Trust Grid */}
           <div className="grid grid-cols-2 gap-4 pt-2 max-w-lg">
             <div className="flex items-center space-x-3.5">
-              <div className="w-11 h-11 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm text-blue-400 shrink-0">
+              <div className="w-11 h-11 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm text-amber-400 shrink-0">
                 <Shield className="w-5 h-5" />
               </div>
               <div>
@@ -214,7 +214,7 @@ export default function Hero({ onOpenBookingModal }) {
             </div>
 
             <div className="flex items-center space-x-3.5">
-              <div className="w-11 h-11 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm text-blue-400 shrink-0">
+              <div className="w-11 h-11 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm text-amber-400 shrink-0">
                 <Clock className="w-5 h-5" />
               </div>
               <div>
@@ -224,7 +224,7 @@ export default function Hero({ onOpenBookingModal }) {
             </div>
 
             <div className="flex items-center space-x-3.5">
-              <div className="w-11 h-11 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm text-blue-400 shrink-0">
+              <div className="w-11 h-11 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm text-amber-400 shrink-0">
                 <Award className="w-5 h-5" />
               </div>
               <div>
@@ -234,7 +234,7 @@ export default function Hero({ onOpenBookingModal }) {
             </div>
 
             <div className="flex items-center space-x-3.5">
-              <div className="w-11 h-11 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm text-blue-400 shrink-0">
+              <div className="w-11 h-11 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm text-amber-400 shrink-0">
                 <Car className="w-5 h-5" />
               </div>
               <div>
@@ -247,9 +247,9 @@ export default function Hero({ onOpenBookingModal }) {
 
         {/* Right Column: Booking Form (Appears FIRST on mobile) */}
         <div className="relative w-full max-w-xl mx-auto lg:ml-auto">
-          <div className="absolute -inset-4 bg-blue-500/20 blur-3xl rounded-full"></div>
+          <div className="absolute -inset-4 bg-amber-500/20 blur-3xl rounded-full"></div>
 
-          <div className="bg-white/95 backdrop-blur-xl p-6 sm:p-7 rounded-3xl shadow-2xl border border-white/40 relative z-10 text-gray-900">
+          <div className="bg-white/95 backdrop-blur-xl p-6 sm:p-7 rounded-3xl shadow-2xl border border-amber-500/20 relative z-10 text-gray-900">
             <div className="mb-4">
               <h2 className="text-2xl lg:text-3xl font-extrabold text-gray-900 tracking-tight">Book Your Ride</h2>
               <p className="text-gray-500 text-xs sm:text-sm mt-0.5">Direct module booking &amp; driver dispatch</p>
@@ -268,7 +268,7 @@ export default function Hero({ onOpenBookingModal }) {
                   type="button"
                   className={`py-2 px-1 text-xs font-bold rounded-lg transition-all text-center cursor-pointer ${
                     tripType === tab.id
-                      ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
+                      ? 'bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-slate-950 font-black shadow-md shadow-amber-500/30'
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/60'
                   }`}
                   onClick={() => handleTabClick(tab.id)}
@@ -280,13 +280,13 @@ export default function Hero({ onOpenBookingModal }) {
 
             {/* 4 Hrs to 12 Hrs Duration Picker (Shown when Local Rental is selected) - No prices */}
             {tripType === 'Local Rental' && (
-              <div className="mb-3.5 p-3 bg-blue-50/80 rounded-2xl border border-blue-200">
+              <div className="mb-3.5 p-3 bg-amber-50/80 rounded-2xl border border-amber-200">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-black text-blue-900 uppercase tracking-wider flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5 text-blue-600" />
+                  <span className="text-[11px] font-black text-amber-950 uppercase tracking-wider flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5 text-amber-600" />
                     <span>Choose Rental Duration (4 to 12 Hours):</span>
                   </span>
-                  <span className="text-[11px] font-bold text-blue-700 bg-white px-2 py-0.5 rounded-md border border-blue-200">
+                  <span className="text-[11px] font-bold text-amber-800 bg-white px-2 py-0.5 rounded-md border border-amber-300">
                     {localHours}
                   </span>
                 </div>
@@ -300,8 +300,8 @@ export default function Hero({ onOpenBookingModal }) {
                         onClick={() => handleSelectHourlyPackage(pkg)}
                         className={`py-2 px-1 rounded-xl text-center transition-all cursor-pointer border ${
                           isSelected
-                            ? 'bg-blue-600 text-white border-blue-600 shadow-sm font-black'
-                            : 'bg-white text-gray-700 hover:bg-blue-100 border-gray-200 font-bold'
+                            ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 border-amber-500 shadow-sm font-black'
+                            : 'bg-white text-gray-700 hover:bg-amber-100/70 border-gray-200 font-bold'
                         }`}
                       >
                         <div className="text-xs sm:text-sm font-black">{pkg.id.toUpperCase()}</div>
@@ -314,26 +314,26 @@ export default function Hero({ onOpenBookingModal }) {
 
             {/* Airport Transfer Direction Toggle (User requested: "ikkada from air port to air port pettu ok na") */}
             {tripType === 'Airport Transfer' && (
-              <div className="mb-3.5 p-3 bg-blue-50/90 rounded-2xl border border-blue-200 space-y-2.5">
+              <div className="mb-3.5 p-3 bg-amber-50/90 rounded-2xl border border-amber-200 space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-black text-blue-900 uppercase tracking-wider flex items-center gap-1.5">
-                    <Plane className="w-3.5 h-3.5 text-blue-600" />
+                  <span className="text-[11px] font-black text-amber-950 uppercase tracking-wider flex items-center gap-1.5">
+                    <Plane className="w-3.5 h-3.5 text-amber-600" />
                     <span>Select Airport Trip Type:</span>
                   </span>
-                  <span className="text-[10px] font-bold text-blue-700 bg-white px-2 py-0.5 rounded-md border border-blue-200">
+                  <span className="text-[10px] font-bold text-amber-800 bg-white px-2 py-0.5 rounded-md border border-amber-300">
                     {airportTransferType === 'drop' ? 'Going to Airport' : 'Leaving Airport'}
                   </span>
                 </div>
 
                 {/* Direction Toggle Pills */}
-                <div className="grid grid-cols-2 gap-2 bg-white/90 p-1 rounded-xl border border-blue-100 shadow-2xs">
+                <div className="grid grid-cols-2 gap-2 bg-white/90 p-1 rounded-xl border border-amber-100 shadow-2xs">
                   <button
                     type="button"
                     onClick={() => handleAirportTransferToggle('drop')}
                     className={`py-2 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       airportTransferType === 'drop'
-                        ? 'bg-blue-600 text-white shadow-sm font-black'
-                        : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50/50'
+                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-sm font-black'
+                        : 'text-slate-600 hover:text-amber-700 hover:bg-amber-50/50'
                     }`}
                   >
                     <Plane className="w-3.5 h-3.5 rotate-45" />
@@ -345,8 +345,8 @@ export default function Hero({ onOpenBookingModal }) {
                     onClick={() => handleAirportTransferToggle('pickup')}
                     className={`py-2 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       airportTransferType === 'pickup'
-                        ? 'bg-blue-600 text-white shadow-sm font-black'
-                        : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50/50'
+                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-sm font-black'
+                        : 'text-slate-600 hover:text-amber-700 hover:bg-amber-50/50'
                     }`}
                   >
                     <Plane className="w-3.5 h-3.5 -rotate-45" />
@@ -354,23 +354,13 @@ export default function Hero({ onOpenBookingModal }) {
                   </button>
                 </div>
 
-                {/* Quick Airport Selector */}
-                <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                {/* Quick Airport Badge - Focused on Vijayawada / Gannavaram */}
+                <div className="flex items-center gap-2 pt-0.5">
                   <span className="text-[10px] font-bold text-slate-500 uppercase">Airport:</span>
-                  {['Vijayawada Airport (VGA)', 'Hyderabad Airport (RGIA)'].map((apt) => (
-                    <button
-                      key={apt}
-                      type="button"
-                      onClick={() => handleAirportSelect(apt)}
-                      className={`text-[10.5px] px-2.5 py-1 rounded-lg font-bold transition-all cursor-pointer border ${
-                        selectedAirport === apt
-                          ? 'bg-blue-600 text-white border-blue-600 font-black shadow-2xs'
-                          : 'bg-white text-slate-700 hover:bg-slate-100 border-slate-200'
-                      }`}
-                    >
-                      {apt.includes('Vijayawada') ? '✈️ Vijayawada (VGA)' : '✈️ Hyderabad (RGIA)'}
-                    </button>
-                  ))}
+                  <div className="text-[10.5px] px-2.5 py-1 rounded-lg font-black bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-2xs border border-amber-400/50 flex items-center gap-1">
+                    <Plane className="w-3 h-3 text-slate-950" />
+                    <span>Vijayawada Airport (Gannavaram - VGA)</span>
+                  </div>
                 </div>
               </div>
             )}
@@ -381,7 +371,7 @@ export default function Hero({ onOpenBookingModal }) {
                 {/* Full Name */}
                 <div className="space-y-1">
                   <label className="text-[11px] font-bold text-gray-700 flex items-center">
-                    <User className="w-3.5 h-3.5 mr-1 text-blue-600" /> Full Name
+                    <User className="w-3.5 h-3.5 mr-1 text-amber-600" /> Full Name
                   </label>
                   <input
                     required
@@ -390,14 +380,14 @@ export default function Hero({ onOpenBookingModal }) {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="e.g. Ramesh"
-                    className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all text-xs sm:text-sm font-medium"
+                    className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:bg-white outline-none transition-all text-xs sm:text-sm font-medium"
                   />
                 </div>
 
                 {/* Phone */}
                 <div className="space-y-1">
                   <label className="text-[11px] font-bold text-gray-700 flex items-center">
-                    <Phone className="w-3.5 h-3.5 mr-1 text-blue-600" /> Phone Number
+                    <Phone className="w-3.5 h-3.5 mr-1 text-amber-600" /> Phone Number
                   </label>
                   <input
                     required
@@ -406,7 +396,7 @@ export default function Hero({ onOpenBookingModal }) {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="e.g. 63094xxxxx"
-                    className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all text-xs sm:text-sm font-medium"
+                    className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:bg-white outline-none transition-all text-xs sm:text-sm font-medium"
                   />
                 </div>
               </div>
@@ -416,7 +406,7 @@ export default function Hero({ onOpenBookingModal }) {
                 <div className="space-y-1">
                   <div className="flex items-center justify-between">
                     <label className="text-[11px] font-bold text-gray-700 flex items-center">
-                      <MapPin className="w-3.5 h-3.5 mr-1 text-blue-600" />
+                      <MapPin className="w-3.5 h-3.5 mr-1 text-amber-600" />
                       {tripType === 'Airport Transfer' && airportTransferType === 'pickup'
                         ? 'Pickup Airport'
                         : 'Pickup Point (Enter Pincode/Area)'}
@@ -425,7 +415,7 @@ export default function Hero({ onOpenBookingModal }) {
                       type="button"
                       onClick={handleSwapLocations}
                       title="Swap Pickup & Drop"
-                      className="text-[10px] text-blue-600 hover:text-blue-800 font-bold flex items-center gap-0.5 cursor-pointer"
+                      className="text-[10px] text-amber-700 hover:text-amber-800 font-bold flex items-center gap-0.5 cursor-pointer"
                     >
                       <ArrowLeftRight className="w-3 h-3" />
                       <span>Swap</span>
@@ -443,7 +433,7 @@ export default function Hero({ onOpenBookingModal }) {
                 {/* Drop Location */}
                 <div className="space-y-1">
                   <label className="text-[11px] font-bold text-gray-700 flex items-center">
-                    <Navigation className="w-3.5 h-3.5 mr-1 text-red-500" /> 
+                    <Navigation className="w-3.5 h-3.5 mr-1 text-amber-600" /> 
                     {tripType === 'Local Rental'
                       ? 'Local Package / Sightseeing'
                       : tripType === 'Airport Transfer' && airportTransferType === 'drop'
@@ -466,7 +456,7 @@ export default function Hero({ onOpenBookingModal }) {
                   {/* Departure Date */}
                   <div className="space-y-1">
                     <label className="text-[11px] font-bold text-gray-700 flex items-center">
-                      <Calendar className="w-3.5 h-3.5 mr-1 text-blue-600" /> Travel Date
+                      <Calendar className="w-3.5 h-3.5 mr-1 text-amber-600" /> Travel Date
                     </label>
                     <input
                       required
@@ -475,7 +465,7 @@ export default function Hero({ onOpenBookingModal }) {
                       min={today}
                       value={formData.date}
                       onChange={handleChange}
-                      className="w-full px-2.5 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all text-xs font-medium"
+                      className="w-full px-2.5 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:bg-white outline-none transition-all text-xs font-medium"
                     />
                   </div>
 
@@ -498,13 +488,13 @@ export default function Hero({ onOpenBookingModal }) {
                   {/* Pickup Time */}
                   <div className="space-y-1">
                     <label className="text-[11px] font-bold text-gray-700 flex items-center">
-                      <Clock className="w-3.5 h-3.5 mr-1 text-blue-600" /> Pickup Time
+                      <Clock className="w-3.5 h-3.5 mr-1 text-amber-600" /> Pickup Time
                     </label>
                     <select
                       name="time"
                       value={formData.time}
                       onChange={handleChange}
-                      className="w-full px-2.5 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all text-xs font-medium"
+                      className="w-full px-2.5 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:bg-white outline-none transition-all text-xs font-medium"
                     >
                       <option value="05:00 AM">05:00 AM</option>
                       <option value="06:30 AM">06:30 AM</option>
@@ -522,7 +512,7 @@ export default function Hero({ onOpenBookingModal }) {
                   {/* Single Travel Date */}
                   <div className="space-y-1">
                     <label className="text-[11px] font-bold text-gray-700 flex items-center">
-                      <Calendar className="w-3.5 h-3.5 mr-1 text-blue-600" /> Travel Date
+                      <Calendar className="w-3.5 h-3.5 mr-1 text-amber-600" /> Travel Date
                     </label>
                     <input
                       required
@@ -531,20 +521,20 @@ export default function Hero({ onOpenBookingModal }) {
                       min={today}
                       value={formData.date}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all text-xs sm:text-sm font-medium"
+                      className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:bg-white outline-none transition-all text-xs sm:text-sm font-medium"
                     />
                   </div>
 
                   {/* Pickup Time */}
                   <div className="space-y-1">
                     <label className="text-[11px] font-bold text-gray-700 flex items-center">
-                      <Clock className="w-3.5 h-3.5 mr-1 text-blue-600" /> Pickup Time
+                      <Clock className="w-3.5 h-3.5 mr-1 text-amber-600" /> Pickup Time
                     </label>
                     <select
                       name="time"
                       value={formData.time}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white outline-none transition-all text-xs sm:text-sm font-medium"
+                      className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:bg-white outline-none transition-all text-xs sm:text-sm font-medium"
                     >
                       <option value="05:00 AM">05:00 AM (Early)</option>
                       <option value="06:30 AM">06:30 AM</option>
@@ -563,10 +553,10 @@ export default function Hero({ onOpenBookingModal }) {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3.5 px-6 rounded-2xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all flex items-center justify-center space-x-2 text-sm sm:text-base group cursor-pointer"
+                  className="w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-400 hover:from-amber-600 hover:to-yellow-500 text-slate-950 font-black py-3.5 px-6 rounded-2xl shadow-xl shadow-amber-500/30 hover:shadow-amber-500/50 hover:scale-[1.01] transition-all flex items-center justify-center space-x-2 text-sm sm:text-base group cursor-pointer border border-amber-300/60"
                 >
                   <span>Book Now</span>
-                  <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 ml-1.5 group-hover:translate-x-1 transition-transform text-slate-950" />
                 </button>
               </div>
 

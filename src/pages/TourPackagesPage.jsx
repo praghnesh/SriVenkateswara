@@ -46,10 +46,14 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
       distance: '380 Kms (One-Way)',
       rates: {
         'swift-dzire': 6499,
+        'toyota-etios': 6499,
+        'maruti-ciaz': 7499,
         'maruti-ertiga': 8499,
+        'kia-carens': 8999,
+        'innova-classic': 9999,
         'innova-crysta': 11499,
         'tempo-traveller': 15999,
-        'kia-carens': 8999
+        'force-urbania': 19999
       },
       tagline: 'Ghat-Road Certified Chauffeurs • 2 Days Standby • Darshan Timing Assistance',
       desc: 'Complete sacred pilgrimage package from Guntur / Vijayawada to Tirumala Balaji. Includes experienced ghat-road driver, 2 days local standby, and darshan schedule alignment.',
@@ -122,10 +126,14 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
       distance: '220 Kms (One-Way)',
       rates: {
         'swift-dzire': 4499,
+        'toyota-etios': 4499,
+        'maruti-ciaz': 5199,
         'maruti-ertiga': 5999,
+        'kia-carens': 6499,
+        'innova-classic': 6999,
         'innova-crysta': 7999,
         'tempo-traveller': 11999,
-        'kia-carens': 6499
+        'force-urbania': 14999
       },
       tagline: 'Dense Nallamala Forest Drive • Pathalaganga Holy River • Ghat Chauffeurs',
       desc: 'Journey through the dense Nallamala forest reserve to the sacred Jyotirlinga and Bhramaramba Shakti Peetham with certified hill chauffeurs.',
@@ -199,10 +207,14 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
       distance: '280 Kms (One-Way)',
       rates: {
         'swift-dzire': 4199,
+        'toyota-etios': 4199,
+        'maruti-ciaz': 4899,
         'maruti-ertiga': 5799,
+        'kia-carens': 6299,
+        'innova-classic': 6799,
         'innova-crysta': 7699,
         'tempo-traveller': 11499,
-        'kia-carens': 6299
+        'force-urbania': 14499
       },
       tagline: 'ORR Expressway Cruising • Airport Drop • Ramoji Day Tours',
       desc: 'High-speed expressway transfer and city tour from Vijayawada / Guntur to Hyderabad, Rajiv Gandhi International Airport (Shamshabad), and Ramoji Film City.',
@@ -272,10 +284,14 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
       distance: '370 Kms (One-Way)',
       rates: {
         'swift-dzire': 5899,
+        'toyota-etios': 5899,
+        'maruti-ciaz': 6999,
         'maruti-ertiga': 7899,
+        'kia-carens': 8499,
+        'innova-classic': 8999,
         'innova-crysta': 10999,
         'tempo-traveller': 14999,
-        'kia-carens': 8499
+        'force-urbania': 18999
       },
       tagline: 'RK Beach Drive • Borra Caves • Coffee Plantations • Ghat Chauffeurs',
       desc: 'The ultimate coastal and hill station holiday. Explore the pristine beaches of Vizag and ascend the breathtaking Ananthagiri ghats to Araku Valley.',
@@ -355,10 +371,14 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
       distance: '45 Kms (Local / Outstation)',
       rates: {
         'swift-dzire': 999,
+        'toyota-etios': 999,
+        'maruti-ciaz': 1299,
         'maruti-ertiga': 1499,
+        'kia-carens': 1799,
+        'innova-classic': 1899,
         'innova-crysta': 2199,
         'tempo-traveller': 3499,
-        'kia-carens': 1799
+        'force-urbania': 4499
       },
       tagline: 'Indrakeeladri Hill Temple • Undavalli Caves • Prakasham Barrage',
       desc: 'Convenient same-day pilgrimage and local heritage tour covering the world-famous Kanaka Durga temple atop Indrakeeladri hill, historic Buddhist rock-cut caves, and the Amaravati capital region.',
@@ -422,10 +442,14 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
       distance: '580 Kms / 390 Kms',
       rates: {
         'swift-dzire': 6999,
+        'toyota-etios': 6999,
+        'maruti-ciaz': 7999,
         'maruti-ertiga': 8999,
+        'kia-carens': 9499,
+        'innova-classic': 10499,
         'innova-crysta': 12499,
         'tempo-traveller': 18999,
-        'kia-carens': 9499
+        'force-urbania': 23999
       },
       tagline: 'All-India Tourist Permit • Doorstep Drop • Smooth Highway Cruisers',
       desc: 'Safe, interstate family and business car travel from Andhra Pradesh to Bengaluru and Chennai with licensed interstate drivers.',
@@ -497,15 +521,15 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
       
       {/* Top Hero Banner */}
       <section className="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white pt-28 pb-10 px-4 md:px-8 border-b border-slate-800 relative overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="container mx-auto max-w-6xl relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800 border border-slate-700 text-blue-400 text-xs font-bold shadow-sm mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-amber-500/30 text-amber-300 text-xs font-bold shadow-sm mb-3">
             <span>PILGRIMAGE &amp; HOLIDAY TOUR PACKAGES</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white font-heading">
-            Andhra &amp; South India <span className="text-amber-400">Tour Packages</span>
+            Andhra &amp; South India <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-200 bg-clip-text text-transparent">Tour Packages</span>
           </h1>
 
           <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto mt-2.5 font-medium leading-relaxed">
@@ -596,7 +620,7 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
             {/* Tour Quick Specs & Overview */}
             <div className="lg:col-span-7 p-6 sm:p-7 flex flex-col justify-between">
               <div>
-                <div className="text-xs font-bold text-blue-600 uppercase tracking-widest">{currentTour.tagline}</div>
+                <div className="text-xs font-bold text-amber-700 uppercase tracking-widest">{currentTour.tagline}</div>
                 <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading mt-1 leading-tight">
                   {currentTour.title}
                 </h2>
@@ -610,8 +634,8 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
                     <div className="text-[10px] text-amber-800 uppercase font-black">DURATION</div>
                     <div className="text-xs sm:text-sm font-black text-slate-900 mt-0.5">{currentTour.duration}</div>
                   </div>
-                  <div className="p-3 rounded-2xl bg-blue-50 border border-blue-200/80">
-                    <div className="text-[10px] text-blue-800 uppercase font-black">DISTANCE</div>
+                  <div className="p-3 rounded-2xl bg-amber-50/70 border border-amber-200/80">
+                    <div className="text-[10px] text-amber-900 uppercase font-black">DISTANCE</div>
                     <div className="text-xs sm:text-sm font-black text-slate-900 mt-0.5">{currentTour.distance}</div>
                   </div>
                   <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200/80 col-span-2 sm:col-span-1">
@@ -624,7 +648,7 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
               {/* Bottom Quick Action */}
               <div className="pt-5 mt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
                 <div className="text-xs text-slate-500 font-medium">
-                  Starting from <strong className="text-lg font-black text-blue-600">₹{currentTour.rates['swift-dzire']?.toLocaleString()}</strong> all-inclusive
+                  Starting from <strong className="text-lg font-black text-amber-700">₹{currentTour.rates['swift-dzire']?.toLocaleString()}</strong> all-inclusive
                 </div>
                 <div className="flex items-center gap-2">
                   <button
@@ -637,9 +661,9 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
                   </button>
                   <a
                     href="#book-cars"
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-1.5 shadow-md shadow-blue-500/20"
+                    className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 px-4 py-2.5 rounded-xl font-black text-xs flex items-center gap-1.5 shadow-md shadow-amber-500/20 border border-amber-300/40"
                   >
-                    <Car className="w-4 h-4" />
+                    <Car className="w-4 h-4 text-slate-950" />
                     <span>View Cars Below</span>
                   </a>
                 </div>
@@ -656,7 +680,7 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
           <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <h3 className="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
-                <Clock className="w-5 h-5 text-blue-600" />
+                <Clock className="w-5 h-5 text-amber-600" />
                 <span>Day-by-Day Journey &amp; Places Covered</span>
               </h3>
               <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
@@ -666,9 +690,9 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
 
             <div className="space-y-3.5">
               {currentTour.itinerary.map((item, idx) => (
-                <div key={idx} className="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200/80 space-y-2.5 hover:border-blue-300 transition-colors">
+                <div key={idx} className="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200/80 space-y-2.5 hover:border-amber-400 transition-colors">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="font-black text-xs sm:text-sm text-blue-600 uppercase tracking-wide">
+                    <span className="font-black text-xs sm:text-sm text-amber-700 uppercase tracking-wide">
                       {item.day}
                     </span>
                     <span className="text-[10px] font-bold text-slate-400 bg-white border border-slate-200 px-2 py-0.5 rounded-md">
@@ -683,8 +707,8 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
                   {/* Places Covered for this Day */}
                   {item.places && item.places.length > 0 && (
                     <div className="pt-2.5 border-t border-slate-200/70">
-                      <div className="text-[10px] font-black uppercase text-blue-800 tracking-wider mb-1.5 flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-blue-600" />
+                      <div className="text-[10px] font-black uppercase text-amber-900 tracking-wider mb-1.5 flex items-center gap-1">
+                        <MapPin className="w-3.5 h-3.5 text-amber-600" />
                         <span>Places Covered on {item.day.split(':')[0]}:</span>
                       </div>
                       <div className="flex flex-wrap gap-1.5">
@@ -785,7 +809,7 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
         <div id="book-cars" className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md scroll-mt-24">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 border-b border-slate-100 pb-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-black uppercase mb-1">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200/60 text-xs font-black uppercase mb-1">
                 <Car className="w-3.5 h-3.5" />
                 <span>Select Your Travel Vehicle</span>
               </div>
@@ -814,8 +838,8 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
                   onClick={() => setSelectedVehicle(vehicle.id)}
                   className={`rounded-2xl border p-3.5 sm:p-4 transition-all duration-300 flex flex-col justify-between cursor-pointer group relative overflow-hidden ${
                     isSelected
-                      ? 'border-blue-600 bg-blue-50/20 shadow-md ring-2 ring-blue-500/20'
-                      : 'border-slate-200 hover:border-blue-300 bg-white hover:shadow-sm'
+                      ? 'border-amber-500 bg-amber-50/20 shadow-md ring-2 ring-amber-500/20'
+                      : 'border-slate-200 hover:border-amber-300 bg-white hover:shadow-sm'
                   }`}
                 >
                   {/* Top Badges */}
@@ -840,7 +864,7 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
 
                   {/* Specs & Info */}
                   <div className="space-y-1.5 mt-1.5">
-                    <h4 className="text-xs sm:text-sm font-black text-slate-900 group-hover:text-blue-600 transition-colors leading-tight">
+                    <h4 className="text-xs sm:text-sm font-black text-slate-900 group-hover:text-amber-600 transition-colors leading-tight">
                       {vehicle.name}
                     </h4>
 
@@ -853,7 +877,7 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
                     <div className="pt-2 border-t border-slate-100 flex items-center justify-between gap-2">
                       <div>
                         <span className="text-[8.5px] font-black uppercase text-slate-400 block leading-none">ALL-INCLUSIVE</span>
-                        <span className="text-sm sm:text-base font-black text-blue-600">₹{carPrice.toLocaleString()}</span>
+                        <span className="text-sm sm:text-base font-black text-amber-700">₹{carPrice.toLocaleString()}</span>
                       </div>
 
                       <button
@@ -863,7 +887,7 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
                           setSelectedVehicle(vehicle.id);
                           handleOpenBooking(vehicle);
                         }}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer"
+                        className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 px-3 py-1.5 rounded-xl text-xs font-black transition-all shadow-sm cursor-pointer border border-amber-300/40"
                       >
                         Book Car
                       </button>
@@ -871,7 +895,7 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
 
                     {/* Mobile Expand Downwards on click (User requested) */}
                     {isSelected && (
-                      <div className="pt-2 mt-2 border-t border-blue-100 space-y-1.5 block sm:hidden animate-fade-in">
+                      <div className="pt-2 mt-2 border-t border-amber-100 space-y-1.5 block sm:hidden animate-fade-in">
                         <button
                           type="button"
                           onClick={(e) => {
@@ -887,7 +911,7 @@ export default function TourPackagesPage({ onOpenBookingModal }) {
                           href={`tel:${CONTACT_INFO.primaryPhoneRaw}`}
                           className="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 py-1.5 rounded-xl text-[11px] font-bold flex items-center justify-center gap-1"
                         >
-                          <Phone className="w-3 h-3 text-blue-600" />
+                          <Phone className="w-3 h-3 text-amber-600" />
                           <span>Call Helpline</span>
                         </a>
                       </div>

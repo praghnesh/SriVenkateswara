@@ -8,7 +8,6 @@ import {
   CheckCircle2, 
   Phone, 
   MessageSquare,
-  Sparkles,
   Users
 } from 'lucide-react';
 import { CONTACT_INFO } from '../data/travelData';
@@ -52,7 +51,7 @@ export default function AboutUs({ onOpenBookingModal }) {
               
               {/* Bottom Caption inside image */}
               <div className="absolute bottom-6 left-6 right-6 text-white z-10">
-                <span className="bg-blue-600 text-white text-[11px] font-black uppercase px-3 py-1 rounded-full shadow-md mb-2 inline-block">
+                <span className="bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 text-[11px] font-black uppercase px-3 py-1 rounded-full shadow-md mb-2 inline-block border border-amber-300/50">
                   Andhra Pradesh's Premier Travel Partner
                 </span>
                 <h4 className="text-xl font-bold">Reliable, Safe &amp; Sanitized Travels</h4>
@@ -62,7 +61,7 @@ export default function AboutUs({ onOpenBookingModal }) {
 
             {/* Floating Trust Badge - Top Left */}
             <div className="absolute -top-6 -left-6 bg-white rounded-3xl p-4 sm:p-5 shadow-xl border border-gray-100 flex items-center space-x-3.5 z-20">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/30">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 via-yellow-400 to-amber-600 flex items-center justify-center text-slate-950 shadow-md shadow-amber-500/30">
                 <Award className="w-6 h-6" />
               </div>
               <div>
@@ -85,13 +84,13 @@ export default function AboutUs({ onOpenBookingModal }) {
 
           {/* Right Column: Story & Highlights */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center bg-blue-50 border border-blue-200/60 px-4 py-1.5 rounded-full text-blue-700 font-bold text-xs uppercase tracking-wider">
-              <HeartHandshake className="w-4 h-4 mr-2" />
+            <div className="inline-flex items-center bg-amber-50 border border-amber-200/80 px-4 py-1.5 rounded-full text-amber-800 font-bold text-xs uppercase tracking-wider">
+              <HeartHandshake className="w-4 h-4 mr-2 text-amber-600" />
               About Sri Venkateswara Car Travels
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight leading-tight">
-              Your Most Trusted Travel Partner in <span className="text-blue-600">Andhra Pradesh</span>
+              Your Most Trusted Travel Partner in <span className="bg-gradient-to-r from-amber-500 to-yellow-500 bg-clip-text text-transparent">Andhra Pradesh</span>
             </h2>
 
             <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
@@ -111,7 +110,7 @@ export default function AboutUs({ onOpenBookingModal }) {
               {highlights.map((h, i) => (
                 <div 
                   key={i} 
-                  className="bg-slate-50 hover:bg-blue-50/50 p-4 rounded-2xl border border-slate-100 hover:border-blue-200 transition-colors"
+                  className="bg-slate-50 hover:bg-amber-50/50 p-4 rounded-2xl border border-slate-100 hover:border-amber-300 transition-colors"
                 >
                   <div className="flex items-center space-x-2.5 mb-1.5">
                     <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
@@ -128,9 +127,9 @@ export default function AboutUs({ onOpenBookingModal }) {
             <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
               <a
                 href={`tel:${CONTACT_INFO.primaryPhoneRaw}`}
-                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-6 rounded-2xl flex items-center justify-center transition-all shadow-lg shadow-blue-500/25 text-sm hover:scale-[1.02]"
+                className="w-full sm:w-auto bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-600 hover:to-yellow-600 text-slate-950 font-black py-3.5 px-6 rounded-2xl flex items-center justify-center transition-all shadow-xl shadow-amber-500/25 text-sm hover:scale-[1.02] border border-amber-300/60"
               >
-                <Phone className="w-4 h-4 mr-2" />
+                <Phone className="w-4 h-4 mr-2 text-slate-950" />
                 <span>Call {CONTACT_INFO.primaryPhone}</span>
               </a>
 

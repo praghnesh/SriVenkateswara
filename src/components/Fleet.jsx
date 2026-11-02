@@ -98,8 +98,8 @@ export default function Fleet({ onOpenBookingModal }) {
         
         {/* Section Header */}
         <div className="text-center mb-6 space-y-1.5">
-          <div className="inline-flex items-center bg-blue-50 border border-blue-200/80 px-3 py-1 rounded-full text-blue-700 font-bold text-xs uppercase tracking-wider">
-            <Car className="w-3.5 h-3.5 mr-1.5 text-blue-600" />
+          <div className="inline-flex items-center bg-amber-50 border border-amber-200/80 px-3 py-1 rounded-full text-amber-800 font-bold text-xs uppercase tracking-wider">
+            <Car className="w-3.5 h-3.5 mr-1.5 text-amber-600" />
             <span>Our Verified Fleet</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-black text-gray-900 tracking-tight">
@@ -119,7 +119,7 @@ export default function Fleet({ onOpenBookingModal }) {
               onClick={() => handleFilterChange(btn.id)}
               className={`px-3 sm:px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                 filter === btn.id
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
+                  ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black shadow-md shadow-amber-500/25'
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
@@ -144,7 +144,7 @@ export default function Fleet({ onOpenBookingModal }) {
                 type="button"
                 onClick={handlePrev}
                 aria-label="Previous Slide"
-                className="hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-lg border border-gray-200 text-gray-700 hover:text-blue-600 hover:scale-105 items-center justify-center transition-all cursor-pointer"
+                className="hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-lg border border-gray-200 text-gray-700 hover:text-amber-600 hover:scale-105 items-center justify-center transition-all cursor-pointer"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -152,7 +152,7 @@ export default function Fleet({ onOpenBookingModal }) {
                 type="button"
                 onClick={handleNext}
                 aria-label="Next Slide"
-                className="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-lg border border-gray-200 text-gray-700 hover:text-blue-600 hover:scale-105 items-center justify-center transition-all cursor-pointer"
+                className="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white shadow-lg border border-gray-200 text-gray-700 hover:text-amber-600 hover:scale-105 items-center justify-center transition-all cursor-pointer"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -187,13 +187,13 @@ export default function Fleet({ onOpenBookingModal }) {
                         <span className="bg-white/95 backdrop-blur-md text-gray-800 border border-gray-200 text-[9px] sm:text-[10px] font-black uppercase px-2 py-0.5 rounded-md absolute top-2 left-2 shadow-xs">
                           {car.categoryLabel}
                         </span>
-                        <span className="bg-blue-600 text-white text-[10px] sm:text-[11px] font-black px-2 py-0.5 rounded-full absolute top-2 right-2 shadow-sm">
+                        <span className="bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 text-[10px] sm:text-[11px] font-black px-2.5 py-0.5 rounded-full absolute top-2 right-2 shadow-sm border border-amber-300/60">
                           {car.rateText}
                         </span>
                       </div>
 
                       {/* Car Details */}
-                      <h3 className="text-sm sm:text-base font-black text-gray-900 mb-0.5 group-hover:text-blue-600 transition-colors leading-tight truncate">
+                      <h3 className="text-sm sm:text-base font-black text-gray-900 mb-0.5 group-hover:text-amber-600 transition-colors leading-tight truncate">
                         {car.name}
                       </h3>
                       <p className="text-[10px] sm:text-[11px] text-gray-500 font-medium mb-2 truncate">
@@ -203,15 +203,15 @@ export default function Fleet({ onOpenBookingModal }) {
                       {/* Specs Badges Row (Compact) */}
                       <div className="grid grid-cols-3 gap-1 py-1.5 border-y border-gray-100 mb-2.5 text-[9.5px] sm:text-[10px] font-bold text-gray-700">
                         <div className="flex items-center justify-center space-x-1 bg-gray-50 py-1 px-1 rounded-md" title={car.seats}>
-                          <Users className="w-3 h-3 text-blue-600 shrink-0" />
+                          <Users className="w-3 h-3 text-amber-600 shrink-0" />
                           <span className="truncate">{car.seats}</span>
                         </div>
                         <div className="flex items-center justify-center space-x-1 bg-gray-50 py-1 px-1 rounded-md" title={car.acType}>
-                          <Wind className="w-3 h-3 text-blue-600 shrink-0" />
+                          <Wind className="w-3 h-3 text-amber-600 shrink-0" />
                           <span className="truncate">{car.acType}</span>
                         </div>
                         <div className="flex items-center justify-center space-x-1 bg-gray-50 py-1 px-1 rounded-md" title={car.luggage}>
-                          <Briefcase className="w-3 h-3 text-blue-600 shrink-0" />
+                          <Briefcase className="w-3 h-3 text-amber-600 shrink-0" />
                           <span className="truncate">{car.luggage === 'Rooftop Carrier' ? 'Roof Carrier' : car.luggage}</span>
                         </div>
                       </div>
@@ -251,9 +251,9 @@ export default function Fleet({ onOpenBookingModal }) {
                             window.location.href = `tel:${CONTACT_INFO.primaryPhoneRaw}`;
                           }
                         }}
-                        className="bg-blue-600 hover:bg-blue-700 text-white py-1.5 sm:py-2 px-2 rounded-xl font-bold text-[11px] sm:text-xs flex items-center justify-center transition-all shadow-xs cursor-pointer"
+                        className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 py-1.5 sm:py-2 px-2 rounded-xl font-bold text-[11px] sm:text-xs flex items-center justify-center transition-all shadow-xs cursor-pointer border border-amber-300/40"
                       >
-                        <Phone className="w-3 h-3 mr-1 shrink-0" />
+                        <Phone className="w-3 h-3 mr-1 shrink-0 text-slate-950" />
                         <span>Book Now</span>
                       </button>
                     </div>
@@ -274,7 +274,7 @@ export default function Fleet({ onOpenBookingModal }) {
                   onClick={() => setCurrentIndex(idx)}
                   className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                     currentIndex === idx 
-                      ? 'w-6 bg-blue-600' 
+                      ? 'w-6 bg-gradient-to-r from-amber-500 to-yellow-500' 
                       : 'w-2 bg-gray-300 hover:bg-gray-400'
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}

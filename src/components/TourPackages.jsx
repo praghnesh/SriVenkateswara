@@ -26,7 +26,7 @@ export default function TourPackages({ onOpenBookingModal }) {
         
         {/* Section Header */}
         <div className="text-center mb-6 sm:mb-8 space-y-2">
-          <div className="inline-flex items-center bg-blue-50 border border-blue-200/80 px-3.5 py-1 rounded-full text-blue-700 font-bold text-xs uppercase tracking-wider">
+          <div className="inline-flex items-center bg-amber-50 border border-amber-200/80 px-3.5 py-1 rounded-full text-amber-800 font-bold text-xs uppercase tracking-wider">
             <span>Pilgrimage &amp; Outstation Trips</span>
           </div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-gray-900 tracking-tight">
@@ -70,11 +70,11 @@ export default function TourPackages({ onOpenBookingModal }) {
 
                   <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm font-semibold text-gray-200">
                     <div className="flex items-center">
-                      <Clock className="w-3.5 h-3.5 mr-1 text-blue-400" />
+                      <Clock className="w-3.5 h-3.5 mr-1 text-amber-400" />
                       <span>{tirupatiRoute.duration}</span>
                     </div>
                     <div className="flex items-center">
-                      <Navigation className="w-3.5 h-3.5 mr-1 text-blue-400" />
+                      <Navigation className="w-3.5 h-3.5 mr-1 text-amber-400" />
                       <span>Round Trip &amp; 2-Day Standby</span>
                     </div>
                   </div>
@@ -92,10 +92,10 @@ export default function TourPackages({ onOpenBookingModal }) {
                         e.stopPropagation();
                         handleBookNowRedirect('tirupati');
                       }}
-                      className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-black px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl inline-flex items-center justify-center transition-all shadow-lg shadow-blue-600/30 text-xs sm:text-sm cursor-pointer whitespace-nowrap shrink-0"
+                      className="bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-600 hover:to-yellow-500 active:scale-95 text-slate-950 font-black px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl inline-flex items-center justify-center transition-all shadow-xl shadow-amber-500/30 text-xs sm:text-sm cursor-pointer whitespace-nowrap shrink-0 border border-amber-300/60"
                     >
                       <span>Book Now</span>
-                      <ArrowRight className="w-4 h-4 ml-1.5 shrink-0" />
+                      <ArrowRight className="w-4 h-4 ml-1.5 shrink-0 text-slate-950" />
                     </button>
                   </div>
                 </div>
@@ -120,7 +120,7 @@ export default function TourPackages({ onOpenBookingModal }) {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
                   <div className="relative z-10 space-y-1.5 text-white">
-                    <span className="inline-block bg-blue-600 text-white font-bold text-[9px] sm:text-[10px] uppercase px-2.5 py-0.5 rounded-full">
+                    <span className="inline-block bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black text-[9px] sm:text-[10px] uppercase px-2.5 py-0.5 rounded-full shadow-xs">
                       {hyderabadRoute.badge}
                     </span>
 
@@ -129,7 +129,7 @@ export default function TourPackages({ onOpenBookingModal }) {
                     </h3>
 
                     <div className="flex items-center text-[9.5px] sm:text-xs text-gray-300">
-                      <Clock className="w-3 h-3 mr-1 text-blue-400 shrink-0" />
+                      <Clock className="w-3 h-3 mr-1 text-amber-400 shrink-0" />
                       <span className="truncate">{hyderabadRoute.duration}</span>
                     </div>
 
@@ -144,10 +144,10 @@ export default function TourPackages({ onOpenBookingModal }) {
                           e.stopPropagation();
                           handleBookNowRedirect('hyderabad');
                         }}
-                        className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-black px-2.5 sm:px-3.5 py-1.5 rounded-xl text-[10.5px] sm:text-xs inline-flex items-center justify-center transition-all cursor-pointer shadow-md whitespace-nowrap shrink-0"
+                        className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-95 text-slate-950 font-black px-2.5 sm:px-3.5 py-1.5 rounded-xl text-[10.5px] sm:text-xs inline-flex items-center justify-center transition-all cursor-pointer shadow-md whitespace-nowrap shrink-0 border border-amber-300/40"
                       >
                         <span>Book Now</span>
-                        <ArrowRight className="w-3 h-3 ml-1 shrink-0" />
+                        <ArrowRight className="w-3 h-3 ml-1 shrink-0 text-slate-950" />
                       </button>
                     </div>
                   </div>
@@ -169,7 +169,7 @@ export default function TourPackages({ onOpenBookingModal }) {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
                   <div className="relative z-10 space-y-1.5 text-white">
-                    <span className="inline-block bg-blue-600 text-white font-bold text-[9px] sm:text-[10px] uppercase px-2.5 py-0.5 rounded-full">
+                    <span className="inline-block bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black text-[9px] sm:text-[10px] uppercase px-2.5 py-0.5 rounded-full shadow-xs">
                       {vizagRoute.badge}
                     </span>
 
@@ -178,7 +178,7 @@ export default function TourPackages({ onOpenBookingModal }) {
                     </h3>
 
                     <div className="flex items-center text-[9.5px] sm:text-xs text-gray-300">
-                      <Clock className="w-3 h-3 mr-1 text-blue-400 shrink-0" />
+                      <Clock className="w-3 h-3 mr-1 text-amber-400 shrink-0" />
                       <span className="truncate">{vizagRoute.duration}</span>
                     </div>
 
@@ -193,10 +193,10 @@ export default function TourPackages({ onOpenBookingModal }) {
                           e.stopPropagation();
                           handleBookNowRedirect('visakhapatnam');
                         }}
-                        className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-black px-2.5 sm:px-3.5 py-1.5 rounded-xl text-[10.5px] sm:text-xs inline-flex items-center justify-center transition-all cursor-pointer shadow-md whitespace-nowrap shrink-0"
+                        className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-95 text-slate-950 font-black px-2.5 sm:px-3.5 py-1.5 rounded-xl text-[10.5px] sm:text-xs inline-flex items-center justify-center transition-all cursor-pointer shadow-md whitespace-nowrap shrink-0 border border-amber-300/40"
                       >
                         <span>Book Now</span>
-                        <ArrowRight className="w-3 h-3 ml-1 shrink-0" />
+                        <ArrowRight className="w-3 h-3 ml-1 shrink-0 text-slate-950" />
                       </button>
                     </div>
                   </div>
@@ -225,7 +225,7 @@ export default function TourPackages({ onOpenBookingModal }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
                 <div className="relative z-10 space-y-1 text-white">
-                  <span className="inline-block bg-white/95 text-blue-900 font-black text-[9px] uppercase px-2 py-0.5 rounded-md">
+                  <span className="inline-block bg-white/95 text-amber-950 font-black text-[9px] uppercase px-2 py-0.5 rounded-md border border-amber-300/60">
                     {srisailamRoute.tag}
                   </span>
 
@@ -245,10 +245,10 @@ export default function TourPackages({ onOpenBookingModal }) {
                         e.stopPropagation();
                         handleBookNowRedirect('srisailam');
                       }}
-                      className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-black px-2.5 sm:px-3.5 py-1.5 rounded-xl text-[10.5px] sm:text-xs inline-flex items-center justify-center transition-all cursor-pointer shadow-md whitespace-nowrap shrink-0"
+                      className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-95 text-slate-950 font-black px-2.5 sm:px-3.5 py-1.5 rounded-xl text-[10.5px] sm:text-xs inline-flex items-center justify-center transition-all cursor-pointer shadow-md whitespace-nowrap shrink-0 border border-amber-300/40"
                     >
                       <span>Book Now</span>
-                      <ArrowRight className="w-3 h-3 ml-1 shrink-0" />
+                      <ArrowRight className="w-3 h-3 ml-1 shrink-0 text-slate-950" />
                     </button>
                   </div>
                 </div>
@@ -270,7 +270,7 @@ export default function TourPackages({ onOpenBookingModal }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
                 <div className="relative z-10 space-y-1 text-white">
-                  <span className="inline-block bg-white/95 text-blue-900 font-black text-[9px] uppercase px-2 py-0.5 rounded-md">
+                  <span className="inline-block bg-white/95 text-slate-950 font-black text-[9px] uppercase px-2 py-0.5 rounded-md">
                     {vijayawadaRoute.tag}
                   </span>
 
@@ -290,10 +290,10 @@ export default function TourPackages({ onOpenBookingModal }) {
                         e.stopPropagation();
                         handleBookNowRedirect('vijayawada-kanakadurgamma');
                       }}
-                      className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-black px-2.5 sm:px-3.5 py-1.5 rounded-xl text-[10.5px] sm:text-xs inline-flex items-center justify-center transition-all cursor-pointer shadow-md whitespace-nowrap shrink-0"
+                      className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-95 text-slate-950 font-black px-2.5 sm:px-3.5 py-1.5 rounded-xl text-[10.5px] sm:text-xs inline-flex items-center justify-center transition-all cursor-pointer shadow-md whitespace-nowrap shrink-0 border border-amber-300/40"
                     >
                       <span>Book Now</span>
-                      <ArrowRight className="w-3 h-3 ml-1 shrink-0" />
+                      <ArrowRight className="w-3 h-3 ml-1 shrink-0 text-slate-950" />
                     </button>
                   </div>
                 </div>
@@ -315,7 +315,7 @@ export default function TourPackages({ onOpenBookingModal }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
                 <div className="relative z-10 space-y-1 text-white">
-                  <span className="inline-block bg-white/95 text-blue-900 font-black text-[9px] uppercase px-2 py-0.5 rounded-md">
+                  <span className="inline-block bg-white/95 text-slate-950 font-black text-[9px] uppercase px-2 py-0.5 rounded-md">
                     {bengaluruRoute.tag}
                   </span>
 
@@ -335,10 +335,10 @@ export default function TourPackages({ onOpenBookingModal }) {
                         e.stopPropagation();
                         handleBookNowRedirect('bengaluru-chennai');
                       }}
-                      className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-black px-3 sm:px-4 py-1.5 rounded-xl text-[10.5px] sm:text-xs inline-flex items-center justify-center transition-all cursor-pointer shadow-md whitespace-nowrap shrink-0"
+                      className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-95 text-slate-950 font-black px-3 sm:px-4 py-1.5 rounded-xl text-[10.5px] sm:text-xs inline-flex items-center justify-center transition-all cursor-pointer shadow-md whitespace-nowrap shrink-0 border border-amber-300/40"
                     >
                       <span>Book Now</span>
-                      <ArrowRight className="w-3 h-3 ml-1 shrink-0" />
+                      <ArrowRight className="w-3 h-3 ml-1 shrink-0 text-slate-950" />
                     </button>
                   </div>
                 </div>

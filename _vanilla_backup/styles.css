@@ -376,8 +376,8 @@ button {
 
 .hero-title span.highlight {
   background: linear-gradient(120deg, #fbbf24 0%, #f59e0b 100%);
-  -webkit-background-clip: text;
   background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
 }

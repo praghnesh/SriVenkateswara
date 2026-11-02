@@ -14,14 +14,18 @@ export default function Footer() {
           {/* Col 1: Brand Info & Social Media */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center space-x-3 group">
-              <div className="w-11 h-11 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform">
-                <span className="text-white font-black text-xl tracking-tight">SV</span>
+              <div className="relative w-12 h-12 rounded-full p-[2px] bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-200 shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+                <img 
+                  src="/assets/images/sv-logo.jpg" 
+                  alt="Sri Venkateswara Car Travels" 
+                  className="w-full h-full object-cover rounded-full"
+                />
               </div>
               <div>
                 <div className="text-lg font-black tracking-tight text-white leading-none">
                   SRI VENKATESWARA
                 </div>
-                <div className="text-[10px] font-bold tracking-widest uppercase mt-0.5 text-blue-400">
+                <div className="text-[10px] font-bold tracking-widest uppercase mt-0.5 text-amber-400">
                   Car Travels &amp; Cabs
                 </div>
               </div>
@@ -54,7 +58,7 @@ export default function Footer() {
                   target="_blank" 
                   rel="noopener noreferrer" 
                   aria-label="Facebook"
-                  className="w-10 h-10 bg-gray-800 hover:bg-blue-600 text-gray-400 hover:text-white rounded-full flex items-center justify-center transition-all shadow-sm"
+                  className="w-10 h-10 bg-slate-900 border border-amber-500/30 hover:bg-gradient-to-r hover:from-amber-500 hover:to-amber-600 text-amber-400 hover:text-slate-950 rounded-full flex items-center justify-center transition-all shadow-sm"
                 >
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -120,19 +124,19 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <Link to="/airport-cabs" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
-                  <span className="text-blue-400 font-bold">✈</span>
+                  <span className="text-amber-400 font-bold">✈</span>
                   <span>Airport Transfer &amp; Drop</span>
                 </Link>
               </li>
               <li>
                 <Link to="/outstation-cabs" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
-                  <span className="text-blue-400 font-bold">🚗</span>
+                  <span className="text-amber-400 font-bold">🚗</span>
                   <span>One-Way &amp; Round Trip Cabs</span>
                 </Link>
               </li>
               <li>
                 <Link to="/hourly-rentals" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
-                  <span className="text-blue-400 font-bold">⏱</span>
+                  <span className="text-amber-400 font-bold">⏱</span>
                   <span>Local Hourly Rentals (4h/8h/12h)</span>
                 </Link>
               </li>
@@ -144,31 +148,31 @@ export default function Footer() {
               </li>
               <li>
                 <Link to="/fleet" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
-                  <span className="text-blue-400 font-bold">🚘</span>
+                  <span className="text-amber-400 font-bold">🚘</span>
                   <span>Car Booking Fleet &amp; Models</span>
                 </Link>
               </li>
               <li>
                 <Link to="/tariff" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
-                  <span className="text-blue-400 font-bold">₹</span>
+                  <span className="text-amber-400 font-bold">₹</span>
                   <span>Tariff &amp; Per-Km Pricing</span>
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
-                  <span className="text-blue-400 font-bold">★</span>
+                  <span className="text-amber-400 font-bold">★</span>
                   <span>About Us &amp; 12+ Years Story</span>
                 </Link>
               </li>
               <li>
                 <Link to="/contact" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
-                  <span className="text-blue-400 font-bold">📍</span>
+                  <span className="text-amber-400 font-bold">📍</span>
                   <span>Contact Page &amp; Office Hubs</span>
                 </Link>
               </li>
               <li>
                 <Link to="/faq" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
-                  <span className="text-blue-400 font-bold">?</span>
+                  <span className="text-amber-400 font-bold">?</span>
                   <span>Frequently Asked Questions</span>
                 </Link>
               </li>
@@ -180,22 +184,22 @@ export default function Footer() {
             <h4 className="text-base font-bold text-white mb-6 uppercase tracking-wider">Fleet Vehicles</h4>
             <ul className="space-y-3.5 text-sm">
               <li>
-                <Link to="/fleet" className="hover:text-blue-400 transition-colors">Maruti Swift Dzire (Sedan)</Link>
+                <Link to="/fleet" className="hover:text-amber-400 transition-colors">Maruti Swift Dzire (Sedan)</Link>
               </li>
               <li>
-                <Link to="/fleet" className="hover:text-blue-400 transition-colors">Maruti Ertiga (6+1 Seater)</Link>
+                <Link to="/fleet" className="hover:text-amber-400 transition-colors">Maruti Ertiga (6+1 Seater)</Link>
               </li>
               <li>
-                <Link to="/fleet" className="hover:text-blue-400 transition-colors">Toyota Innova Crysta (Luxury)</Link>
+                <Link to="/fleet" className="hover:text-amber-400 transition-colors">Toyota Innova Crysta (Luxury)</Link>
               </li>
               <li>
-                <Link to="/fleet" className="hover:text-blue-400 transition-colors">Kia Carens (Premium MPV)</Link>
+                <Link to="/fleet" className="hover:text-amber-400 transition-colors">Kia Carens (Premium MPV)</Link>
               </li>
               <li>
-                <Link to="/fleet" className="hover:text-blue-400 transition-colors">Tempo Traveller (12/17 Seater)</Link>
+                <Link to="/fleet" className="hover:text-amber-400 transition-colors">Tempo Traveller (12/17 Seater)</Link>
               </li>
               <li>
-                <Link to="/fleet" className="hover:text-blue-400 transition-colors">Force Urbania &amp; Buses</Link>
+                <Link to="/fleet" className="hover:text-amber-400 transition-colors">Force Urbania &amp; Buses</Link>
               </li>
             </ul>
           </div>
@@ -205,31 +209,31 @@ export default function Footer() {
             <h4 className="text-base font-bold text-white mb-6 uppercase tracking-wider">Contact &amp; Office</h4>
             <ul className="space-y-4 text-sm">
               <li className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+                <MapPin className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                 <span className="text-gray-400 leading-snug">{CONTACT_INFO.address}</span>
               </li>
 
               <li className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-blue-500 shrink-0" />
+                <Phone className="w-5 h-5 text-amber-500 shrink-0" />
                 <div>
-                  <a href={`tel:${CONTACT_INFO.primaryPhoneRaw}`} className="text-white font-bold hover:text-blue-400 block">
+                  <a href={`tel:${CONTACT_INFO.primaryPhoneRaw}`} className="text-white font-bold hover:text-amber-400 block">
                     {CONTACT_INFO.primaryPhone}
                   </a>
-                  <a href={`tel:${CONTACT_INFO.altPhoneRaw}`} className="text-gray-400 text-xs hover:text-blue-400">
+                  <a href={`tel:${CONTACT_INFO.altPhoneRaw}`} className="text-gray-400 text-xs hover:text-amber-400">
                     {CONTACT_INFO.altPhone}
                   </a>
                 </div>
               </li>
 
               <li className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-blue-500 shrink-0" />
-                <a href={`mailto:${CONTACT_INFO.email}`} className="text-gray-400 hover:text-blue-400 truncate text-xs">
+                <Mail className="w-5 h-5 text-amber-500 shrink-0" />
+                <a href={`mailto:${CONTACT_INFO.email}`} className="text-gray-400 hover:text-amber-400 truncate text-xs">
                   {CONTACT_INFO.email}
                 </a>
               </li>
 
               <li className="flex items-center space-x-3">
-                <Clock className="w-5 h-5 text-blue-500 shrink-0" />
+                <Clock className="w-5 h-5 text-amber-500 shrink-0" />
                 <span className="text-gray-400 text-xs">{CONTACT_INFO.operatingHours}</span>
               </li>
             </ul>
