@@ -10,7 +10,10 @@ import {
   MessageSquare, 
   ArrowRight, 
   Plane,
-  Navigation
+  Navigation,
+  MapPin,
+  Calendar,
+  Clock
 } from 'lucide-react';
 import { CONTACT_INFO, FLEET_VEHICLES } from '../data/travelData';
 import { sendVehicleBooking, openWhatsApp } from '../utils/whatsapp';
@@ -21,6 +24,38 @@ export default function FleetPage({ onOpenBookingModal }) {
   const [filter, setFilter] = useState('all');
   const [tripType, setTripType] = useState('Round Trip'); // 'Round Trip' | 'One Way'
   const [modalVehicleId, setModalVehicleId] = useState(null);
+
+  const today = new Date().toISOString().split('T')[0];
+  const [pickupCity, setPickupCity] = useState('Guntur');
+  const [dropCity, setDropCity] = useState('Hyderabad');
+  const [date, setDate] = useState(today);
+  const [returnDate, setReturnDate] = useState(today);
+  const [time, setTime] = useState('06:00');
+
+  const destinationDistances = {
+    'Hyderabad': 280,
+    'Tirupati': 380,
+    'Visakhapatnam (Vizag)': 370,
+    'Srisailam': 220,
+    'Chennai': 390,
+    'Bengaluru (Bangalore)': 580,
+    'Rajahmundry': 210,
+    'Vijayawada': 35
+  };
+
+  const quickDestinations = [
+    'Hyderabad',
+    'Tirupati',
+    'Visakhapatnam (Vizag)',
+    'Srisailam',
+    'Chennai',
+    'Bengaluru (Bangalore)'
+  ];
+
+  const distance = destinationDistances[dropCity] || 250;
+  const tripDays = tripType === 'Round Trip' && returnDate && date
+    ? Math.max(1, Math.round((new Date(returnDate).getTime() - new Date(date).getTime()) / (1000 * 60 * 60 * 24)) + 1)
+    : 1;
 
   const filteredVehicles = FLEET_VEHICLES.filter((vehicle) => {
     if (filter === 'all') return true;
@@ -35,12 +70,24 @@ export default function FleetPage({ onOpenBookingModal }) {
     { id: 'group', label: 'Tempo Travellers' }
   ];
 
-  const handleBookCar = (car) => {
-    const minKm = car.minKm || (car.category === 'sedan' ? 350 : 400);
-    const bata = car.driverBatta || (car.category === 'sedan' ? 300 : 400);
+  const handleBookCar = (car, carTotalFare, carKm, carTotalMinKm, actualKm, carTotalBatta, carTotalNight) => {
     const isRound = tripType === 'Round Trip';
+    const carMinKm = car.minKm || (car.category === 'sedan' ? 350 : 400);
 
-    const msg = `*FLEET CAB RESERVATION (${tripType.toUpperCase()})* 🚖\n*Sri Venkateswara Car Travels*\n\n• *Vehicle:* ${car.name} (${car.seats})\n• *Trip Type:* ${tripType} (${isRound ? 'Outstation Round Trip' : 'One Way Drop - Save 40%'})\n• *Running Rate:* ${car.rateText}\n${isRound ? `• *Min Distance:* ${minKm} Kms/Day\n• *Driver Bata:* ₹${bata}/Day\n` : '• *One Way Route:* Single journey drop (pay only 1-way distance)\n'}• *Pickup Location:* Guntur / Vijayawada / Amaravati\n\nHello, I would like to book this ${car.name} for a ${tripType} trip. Please check vehicle availability and confirm.`;
+    const msg = `*FLEET CAB RESERVATION* 🚗
+*Sri Venkateswara Car Travels*
+
+• *Vehicle:* ${car.name} (${car.seats})
+• *Trip Type:* ${tripType} (${tripDays} Day${tripDays > 1 ? 's' : ''} Trip)
+• *From:* ${pickupCity}
+• *To Destination:* ${dropCity}
+• *Estimated Distance:* ~${carKm} Kms ${carTotalMinKm > actualKm ? `(Min ${carMinKm} Kms/day applied for ${tripDays} days)` : ''}
+• *Departure Date & Time:* ${date} at ${time}
+${isRound ? `• *Return Date:* ${returnDate}\n` : ''}• *Running Rate:* ${car.rateText}
+• *Driver Bata:* ₹${carTotalBatta} (${tripDays} day${tripDays > 1 ? 's' : ''})
+${carTotalNight > 0 ? `• *Night Halt:* ₹${carTotalNight}\n` : ''}• *Estimated Total Fare:* ₹${carTotalFare.toLocaleString('en-IN')}
+
+Hello, please check vehicle availability and confirm this cab booking.`;
 
     openWhatsApp(msg);
   };
@@ -95,43 +142,177 @@ export default function FleetPage({ onOpenBookingModal }) {
       <section className="py-10 lg:py-14">
         <div className="container mx-auto px-4 max-w-6xl">
           
-          {/* Trip Type Selector: One Way vs Round Trip (Requested by User) */}
-          <div className="flex flex-col items-center justify-center mb-8">
-            <div className="bg-slate-900 p-1.5 rounded-2xl border border-amber-500/30 shadow-xl inline-flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() => setTripType('Round Trip')}
-                className={`px-5 sm:px-7 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-2 ${
-                  tripType === 'Round Trip'
-                    ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/25 scale-[1.02]'
-                    : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                <span>🔄 Round Trip</span>
-                <span className="hidden sm:inline text-[11px] opacity-80 font-bold">(Outstation)</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setTripType('One Way')}
-                className={`px-5 sm:px-7 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-2 ${
-                  tripType === 'One Way'
-                    ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/25 scale-[1.02]'
-                    : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                <span>➡️ One Way Drop</span>
-                <span className="bg-emerald-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full">
-                  Save 40%
-                </span>
-              </button>
-            </div>
+          {/* Trip Configurator Box (Destination, Dates, Time & Type) - Requested by User */}
+          <div className="bg-white rounded-3xl p-5 sm:p-7 border-2 border-amber-500/30 shadow-xl mb-10 space-y-5">
             
-            <p className="text-xs text-slate-500 font-medium mt-2.5 text-center max-w-lg">
-              {tripType === 'Round Trip' 
-                ? '🔄 Round Trip: Ideal for same-day return or multi-day outstation visits across AP & Telangana.'
-                : '➡️ One Way Drop: Pay only for one-way travel without paying return empty charges (Save up to 40%).'}
-            </p>
+            {/* Header row: Title & Trip Type Toggle */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-100">
+              <div>
+                <span className="text-[11px] font-black uppercase text-amber-700 tracking-wider block">
+                  Interactive Route &amp; Fare Selector
+                </span>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900">
+                  Select Destination &amp; Travel Dates
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Pick your destination below to instantly see live estimated fares across our entire fleet.
+                </p>
+              </div>
+
+              {/* One Way vs Round Trip Toggle */}
+              <div className="bg-slate-900 p-1.5 rounded-2xl border border-amber-500/30 shadow-md inline-flex items-center gap-1.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setTripType('Round Trip')}
+                  className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-1.5 ${
+                    tripType === 'Round Trip'
+                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-sm'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  <span>🔄 Round Trip</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setTripType('One Way')}
+                  className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-1.5 ${
+                    tripType === 'One Way'
+                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-sm'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  <span>➡️ One Way Drop</span>
+                  <span className="bg-emerald-500 text-white text-[9.5px] font-black px-1.5 py-0.2 rounded">
+                    Save 40%
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* Inputs Grid: Pickup, Drop, Date, Return Date, Time */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+              
+              {/* Pickup City */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-amber-600" />
+                  <span>From (Pickup)</span>
+                </label>
+                <select
+                  value={pickupCity}
+                  onChange={(e) => setPickupCity(e.target.value)}
+                  className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
+                >
+                  <option value="Guntur">Guntur (Town / Station / Arundelpet)</option>
+                  <option value="Vijayawada">Vijayawada (City / Railway Station)</option>
+                  <option value="Mangalagiri">Mangalagiri / AIIMS</option>
+                  <option value="Amaravati">Amaravati Capital Region</option>
+                  <option value="Tenali">Tenali Junction</option>
+                </select>
+              </div>
+
+              {/* Destination / Drop City */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                  <Navigation className="w-3.5 h-3.5 text-amber-600" />
+                  <span>To (Destination)</span>
+                </label>
+                <select
+                  value={dropCity}
+                  onChange={(e) => setDropCity(e.target.value)}
+                  className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
+                >
+                  <option value="Hyderabad">Hyderabad (~280 Kms)</option>
+                  <option value="Tirupati">Tirupati / Tirumala (~380 Kms)</option>
+                  <option value="Visakhapatnam (Vizag)">Visakhapatnam / Vizag (~370 Kms)</option>
+                  <option value="Srisailam">Srisailam Temple (~220 Kms)</option>
+                  <option value="Chennai">Chennai (~390 Kms)</option>
+                  <option value="Bengaluru (Bangalore)">Bengaluru (~580 Kms)</option>
+                  <option value="Rajahmundry">Rajahmundry (~210 Kms)</option>
+                  <option value="Vijayawada">Vijayawada (~35 Kms)</option>
+                </select>
+              </div>
+
+              {/* Departure Date */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Departure Date</span>
+                </label>
+                <input
+                  type="date"
+                  value={date}
+                  min={today}
+                  onChange={(e) => setDate(e.target.value)}
+                  className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
+                />
+              </div>
+
+              {/* Return Date (if Round Trip) or Time (if One Way) */}
+              {tripType === 'Round Trip' ? (
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-amber-600" />
+                    <span>Return Date ({tripDays} Day{tripDays > 1 ? 's' : ''})</span>
+                  </label>
+                  <input
+                    type="date"
+                    value={returnDate}
+                    min={date}
+                    onChange={(e) => setReturnDate(e.target.value)}
+                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  />
+                </div>
+              ) : (
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-amber-600" />
+                    <span>Pickup Time</span>
+                  </label>
+                  <input
+                    type="time"
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  />
+                </div>
+              )}
+
+            </div>
+
+            {/* Quick Destination Chips */}
+            <div className="flex items-center flex-wrap gap-1.5 pt-1">
+              <span className="text-[11px] font-bold text-slate-500 mr-1">Popular:</span>
+              {quickDestinations.map((dest) => (
+                <button
+                  key={dest}
+                  type="button"
+                  onClick={() => setDropCity(dest)}
+                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    dropCity === dest
+                      ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                >
+                  {dest}
+                </button>
+              ))}
+            </div>
+
+            {/* Route Summary Banner */}
+            <div className="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="font-black text-slate-900">
+                  {pickupCity} → {dropCity} (~{distance} Kms {tripType === 'Round Trip' ? `One Way • ${distance * 2} Kms Round` : 'Single Journey Drop'})
+                </span>
+              </div>
+              <span className="font-bold text-amber-900 bg-white/90 px-2.5 py-1 rounded-lg border border-amber-200 shadow-2xs">
+                {tripType === 'Round Trip' ? `${tripDays} Day${tripDays > 1 ? 's' : ''} Outstation Journey` : 'One Way Drop (Save 40% Return Fare)'}
+              </span>
+            </div>
+
           </div>
 
           {/* Category Filter Pills */}
@@ -159,7 +340,15 @@ export default function FleetPage({ onOpenBookingModal }) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
             {filteredVehicles.map((car) => {
               const carMinKm = car.minKm || (car.category === 'sedan' ? 350 : 400);
-              const carBatta = car.driverBatta || (car.category === 'sedan' ? 300 : 400);
+              const carTotalMinKm = tripType === 'Round Trip' ? tripDays * carMinKm : carMinKm;
+              const actualKm = tripType === 'Round Trip' ? distance * 2 : distance;
+              const carKm = Math.max(actualKm, carTotalMinKm);
+              const carRunningFare = carKm * car.ratePerKm;
+              const carDailyBatta = car.driverBatta || (car.category === 'sedan' ? 300 : 400);
+              const carTotalBatta = tripDays * carDailyBatta;
+              const carNightHaltRate = car.nightHalt || (car.category === 'sedan' ? 500 : 1000);
+              const carTotalNight = tripDays > 1 ? (tripDays - 1) * carNightHaltRate : 0;
+              const carTotalFare = carRunningFare + carTotalBatta + carTotalNight;
 
               return (
                 <div 
@@ -168,7 +357,7 @@ export default function FleetPage({ onOpenBookingModal }) {
                 >
                   <div>
                     {/* Vehicle Image Frame */}
-                    <div className="relative h-40 sm:h-56 bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden mb-4 sm:mb-6 border border-slate-100">
+                    <div className="relative h-44 sm:h-56 bg-slate-100 rounded-xl sm:rounded-2xl overflow-hidden mb-4 sm:mb-6 border border-slate-100">
                       <img
                         src={car.image}
                         alt={`${car.name} Cab Rental`}
@@ -178,8 +367,18 @@ export default function FleetPage({ onOpenBookingModal }) {
                       <span className="bg-white/95 backdrop-blur-md text-gray-800 border border-gray-200/80 text-[10px] sm:text-[11px] font-black uppercase px-2.5 sm:px-3 py-1 rounded-full absolute top-2.5 sm:top-3 left-2.5 sm:left-3 shadow-xs">
                         {car.categoryLabel}
                       </span>
-                      <span className="bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 text-[11px] sm:text-xs font-black px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full absolute top-2.5 sm:top-3 right-2.5 sm:right-3 shadow-md border border-amber-300/60">
-                        {car.rateText}
+                      
+                      {/* Live Calculated Fare Badge on Image */}
+                      <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 text-slate-950 px-3 py-1 sm:py-1.5 rounded-full shadow-lg border border-amber-200/80 text-right">
+                        <span className="text-[9px] font-black uppercase block leading-none opacity-80">Est. Total Fare</span>
+                        <span className="text-xs sm:text-sm font-black leading-tight">
+                          ₹{carTotalFare.toLocaleString('en-IN')}
+                        </span>
+                      </div>
+
+                      {/* Bottom rate overlay */}
+                      <span className="absolute bottom-2 left-2 bg-black/75 backdrop-blur-xs text-amber-300 text-[10.5px] font-bold px-2 py-0.5 rounded-md">
+                        {car.rateText} • Min {carMinKm} Km/Day
                       </span>
                     </div>
 
@@ -207,53 +406,38 @@ export default function FleetPage({ onOpenBookingModal }) {
                       </div>
                     </div>
 
-                    {/* Trip Type Selector & Tariff Pill inside each card */}
-                    <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-2.5 sm:p-3 mb-4 space-y-2">
-                      <div className="flex items-center gap-1 p-0.5 bg-slate-200/70 rounded-xl">
-                        <button
-                          type="button"
-                          onClick={() => setTripType('Round Trip')}
-                          className={`flex-1 py-1.5 rounded-lg text-[11px] font-black transition-all cursor-pointer text-center ${
-                            tripType === 'Round Trip'
-                              ? 'bg-amber-500 text-slate-950 shadow-xs'
-                              : 'text-slate-600 hover:text-slate-900'
-                          }`}
-                        >
-                          🔄 Round Trip
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setTripType('One Way')}
-                          className={`flex-1 py-1.5 rounded-lg text-[11px] font-black transition-all cursor-pointer text-center ${
-                            tripType === 'One Way'
-                              ? 'bg-amber-500 text-slate-950 shadow-xs'
-                              : 'text-slate-600 hover:text-slate-900'
-                          }`}
-                        >
-                          ➡️ One Way
-                        </button>
-                      </div>
-
-                      <div className="flex items-center justify-between text-xs pt-0.5">
-                        <span className="text-[11px] font-bold text-slate-600">
-                          {tripType === 'Round Trip' ? 'Outstation Fare:' : 'One Way Drop:'}
+                    {/* Live Trip Fare Breakdown Pill inside each card */}
+                    <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-3 mb-4 space-y-2">
+                      <div className="flex items-center justify-between text-xs pb-1.5 border-b border-slate-200/60">
+                        <span className="text-[11px] font-black uppercase text-amber-800">
+                          {tripType === 'Round Trip' ? `🔄 Round Trip (${tripDays} Day${tripDays > 1 ? 's' : ''})` : '➡️ One Way Drop'}
                         </span>
-                        <span className="text-amber-800 font-black text-sm">
-                          {car.rateText}
+                        <span className="font-bold text-slate-700 text-[11px]">
+                          ~{carKm} Kms ({car.rateText})
                         </span>
                       </div>
 
-                      <div className="text-[10.5px] font-semibold text-slate-500 border-t border-slate-200/60 pt-1.5 flex items-center justify-between">
-                        {tripType === 'Round Trip' ? (
-                          <>
-                            <span>Min: <strong>{carMinKm} Kms/Day</strong></span>
-                            <span>Driver Bata: <strong>₹{carBatta}/day</strong></span>
-                          </>
-                        ) : (
-                          <span className="text-emerald-700 font-bold">
-                            ✓ Pay only for 1-way distance (Save 40%)
-                          </span>
+                      <div className="text-[11px] text-slate-600 space-y-0.5">
+                        <div className="flex justify-between">
+                          <span>Running KM Fare:</span>
+                          <strong className="text-slate-900 font-bold">₹{carRunningFare.toLocaleString('en-IN')}</strong>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Driver Bata ({tripDays} Day{tripDays > 1 ? 's' : ''}):</span>
+                          <strong className="text-slate-900 font-bold">₹{carTotalBatta}</strong>
+                        </div>
+                        {carTotalNight > 0 && (
+                          <div className="flex justify-between text-amber-800 font-semibold">
+                            <span>Night Halt ({tripDays - 1} night{tripDays > 2 ? 's' : ''}):</span>
+                            <strong>₹{carTotalNight}</strong>
+                          </div>
                         )}
+                        <div className="flex justify-between items-baseline pt-1.5 border-t border-slate-200/60">
+                          <span className="font-black text-slate-900 text-xs">Total Estimate:</span>
+                          <span className="font-black text-amber-700 text-base">
+                            ₹{carTotalFare.toLocaleString('en-IN')}
+                          </span>
+                        </div>
                       </div>
                     </div>
 
@@ -273,18 +457,18 @@ export default function FleetPage({ onOpenBookingModal }) {
                     <button
                       type="button"
                       onClick={() => setModalVehicleId(car.id)}
-                      className="flex-1 py-2.5 sm:py-3 px-3 rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50 text-slate-800 font-bold text-xs sm:text-sm transition-all cursor-pointer whitespace-nowrap text-center"
+                      className="py-2.5 sm:py-3 px-3 rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50 text-slate-800 font-bold text-xs sm:text-sm transition-all cursor-pointer whitespace-nowrap text-center"
                     >
-                      View Pricing
+                      Pricing Card
                     </button>
 
                     <button
                       type="button"
-                      onClick={() => handleBookCar(car)}
+                      onClick={() => handleBookCar(car, carTotalFare, carKm, carTotalMinKm, actualKm, carTotalBatta, carTotalNight)}
                       className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 sm:py-3 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center transition-all shadow-md shadow-emerald-600/20 hover:scale-[1.02] cursor-pointer"
                     >
                       <MessageSquare className="w-3.5 h-3.5 mr-1.5 shrink-0" />
-                      <span>Book {tripType === 'One Way' ? 'One Way' : 'Round Trip'}</span>
+                      <span>Book ₹{carTotalFare.toLocaleString('en-IN')}</span>
                     </button>
                   </div>
 
