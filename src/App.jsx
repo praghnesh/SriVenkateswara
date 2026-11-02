@@ -46,7 +46,7 @@ export default function App() {
       <Preloader />
       <div className="app-root flex flex-col min-h-screen overflow-x-hidden w-full max-w-full">
         <Header onOpenBookingModal={handleOpenModal} />
-        
+
         <main className="flex-1">
           <Routes>
             {/* Primary Routes */}
@@ -65,7 +65,7 @@ export default function App() {
             <Route path="/reviews" element={<ReviewsPage onOpenBookingModal={handleOpenModal} />} />
             <Route path="/faq" element={<FaqPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            
+
             {/* Catch-all */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
@@ -73,7 +73,7 @@ export default function App() {
 
         <Footer />
         <FloatingActions />
-        
+
         <QuickBookingModal
           isOpen={isModalOpen}
           onClose={handleCloseModal}

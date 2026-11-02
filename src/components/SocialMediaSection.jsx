@@ -1,6 +1,7 @@
 import React from 'react';
 import { Share2, ArrowUpRight, MessageSquare, Play, Users, ThumbsUp } from 'lucide-react';
 import { openWhatsApp } from '../utils/whatsapp';
+import { CONTACT_INFO } from '../data/travelData';
 
 export default function SocialMediaSection() {
   return (
@@ -45,7 +46,7 @@ export default function SocialMediaSection() {
                     </div>
                     <div className="min-w-0 flex-1">
                       <h3 className="text-lg sm:text-xl font-black text-white group-hover:text-pink-400 transition-colors truncate">Instagram</h3>
-                      <div className="text-[11px] sm:text-xs text-pink-400 font-bold truncate">@srivenkateswaracartravels</div>
+                      <div className="text-[11px] sm:text-xs text-pink-400 font-bold truncate">{CONTACT_INFO.instagramHandle}</div>
                     </div>
                   </div>
                   <span className="bg-pink-500/20 text-pink-300 border border-pink-500/30 text-[9.5px] font-black uppercase px-2.5 py-0.5 rounded-full shrink-0">
@@ -75,12 +76,12 @@ export default function SocialMediaSection() {
               </div>
 
               <a
-                href="https://instagram.com"
+                href={CONTACT_INFO.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-gradient-to-r from-amber-500 via-rose-500 to-fuchsia-600 hover:opacity-95 text-white py-2.5 sm:py-3 px-4 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-black flex items-center justify-center transition-all shadow-lg shadow-rose-600/20 cursor-pointer"
               >
-                <span>Follow on Instagram</span>
+                <span>Follow on Instagram ({CONTACT_INFO.instagramHandle})</span>
                 <ArrowUpRight className="w-4 h-4 ml-1.5" />
               </a>
             </div>

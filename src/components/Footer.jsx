@@ -41,10 +41,11 @@ export default function Footer() {
               <div className="flex items-center space-x-2.5">
                 {/* Instagram */}
                 <a 
-                  href="https://instagram.com" 
+                  href={CONTACT_INFO.instagramUrl} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  aria-label="Instagram"
+                  aria-label="Follow Sri Venkateswara Car Travels on Instagram (@svctravelsguntur)"
+                  title="Follow @svctravelsguntur on Instagram"
                   className="w-10 h-10 bg-gray-800 hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-600 hover:to-fuchsia-600 text-gray-400 hover:text-white rounded-full flex items-center justify-center transition-all shadow-sm"
                 >
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">

@@ -9,7 +9,10 @@ export const CONTACT_INFO = {
   experienceYears: '12+',
   happyPassengers: '2500+',
   fleetSize: '35+',
-  rating: '4.9'
+  rating: '4.9',
+  instagram: 'https://www.instagram.com/svctravelsguntur?vrfl=MTM2b2t0MXc1MzV1cw==',
+  instagramUrl: 'https://www.instagram.com/svctravelsguntur?vrfl=MTM2b2t0MXc1MzV1cw==',
+  instagramHandle: '@svctravelsguntur'
 };
 
 export const SERVICE_HUBS = [
