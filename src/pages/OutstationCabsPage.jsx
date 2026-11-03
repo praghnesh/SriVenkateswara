@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Navigation,
   MapPin,
@@ -21,20 +21,74 @@ import RouteMapVisualizer from '../components/RouteMapVisualizer';
 
 export default function OutstationCabsPage({ onOpenBookingModal }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const navState = location.state || {};
   const today = new Date().toISOString().split('T')[0];
 
-  const [tripType, setTripType] = useState('One Way');
-  const [pickupCity, setPickupCity] = useState('Guntur');
-  const [dropCity, setDropCity] = useState('Hyderabad');
-  const [date, setDate] = useState(today);
-  const [returnDate, setReturnDate] = useState(today);
-  const [time, setTime] = useState('06:00');
+  const initialTripType = navState.tripType === 'Round Trip' ? 'Round Trip' : (typeof window !== 'undefined' ? sessionStorage.getItem('sv_tripType') || 'One Way' : 'One Way');
+  const initialPickup = navState.pickup || (typeof window !== 'undefined' ? sessionStorage.getItem('sv_pickup') || 'Guntur' : 'Guntur');
+  const initialDrop = navState.destination || (typeof window !== 'undefined' ? sessionStorage.getItem('sv_drop') || 'Hyderabad' : 'Hyderabad');
+  const initialDate = navState.date || (typeof window !== 'undefined' ? sessionStorage.getItem('sv_date') || today : today);
+  const initialReturnDate = navState.returnDate || (typeof window !== 'undefined' ? sessionStorage.getItem('sv_returnDate') || today : today);
+  const initialTime = navState.time || (typeof window !== 'undefined' ? sessionStorage.getItem('sv_time') || '06:00' : '06:00');
+
+  const [tripType, setTripType] = useState(initialTripType);
+  const [pickupCity, setPickupCity] = useState(initialPickup);
+  const [dropCity, setDropCity] = useState(initialDrop);
+  const [date, setDate] = useState(initialDate);
+  const [returnDate, setReturnDate] = useState(initialReturnDate);
+  const [time, setTime] = useState(initialTime);
   const [selectedVehicleId, setSelectedVehicleId] = useState('swift-dzire');
   const [pricingModalCarId, setPricingModalCarId] = useState(null);
 
   // Live GPS Route tracking states
   const [routeDistance, setRouteDistance] = useState(280);
   const [routeDuration, setRouteDuration] = useState('~4.5 Hrs');
+
+  // Sync state if navigation with state occurs (e.g. from Home Hero Form)
+  useEffect(() => {
+    if (location.state) {
+      if (location.state.pickup) {
+        setPickupCity(location.state.pickup);
+        try { sessionStorage.setItem('sv_pickup', location.state.pickup); } catch (_) {}
+      }
+      if (location.state.destination) {
+        setDropCity(location.state.destination);
+        try { sessionStorage.setItem('sv_drop', location.state.destination); } catch (_) {}
+      }
+      if (location.state.tripType) {
+        setTripType(location.state.tripType);
+        try { sessionStorage.setItem('sv_tripType', location.state.tripType); } catch (_) {}
+      }
+      if (location.state.date) {
+        setDate(location.state.date);
+        try { sessionStorage.setItem('sv_date', location.state.date); } catch (_) {}
+      }
+      if (location.state.returnDate) {
+        setReturnDate(location.state.returnDate);
+        try { sessionStorage.setItem('sv_returnDate', location.state.returnDate); } catch (_) {}
+      }
+      if (location.state.time) {
+        setTime(location.state.time);
+        try { sessionStorage.setItem('sv_time', location.state.time); } catch (_) {}
+      }
+    }
+  }, [location.state]);
+
+  const handlePickupChange = (val) => {
+    setPickupCity(val);
+    try { sessionStorage.setItem('sv_pickup', val); } catch (_) {}
+  };
+
+  const handleDropChange = (val) => {
+    setDropCity(val);
+    try { sessionStorage.setItem('sv_drop', val); } catch (_) {}
+  };
+
+  const handleTripTypeChange = (type) => {
+    setTripType(type);
+    try { sessionStorage.setItem('sv_tripType', type); } catch (_) {}
+  };
 
   const destinationDistances = {
     'Hyderabad': 280,
@@ -165,7 +219,7 @@ Hello, please check vehicle availability and confirm this outstation cab booking
                 <div className="grid grid-cols-2 gap-3 bg-slate-100 p-1.5 rounded-2xl">
                   <button
                     type="button"
-                    onClick={() => setTripType('One Way')}
+                    onClick={() => handleTripTypeChange('One Way')}
                     className={`py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${tripType === 'One Way'
                         ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black shadow-md'
                         : 'text-gray-700 hover:text-gray-900'
@@ -175,7 +229,7 @@ Hello, please check vehicle availability and confirm this outstation cab booking
                   </button>
                   <button
                     type="button"
-                    onClick={() => setTripType('Round Trip')}
+                    onClick={() => handleTripTypeChange('Round Trip')}
                     className={`py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${tripType === 'Round Trip'
                         ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black shadow-md'
                         : 'text-gray-700 hover:text-gray-900'
@@ -194,7 +248,7 @@ Hello, please check vehicle availability and confirm this outstation cab booking
                   </label>
                   <LocationInput
                     value={pickupCity}
-                    onChange={(val) => setPickupCity(val)}
+                    onChange={handlePickupChange}
                     placeholder="e.g. 522002, Arundelpet Guntur, Benz Circle"
                     icon={MapPin}
                   />
@@ -206,7 +260,7 @@ Hello, please check vehicle availability and confirm this outstation cab booking
                   </label>
                   <LocationInput
                     value={dropCity}
-                    onChange={(val) => setDropCity(val)}
+                    onChange={handleDropChange}
                     placeholder="e.g. 500081, Hitec City, Tirupati"
                     icon={Navigation}
                   />
@@ -223,7 +277,10 @@ Hello, please check vehicle availability and confirm this outstation cab booking
                     type="date"
                     value={date}
                     min={today}
-                    onChange={(e) => setDate(e.target.value)}
+                    onChange={(e) => {
+                      setDate(e.target.value);
+                      try { sessionStorage.setItem('sv_date', e.target.value); } catch (_) {}
+                    }}
                     className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
                   />
                 </div>
@@ -237,7 +294,10 @@ Hello, please check vehicle availability and confirm this outstation cab booking
                       type="date"
                       value={returnDate}
                       min={date}
-                      onChange={(e) => setReturnDate(e.target.value)}
+                      onChange={(e) => {
+                        setReturnDate(e.target.value);
+                        try { sessionStorage.setItem('sv_returnDate', e.target.value); } catch (_) {}
+                      }}
                       className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
                     />
                   </div>
@@ -250,7 +310,10 @@ Hello, please check vehicle availability and confirm this outstation cab booking
                   <input
                     type="time"
                     value={time}
-                    onChange={(e) => setTime(e.target.value)}
+                    onChange={(e) => {
+                      setTime(e.target.value);
+                      try { sessionStorage.setItem('sv_time', e.target.value); } catch (_) {}
+                    }}
                     className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
                   />
                 </div>

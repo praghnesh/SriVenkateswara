@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { 
   Car, 
   Users, 
@@ -19,6 +19,7 @@ import { CONTACT_INFO, FLEET_VEHICLES } from '../data/travelData';
 import { sendVehicleBooking, openWhatsApp } from '../utils/whatsapp';
 import VehiclePricingModal from '../components/VehiclePricingModal';
 import SearchableLocationSelect from '../components/SearchableLocationSelect';
+import RouteMapVisualizer from '../components/RouteMapVisualizer';
 
 const FLEET_DESTINATIONS = [
   { name: 'Hyderabad', distance: 280, label: 'Hyderabad (~280 Kms)', state: 'Telangana', tag: 'Top Route' },
@@ -104,15 +105,69 @@ function estimateDistance(destinationName) {
 
 export default function FleetPage({ onOpenBookingModal }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const navState = location.state || {};
+  const today = new Date().toISOString().split('T')[0];
+
+  const initialTripType = navState.tripType === 'One Way' ? 'One Way' : (typeof window !== 'undefined' ? sessionStorage.getItem('sv_tripType') || 'Round Trip' : 'Round Trip');
+  const initialPickup = navState.pickup || (typeof window !== 'undefined' ? sessionStorage.getItem('sv_pickup') || 'Guntur' : 'Guntur');
+  const initialDrop = navState.destination || (typeof window !== 'undefined' ? sessionStorage.getItem('sv_drop') || 'Hyderabad' : 'Hyderabad');
+  const initialDate = navState.date || (typeof window !== 'undefined' ? sessionStorage.getItem('sv_date') || today : today);
+  const initialTime = navState.time || (typeof window !== 'undefined' ? sessionStorage.getItem('sv_time') || '06:00' : '06:00');
+
   const [filter, setFilter] = useState('all');
-  const [tripType, setTripType] = useState('Round Trip'); // 'Round Trip' | 'One Way'
+  const [tripType, setTripType] = useState(initialTripType);
   const [modalVehicleId, setModalVehicleId] = useState(null);
 
-  const today = new Date().toISOString().split('T')[0];
-  const [pickupCity, setPickupCity] = useState('Guntur');
-  const [dropCity, setDropCity] = useState('Hyderabad');
-  const [date, setDate] = useState(today);
-  const [time, setTime] = useState('06:00');
+  const [pickupCity, setPickupCity] = useState(initialPickup);
+  const [dropCity, setDropCity] = useState(initialDrop);
+  const [date, setDate] = useState(initialDate);
+  const [time, setTime] = useState(initialTime);
+
+  // Live GPS Route tracking states
+  const [routeDistance, setRouteDistance] = useState(280);
+  const [routeDuration, setRouteDuration] = useState('~4.5 Hrs');
+
+  // Sync state if navigation with state occurs (e.g. from Home Hero Form)
+  useEffect(() => {
+    if (location.state) {
+      if (location.state.pickup) {
+        setPickupCity(location.state.pickup);
+        try { sessionStorage.setItem('sv_pickup', location.state.pickup); } catch (_) {}
+      }
+      if (location.state.destination) {
+        setDropCity(location.state.destination);
+        try { sessionStorage.setItem('sv_drop', location.state.destination); } catch (_) {}
+      }
+      if (location.state.tripType) {
+        setTripType(location.state.tripType);
+        try { sessionStorage.setItem('sv_tripType', location.state.tripType); } catch (_) {}
+      }
+      if (location.state.date) {
+        setDate(location.state.date);
+        try { sessionStorage.setItem('sv_date', location.state.date); } catch (_) {}
+      }
+      if (location.state.time) {
+        setTime(location.state.time);
+        try { sessionStorage.setItem('sv_time', location.state.time); } catch (_) {}
+      }
+    }
+  }, [location.state]);
+
+  const handlePickupChange = (val) => {
+    setPickupCity(val);
+    try { sessionStorage.setItem('sv_pickup', val); } catch (_) {}
+  };
+
+  const handleDropChange = (val) => {
+    setDropCity(val);
+    try { sessionStorage.setItem('sv_drop', val); } catch (_) {}
+  };
+
+  const handleTripTypeChange = (type) => {
+    setTripType(type);
+    try { sessionStorage.setItem('sv_tripType', type); } catch (_) {}
+  };
 
   const quickDestinations = [
     'Hyderabad',
@@ -123,7 +178,9 @@ export default function FleetPage({ onOpenBookingModal }) {
     'Bengaluru (Bangalore)'
   ];
 
-  const distance = estimateDistance(dropCity);
+  // Dynamic distance powered by RouteMapVisualizer GPS with fallback to estimateDistance
+  const effectiveDistance = routeDistance > 0 ? routeDistance : estimateDistance(dropCity);
+  const distance = effectiveDistance;
   const tripDays = 1;
 
   const filteredVehicles = FLEET_VEHICLES.filter((vehicle) => {
@@ -211,137 +268,162 @@ Hello, please check vehicle availability and confirm this cab booking.`;
       <section className="py-10 lg:py-14">
         <div className="container mx-auto px-4 max-w-6xl">
           
-          {/* Trip Configurator Box (Destination, Dates, Time & Type) - Requested by User */}
-          <div className="bg-white rounded-3xl p-5 sm:p-7 border-2 border-amber-500/30 shadow-xl mb-10 space-y-5">
+          {/* 2-Column Responsive Section: Trip Configurator on left + Route Map Visualizer on right */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start mb-10">
             
-            {/* Header row: Title & Trip Type Toggle */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-100">
-              <div>
-                <span className="text-[11px] font-black uppercase text-amber-700 tracking-wider block">
-                  Interactive Route &amp; Fare Selector
-                </span>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900">
-                  Select Destination &amp; Travel Dates
-                </h3>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Pick your destination below to instantly see live estimated fares across our entire fleet.
-                </p>
-              </div>
-
-              {/* One Way vs Round Trip Toggle */}
-              <div className="bg-slate-900 p-1.5 rounded-2xl border border-amber-500/30 shadow-md inline-flex items-center gap-1.5 shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setTripType('Round Trip')}
-                  className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-1.5 ${
-                    tripType === 'Round Trip'
-                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-sm'
-                      : 'text-slate-300 hover:text-white'
-                  }`}
-                >
-                  <span>🔄 Round Trip</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setTripType('One Way')}
-                  className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-1.5 ${
-                    tripType === 'One Way'
-                      ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-sm'
-                      : 'text-slate-300 hover:text-white'
-                  }`}
-                >
-                  <span>➡️ One Way Drop</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Inputs Grid: Pickup, Drop, Date, Return Date, Time */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+            {/* Left 7 Columns: Trip Configurator Box */}
+            <div className="lg:col-span-7 bg-white rounded-3xl p-5 sm:p-7 border-2 border-amber-500/30 shadow-xl space-y-5">
               
-              {/* Pickup City (Searchable Autocomplete Input) */}
-              <SearchableLocationSelect
-                label="From (Pickup)"
-                icon={MapPin}
-                value={pickupCity}
-                onChange={setPickupCity}
-                placeholder="Type pickup city or area..."
-                options={FLEET_PICKUPS}
-                isDestination={false}
-              />
+              {/* Header row: Title & Trip Type Toggle */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+                <div>
+                  <span className="text-[11px] font-black uppercase text-amber-700 tracking-wider block">
+                    Interactive Route &amp; Fare Selector
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900">
+                    Select Destination &amp; Travel Dates
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Pick your destination below to instantly see live estimated fares across our entire fleet.
+                  </p>
+                </div>
 
-              {/* Destination / Drop City (Searchable Autocomplete Input) */}
-              <SearchableLocationSelect
-                label="To (Destination)"
-                icon={Navigation}
-                value={dropCity}
-                onChange={setDropCity}
-                placeholder="Type destination (e.g. Hyderabad, Tirupati...)"
-                options={FLEET_DESTINATIONS}
-                isDestination={true}
-              />
+                {/* One Way vs Round Trip Toggle */}
+                <div className="bg-slate-900 p-1.5 rounded-2xl border border-amber-500/30 shadow-md inline-flex items-center gap-1.5 shrink-0 self-stretch sm:self-auto justify-center">
+                  <button
+                    type="button"
+                    onClick={() => handleTripTypeChange('Round Trip')}
+                    className={`flex-1 sm:flex-initial px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                      tripType === 'Round Trip'
+                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-sm'
+                        : 'text-slate-300 hover:text-white'
+                    }`}
+                  >
+                    <span>🔄 Round Trip</span>
+                  </button>
 
-              {/* Departure Date */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Departure Date</span>
-                </label>
-                <input
-                  type="date"
-                  value={date}
-                  min={today}
-                  onChange={(e) => setDate(e.target.value)}
-                  className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  <button
+                    type="button"
+                    onClick={() => handleTripTypeChange('One Way')}
+                    className={`flex-1 sm:flex-initial px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                      tripType === 'One Way'
+                        ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-sm'
+                        : 'text-slate-300 hover:text-white'
+                    }`}
+                  >
+                    <span>➡️ One Way Drop</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Inputs Grid: Pickup, Drop */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {/* Pickup City (Searchable Autocomplete Input) */}
+                <SearchableLocationSelect
+                  label="From (Pickup)"
+                  icon={MapPin}
+                  value={pickupCity}
+                  onChange={handlePickupChange}
+                  placeholder="Type pickup city or area..."
+                  options={FLEET_PICKUPS}
+                  isDestination={false}
+                />
+
+                {/* Destination / Drop City (Searchable Autocomplete Input) */}
+                <SearchableLocationSelect
+                  label="To (Destination)"
+                  icon={Navigation}
+                  value={dropCity}
+                  onChange={handleDropChange}
+                  placeholder="Type destination (e.g. Hyderabad, Tirupati...)"
+                  options={FLEET_DESTINATIONS}
+                  isDestination={true}
                 />
               </div>
 
-              {/* Pickup Time */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Pickup Time</span>
-                </label>
-                <input
-                  type="time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                  className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
-                />
+              {/* Dates & Time Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {/* Departure Date */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-amber-600" />
+                    <span>Departure Date</span>
+                  </label>
+                  <input
+                    type="date"
+                    value={date}
+                    min={today}
+                    onChange={(e) => {
+                      setDate(e.target.value);
+                      try { sessionStorage.setItem('sv_date', e.target.value); } catch (_) {}
+                    }}
+                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  />
+                </div>
+
+                {/* Pickup Time */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-amber-600" />
+                    <span>Pickup Time</span>
+                  </label>
+                  <input
+                    type="time"
+                    value={time}
+                    onChange={(e) => {
+                      setTime(e.target.value);
+                      try { sessionStorage.setItem('sv_time', e.target.value); } catch (_) {}
+                    }}
+                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  />
+                </div>
               </div>
 
-            </div>
+              {/* Quick Destination Chips */}
+              <div className="flex items-center flex-wrap gap-1.5 pt-1">
+                <span className="text-[11px] font-bold text-slate-500 mr-1">Popular:</span>
+                {quickDestinations.map((dest) => (
+                  <button
+                    key={dest}
+                    type="button"
+                    onClick={() => handleDropChange(dest)}
+                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      dropCity === dest
+                        ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    }`}
+                  >
+                    {dest}
+                  </button>
+                ))}
+              </div>
 
-            {/* Quick Destination Chips */}
-            <div className="flex items-center flex-wrap gap-1.5 pt-1">
-              <span className="text-[11px] font-bold text-slate-500 mr-1">Popular:</span>
-              {quickDestinations.map((dest) => (
-                <button
-                  key={dest}
-                  type="button"
-                  onClick={() => setDropCity(dest)}
-                  className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                    dropCity === dest
-                      ? 'bg-amber-500 text-slate-950 font-black shadow-xs'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                  }`}
-                >
-                  {dest}
-                </button>
-              ))}
-            </div>
-
-            {/* Route Summary Banner */}
-            <div className="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2 text-xs">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="font-black text-slate-900">
-                  {pickupCity} → {dropCity} (~{distance} Kms {tripType === 'Round Trip' ? `One Way • ${distance * 2} Kms Round` : 'Single Journey Drop'})
+              {/* Route Summary Banner */}
+              <div className="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span className="font-black text-slate-900">
+                    {pickupCity} → {dropCity} (~{effectiveDistance} Kms {tripType === 'Round Trip' ? `One Way • ${effectiveDistance * 2} Kms Round` : 'Single Journey Drop'})
+                  </span>
+                </div>
+                <span className="font-bold text-amber-900 bg-white/90 px-2.5 py-1 rounded-lg border border-amber-200 shadow-2xs">
+                  {tripType === 'Round Trip' ? 'Round Trip Journey (Driver Bata Included)' : 'One Way Drop (Single Journey)'}
                 </span>
               </div>
-              <span className="font-bold text-amber-900 bg-white/90 px-2.5 py-1 rounded-lg border border-amber-200 shadow-2xs">
-                {tripType === 'Round Trip' ? 'Round Trip Journey (Driver Bata Included)' : 'One Way Drop (Single Journey)'}
-              </span>
+
+            </div>
+
+            {/* Right 5 Columns: Interactive Route & Distance Map Visualizer */}
+            <div className="lg:col-span-5 sticky top-24">
+              <RouteMapVisualizer
+                pickup={pickupCity}
+                destination={dropCity}
+                tripType={tripType}
+                onDistanceChange={(distKm, durStr) => {
+                  setRouteDistance(distKm);
+                  setRouteDuration(durStr);
+                }}
+              />
             </div>
 
           </div>

@@ -13,19 +13,19 @@ export default function Hero({ onOpenBookingModal }) {
     return d.toISOString().split('T')[0];
   };
 
-  const [tripType, setTripType] = useState('One Way');
+  const [tripType, setTripType] = useState(() => (typeof window !== 'undefined' ? sessionStorage.getItem('sv_tripType') || 'One Way' : 'One Way'));
   const [localHours, setLocalHours] = useState('8 Hrs / 100 Km');
   const [airportTransferType, setAirportTransferType] = useState('drop'); // 'drop' = To Airport, 'pickup' = From Airport
   const [selectedAirport, setSelectedAirport] = useState('Vijayawada Airport (VGA)');
-  const [returnDate, setReturnDate] = useState(nextDay);
-  const [formData, setFormData] = useState({
+  const [returnDate, setReturnDate] = useState(() => (typeof window !== 'undefined' ? sessionStorage.getItem('sv_returnDate') || nextDay() : nextDay()));
+  const [formData, setFormData] = useState(() => ({
     name: '',
     phone: '',
-    pickup: 'Guntur',
-    drop: '',
-    date: today,
-    time: '08:00 AM'
-  });
+    pickup: typeof window !== 'undefined' ? sessionStorage.getItem('sv_pickup') || 'Guntur' : 'Guntur',
+    drop: typeof window !== 'undefined' ? sessionStorage.getItem('sv_drop') || '' : '',
+    date: typeof window !== 'undefined' ? sessionStorage.getItem('sv_date') || today : today,
+    time: typeof window !== 'undefined' ? sessionStorage.getItem('sv_time') || '08:00 AM' : '08:00 AM'
+  }));
 
   const quickCities = ['Hyderabad', 'Tirupati', 'Vijayawada (VGA) Airport', 'Vizag', 'Srisailam'];
 
@@ -120,7 +120,28 @@ export default function Hero({ onOpenBookingModal }) {
     }));
   };
 
+  const handlePickupChange = (val) => {
+    setFormData((prev) => ({ ...prev, pickup: val }));
+    try { sessionStorage.setItem('sv_pickup', val); } catch (_) {}
+  };
+
+  const handleDropChange = (val) => {
+    setFormData((prev) => ({ ...prev, drop: val }));
+    try { sessionStorage.setItem('sv_drop', val); } catch (_) {}
+  };
+
   const handleExploreModule = () => {
+    try {
+      sessionStorage.setItem('sv_pickup', formData.pickup);
+      sessionStorage.setItem('sv_drop', formData.drop);
+      sessionStorage.setItem('sv_tripType', tripType);
+      sessionStorage.setItem('sv_date', formData.date);
+      sessionStorage.setItem('sv_time', formData.time);
+      if (tripType === 'Round Trip' && returnDate) {
+        sessionStorage.setItem('sv_returnDate', returnDate);
+      }
+    } catch (_) {}
+
     const targetRoute = tripTypeRoutes[tripType] || '/outstation-cabs';
     navigate(targetRoute, { 
       state: { 
@@ -422,7 +443,7 @@ export default function Hero({ onOpenBookingModal }) {
                   </div>
                   <LocationInput
                     value={formData.pickup}
-                    onChange={(val) => setFormData((prev) => ({ ...prev, pickup: val }))}
+                    onChange={handlePickupChange}
                     placeholder="e.g. 522002, Arundelpet Guntur, Vijayawada"
                     icon={MapPin}
                     required
@@ -441,7 +462,7 @@ export default function Hero({ onOpenBookingModal }) {
                   </label>
                   <LocationInput
                     value={formData.drop}
-                    onChange={(val) => setFormData((prev) => ({ ...prev, drop: val }))}
+                    onChange={handleDropChange}
                     placeholder={getDropPlaceholder()}
                     icon={Navigation}
                     required
