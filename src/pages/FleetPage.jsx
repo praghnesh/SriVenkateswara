@@ -29,7 +29,6 @@ export default function FleetPage({ onOpenBookingModal }) {
   const [pickupCity, setPickupCity] = useState('Guntur');
   const [dropCity, setDropCity] = useState('Hyderabad');
   const [date, setDate] = useState(today);
-  const [returnDate, setReturnDate] = useState(today);
   const [time, setTime] = useState('06:00');
 
   const destinationDistances = {
@@ -53,9 +52,7 @@ export default function FleetPage({ onOpenBookingModal }) {
   ];
 
   const distance = destinationDistances[dropCity] || 250;
-  const tripDays = tripType === 'Round Trip' && returnDate && date
-    ? Math.max(1, Math.round((new Date(returnDate).getTime() - new Date(date).getTime()) / (1000 * 60 * 60 * 24)) + 1)
-    : 1;
+  const tripDays = 1;
 
   const filteredVehicles = FLEET_VEHICLES.filter((vehicle) => {
     if (filter === 'all') return true;
@@ -70,7 +67,7 @@ export default function FleetPage({ onOpenBookingModal }) {
     { id: 'group', label: 'Tempo Travellers' }
   ];
 
-  const handleBookCar = (car, carTotalFare, carKm, carTotalMinKm, actualKm, carTotalBatta, carTotalNight) => {
+  const handleBookCar = (car, carTotalFare, carKm, carTotalMinKm, actualKm, carTotalBatta) => {
     const isRound = tripType === 'Round Trip';
     const carMinKm = car.minKm || (car.category === 'sedan' ? 350 : 400);
 
@@ -78,14 +75,14 @@ export default function FleetPage({ onOpenBookingModal }) {
 *Sri Venkateswara Car Travels*
 
 • *Vehicle:* ${car.name} (${car.seats})
-• *Trip Type:* ${tripType} (${tripDays} Day${tripDays > 1 ? 's' : ''} Trip)
+• *Trip Type:* ${tripType}
 • *From:* ${pickupCity}
 • *To Destination:* ${dropCity}
-• *Estimated Distance:* ~${carKm} Kms ${carTotalMinKm > actualKm ? `(Min ${carMinKm} Kms/day applied for ${tripDays} days)` : ''}
+• *Estimated Distance:* ~${carKm} Kms ${carTotalMinKm > actualKm ? `(Min ${carMinKm} Kms/day applied)` : ''}
 • *Departure Date & Time:* ${date} at ${time}
-${isRound ? `• *Return Date:* ${returnDate}\n` : ''}• *Running Rate:* ${car.rateText}
-• *Driver Bata:* ₹${carTotalBatta} (${tripDays} day${tripDays > 1 ? 's' : ''})
-${carTotalNight > 0 ? `• *Night Halt:* ₹${carTotalNight}\n` : ''}• *Estimated Total Fare:* ₹${carTotalFare.toLocaleString('en-IN')}
+• *Running Rate:* ${car.rateText}
+• *Driver Bata:* ₹${carTotalBatta} (Included)
+• *Estimated Total Fare:* ₹${carTotalFare.toLocaleString('en-IN')}
 
 Hello, please check vehicle availability and confirm this cab booking.`;
 
@@ -249,35 +246,19 @@ Hello, please check vehicle availability and confirm this cab booking.`;
                 />
               </div>
 
-              {/* Return Date (if Round Trip) or Time (if One Way) */}
-              {tripType === 'Round Trip' ? (
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Return Date ({tripDays} Day{tripDays > 1 ? 's' : ''})</span>
-                  </label>
-                  <input
-                    type="date"
-                    value={returnDate}
-                    min={date}
-                    onChange={(e) => setReturnDate(e.target.value)}
-                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
-                  />
-                </div>
-              ) : (
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-amber-600" />
-                    <span>Pickup Time</span>
-                  </label>
-                  <input
-                    type="time"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-                    className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
-                  />
-                </div>
-              )}
+              {/* Pickup Time */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Pickup Time</span>
+                </label>
+                <input
+                  type="time"
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                  className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
+                />
+              </div>
 
             </div>
 
@@ -309,7 +290,7 @@ Hello, please check vehicle availability and confirm this cab booking.`;
                 </span>
               </div>
               <span className="font-bold text-amber-900 bg-white/90 px-2.5 py-1 rounded-lg border border-amber-200 shadow-2xs">
-                {tripType === 'Round Trip' ? `${tripDays} Day${tripDays > 1 ? 's' : ''} Outstation Journey` : 'One Way Drop (Save 40% Return Fare)'}
+                {tripType === 'Round Trip' ? 'Round Trip Journey (Driver Bata Included)' : 'One Way Drop (Save 40% Return Fare)'}
               </span>
             </div>
 
@@ -410,7 +391,7 @@ Hello, please check vehicle availability and confirm this cab booking.`;
                     <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-3 mb-4 space-y-2">
                       <div className="flex items-center justify-between text-xs pb-1.5 border-b border-slate-200/60">
                         <span className="text-[11px] font-black uppercase text-amber-800">
-                          {tripType === 'Round Trip' ? `🔄 Round Trip (${tripDays} Day${tripDays > 1 ? 's' : ''})` : '➡️ One Way Drop'}
+                          {tripType === 'Round Trip' ? '🔄 Round Trip Outstation' : '➡️ One Way Drop'}
                         </span>
                         <span className="font-bold text-slate-700 text-[11px]">
                           ~{carKm} Kms ({car.rateText})
@@ -423,15 +404,9 @@ Hello, please check vehicle availability and confirm this cab booking.`;
                           <strong className="text-slate-900 font-bold">₹{carRunningFare.toLocaleString('en-IN')}</strong>
                         </div>
                         <div className="flex justify-between">
-                          <span>Driver Bata ({tripDays} Day{tripDays > 1 ? 's' : ''}):</span>
+                          <span>Driver Bata:</span>
                           <strong className="text-slate-900 font-bold">₹{carTotalBatta}</strong>
                         </div>
-                        {carTotalNight > 0 && (
-                          <div className="flex justify-between text-amber-800 font-semibold">
-                            <span>Night Halt ({tripDays - 1} night{tripDays > 2 ? 's' : ''}):</span>
-                            <strong>₹{carTotalNight}</strong>
-                          </div>
-                        )}
                         <div className="flex justify-between items-baseline pt-1.5 border-t border-slate-200/60">
                           <span className="font-black text-slate-900 text-xs">Total Estimate:</span>
                           <span className="font-black text-amber-700 text-base">
@@ -464,7 +439,7 @@ Hello, please check vehicle availability and confirm this cab booking.`;
 
                     <button
                       type="button"
-                      onClick={() => handleBookCar(car, carTotalFare, carKm, carTotalMinKm, actualKm, carTotalBatta, carTotalNight)}
+                      onClick={() => handleBookCar(car, carTotalFare, carKm, carTotalMinKm, actualKm, carTotalBatta)}
                       className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 sm:py-3 px-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center transition-all shadow-md shadow-emerald-600/20 hover:scale-[1.02] cursor-pointer"
                     >
                       <MessageSquare className="w-3.5 h-3.5 mr-1.5 shrink-0" />

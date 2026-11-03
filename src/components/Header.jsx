@@ -21,10 +21,10 @@ export default function Header({ onOpenBookingModal }) {
 
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'Airport Cabs', href: '/airport-cabs' },
+    { name: 'Fleet & Cars', href: '/fleet' },
     { name: 'Tour Packages', href: '/tour-packages' },
     { name: 'Hourly Rentals', href: '/hourly-rentals' },
-    { name: 'Fleet & Cars', href: '/fleet' },
+    { name: 'Airport Cabs', href: '/airport-cabs' },
     { name: 'Reviews', href: '/why-us' },
     { name: 'FAQ', href: '/faq' },
     { name: 'Contact', href: '/contact' },

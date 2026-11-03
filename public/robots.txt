@@ -1,0 +1,9 @@
+# Robots.txt for Sri Venkateswara Car Travels
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://srivenkateswaracartravels.com/sitemap.xml
+

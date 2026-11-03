@@ -242,6 +242,122 @@ export default function Footer() {
 
         </div>
 
+        {/* On-Page SEO Directory / Keyword Cloud for Search Engine Indexing */}
+        <div className="pt-8 pb-4 border-t border-gray-800/80 my-8 space-y-6">
+          <div>
+            <h5 className="text-xs font-bold uppercase tracking-wider text-amber-400/90 mb-3">
+              Popular Outstation Cab Routes:
+            </h5>
+            <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-xs text-gray-400">
+              <Link to="/outstation-cabs" className="hover:text-amber-400 transition-colors">Guntur to Hyderabad Car Travels</Link>
+              <span className="text-gray-600">•</span>
+              <Link to="/outstation-cabs" className="hover:text-amber-400 transition-colors">Guntur to Vijayawada Cab</Link>
+              <span className="text-gray-600">•</span>
+              <Link to="/outstation-cabs" className="hover:text-amber-400 transition-colors">Vijayawada to Guntur Taxi</Link>
+              <span className="text-gray-600">•</span>
+              <Link to="/tour-packages" className="hover:text-amber-400 transition-colors">Guntur to Tirupati Car Rental</Link>
+              <span className="text-gray-600">•</span>
+              <Link to="/tour-packages" className="hover:text-amber-400 transition-colors">Vijayawada to Tirupati Cab</Link>
+              <span className="text-gray-600">•</span>
+              <Link to="/outstation-cabs" className="hover:text-amber-400 transition-colors">Guntur to Vizag Cab</Link>
+              <span className="text-gray-600">•</span>
+              <Link to="/outstation-cabs" className="hover:text-amber-400 transition-colors">Vijayawada to Hyderabad Cabs</Link>
+              <span className="text-gray-600">•</span>
+              <Link to="/airport-cabs" className="hover:text-amber-400 transition-colors">Guntur to Gannavaram Airport Cab</Link>
+              <span className="text-gray-600">•</span>
+              <Link to="/airport-cabs" className="hover:text-amber-400 transition-colors">Gannavaram Airport Taxi Service</Link>
+              <span className="text-gray-600">•</span>
+              <Link to="/tour-packages" className="hover:text-amber-400 transition-colors">Guntur to Srisailam Taxi</Link>
+              <span className="text-gray-600">•</span>
+              <Link to="/tour-packages" className="hover:text-amber-400 transition-colors">Guntur to Bhadrachalam Car Travels</Link>
+              <span className="text-gray-600">•</span>
+              <Link to="/outstation-cabs" className="hover:text-amber-400 transition-colors">Guntur to Bangalore Outstation Taxi</Link>
+              <span className="text-gray-600">•</span>
+              <Link to="/outstation-cabs" className="hover:text-amber-400 transition-colors">Guntur to Chennai Car Hire</Link>
+              <span className="text-gray-600">•</span>
+              <Link to="/tour-packages" className="hover:text-amber-400 transition-colors">Tirupati Tour Package from Guntur &amp; Vijayawada</Link>
+            </div>
+          </div>
+
+          <div>
+            <h5 className="text-xs font-bold uppercase tracking-wider text-amber-400/90 mb-3">
+              Popular Searches &amp; Cab Services Near Me:
+            </h5>
+            <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-xs text-gray-400">
+              <span className="hover:text-amber-400 transition-colors">Car Travels Near Me</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Car Rental Near Me</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Cab Services Near Me</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Taxi Services Near Me</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Best Car Travels in Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Car Travels in Vijayawada</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">24/7 Cab Service Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Outstation Cabs in Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Airport Cabs Vijayawada</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Car with Driver Near Me</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Budget Car Rental Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Luxury Innova Crysta Hire</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Tempo Traveller 12-26 Seater</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">One Way Drop Cabs</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Round Trip Car Rental</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Local Sightseeing Car Rental</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors">Andhra Pradesh Taxi Services</span>
+            </div>
+          </div>
+
+          <div>
+            <h5 className="text-xs font-bold uppercase tracking-wider text-amber-400/90 mb-3">
+              Brand Names &amp; Synonyms:
+            </h5>
+            <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-xs text-gray-500">
+              <span className="hover:text-gray-300 transition-colors">Sri Venkateswara Car Travels</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">Sri Venkateswara Travels Guntur</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">Sri Venkateswara Cabs Vijayawada</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">Sri Venkateswara Taxi</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">Srivenkat Travels</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">Srivenkat Car Travels</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">Srivenkat Cabs</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">SV Travels Guntur</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">SV Cabs Vijayawada</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">SV Car Rentals</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">Sriven Travels</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">Sriven Cabs</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">Sri Venkateshwara Travels</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">Sri Venkateswar Travels</span>
+              <span className="text-gray-700">•</span>
+              <span className="hover:text-gray-300 transition-colors">Srivenkateswara Online Booking</span>
+            </div>
+          </div>
+        </div>
+
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-800 text-center text-xs text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p>© {new Date().getFullYear()} Sri Venkateswara Car Travels. All rights reserved. Andhra Pradesh.</p>
