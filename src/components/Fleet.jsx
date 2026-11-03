@@ -137,9 +137,6 @@ export default function Fleet({ onOpenBookingModal }) {
               }`}
             >
               <span>➡️ One Way Drop</span>
-              <span className="bg-emerald-500 text-white text-[9.5px] font-black px-1.5 py-0.2 rounded">
-                Save 40%
-              </span>
             </button>
           </div>
         </div>

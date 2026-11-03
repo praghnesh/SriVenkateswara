@@ -42,7 +42,8 @@ const FLEET_DESTINATIONS = [
   { name: 'Goa', distance: 780, label: 'Goa Holiday (~780 Kms)', state: 'Goa', tag: 'Holiday' },
   { name: 'Suryalanka Beach (Bapatla)', distance: 75, label: 'Suryalanka Beach / Bapatla (~75 Kms)', state: 'Andhra Pradesh', tag: 'Beach' },
   { name: 'Chirala', distance: 70, label: 'Chirala Handlooms (~70 Kms)', state: 'Andhra Pradesh', tag: 'Nearby' },
-  { name: 'Kotappakonda', distance: 45, label: 'Kotappakonda Temple (~45 Kms)', state: 'Andhra Pradesh', tag: 'Pilgrimage' }
+  { name: 'Kotappakonda', distance: 45, label: 'Kotappakonda Temple (~45 Kms)', state: 'Andhra Pradesh', tag: 'Pilgrimage' },
+  { name: 'Pedakakani Temple', distance: 10, label: 'Pedakakani Temple (~10 Kms)', state: 'Guntur', tag: 'Local Temple' }
 ];
 
 const FLEET_PICKUPS = [
@@ -90,6 +91,7 @@ function estimateDistance(destinationName) {
   if (lower.includes('suryalanka') || lower.includes('bapatla')) return 75;
   if (lower.includes('chirala')) return 70;
   if (lower.includes('kotappakonda')) return 45;
+  if (lower.includes('pedakakani')) return 10;
   if (lower.includes('mangalagiri') || lower.includes('aiims')) return 20;
   if (lower.includes('amaravati') || lower.includes('velagapudi')) return 35;
   if (lower.includes('tenali')) return 30;
@@ -152,7 +154,7 @@ export default function FleetPage({ onOpenBookingModal }) {
 • *Departure Date & Time:* ${date} at ${time}
 • *Running Rate:* ${car.rateText}
 • *Driver Bata:* ₹${carTotalBatta} (Included)
-• *Estimated Total Fare:* ₹${carTotalFare.toLocaleString('en-IN')}
+${tripType === 'One Way' ? '• *One Way Extra:* +₹2,000 (Included)\n' : ''}• *Estimated Total Fare:* ₹${carTotalFare.toLocaleString('en-IN')}
 
 Hello, please check vehicle availability and confirm this cab booking.`;
 
@@ -250,9 +252,6 @@ Hello, please check vehicle availability and confirm this cab booking.`;
                   }`}
                 >
                   <span>➡️ One Way Drop</span>
-                  <span className="bg-emerald-500 text-white text-[9.5px] font-black px-1.5 py-0.2 rounded">
-                    Save 40%
-                  </span>
                 </button>
               </div>
             </div>
@@ -341,7 +340,7 @@ Hello, please check vehicle availability and confirm this cab booking.`;
                 </span>
               </div>
               <span className="font-bold text-amber-900 bg-white/90 px-2.5 py-1 rounded-lg border border-amber-200 shadow-2xs">
-                {tripType === 'Round Trip' ? 'Round Trip Journey (Driver Bata Included)' : 'One Way Drop (Save 40% Return Fare)'}
+                {tripType === 'Round Trip' ? 'Round Trip Journey (Driver Bata Included)' : 'One Way Drop (Single Journey)'}
               </span>
             </div>
 
@@ -372,15 +371,16 @@ Hello, please check vehicle availability and confirm this cab booking.`;
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
             {filteredVehicles.map((car) => {
               const carMinKm = car.minKm || (car.category === 'sedan' ? 350 : 400);
-              const carTotalMinKm = tripType === 'Round Trip' ? tripDays * carMinKm : carMinKm;
+              const carTotalMinKm = tripType === 'Round Trip' ? tripDays * carMinKm : 0;
               const actualKm = tripType === 'Round Trip' ? distance * 2 : distance;
-              const carKm = Math.max(actualKm, carTotalMinKm);
+              const carKm = tripType === 'One Way' ? Math.max(20, actualKm) : Math.max(actualKm, carTotalMinKm);
               const carRunningFare = carKm * car.ratePerKm;
               const carDailyBatta = car.driverBatta || (car.category === 'sedan' ? 300 : 400);
               const carTotalBatta = tripDays * carDailyBatta;
               const carNightHaltRate = car.nightHalt || (car.category === 'sedan' ? 500 : 1000);
               const carTotalNight = tripDays > 1 ? (tripDays - 1) * carNightHaltRate : 0;
-              const carTotalFare = carRunningFare + carTotalBatta + carTotalNight;
+              const oneWayExtra = tripType === 'One Way' ? 2000 : 0;
+              const carTotalFare = carRunningFare + carTotalBatta + carTotalNight + oneWayExtra;
 
               return (
                 <div 
@@ -458,6 +458,12 @@ Hello, please check vehicle availability and confirm this cab booking.`;
                           <span>Driver Bata:</span>
                           <strong className="text-slate-900 font-bold">₹{carTotalBatta}</strong>
                         </div>
+                        {tripType === 'One Way' && (
+                          <div className="flex justify-between text-amber-800">
+                            <span>One Way Extra:</span>
+                            <strong className="text-amber-900 font-bold">+₹2,000</strong>
+                          </div>
+                        )}
                         <div className="flex justify-between items-baseline pt-1.5 border-t border-slate-200/60">
                           <span className="font-black text-slate-900 text-xs">Total Estimate:</span>
                           <span className="font-black text-amber-700 text-base">

@@ -17,6 +17,7 @@ import { CONTACT_INFO, FLEET_VEHICLES } from '../data/travelData';
 import { openWhatsApp } from '../utils/whatsapp';
 import LocationInput from '../components/LocationInput';
 import VehiclePricingModal from '../components/VehiclePricingModal';
+import RouteMapVisualizer from '../components/RouteMapVisualizer';
 
 export default function OutstationCabsPage({ onOpenBookingModal }) {
   const navigate = useNavigate();
@@ -30,6 +31,10 @@ export default function OutstationCabsPage({ onOpenBookingModal }) {
   const [time, setTime] = useState('06:00');
   const [selectedVehicleId, setSelectedVehicleId] = useState('swift-dzire');
   const [pricingModalCarId, setPricingModalCarId] = useState(null);
+
+  // Live GPS Route tracking states
+  const [routeDistance, setRouteDistance] = useState(280);
+  const [routeDuration, setRouteDuration] = useState('~4.5 Hrs');
 
   const destinationDistances = {
     'Hyderabad': 280,
@@ -52,25 +57,30 @@ export default function OutstationCabsPage({ onOpenBookingModal }) {
   ];
 
   const selectedVehicle = FLEET_VEHICLES.find((v) => v.id === selectedVehicleId) || FLEET_VEHICLES[0];
-  const distance = destinationDistances[dropCity] || 250;
+  
+  // Real distance computed from Live Route Map Visualizer
+  const effectiveDistance = routeDistance > 0 ? routeDistance : (destinationDistances[dropCity] || 250);
 
-  // Fare Calculation based on official commercial travel guidelines
+  // Fare Calculation based on exact real KM distance
   const tripDays = tripType === 'Round Trip' && returnDate && date
     ? Math.max(1, Math.round((new Date(returnDate).getTime() - new Date(date).getTime()) / (1000 * 60 * 60 * 24)) + 1)
     : 1;
 
-  const minKmPerDay = selectedVehicle.minKm || (selectedVehicle.category === 'sedan' ? 350 : 400);
-  const totalMinKm = tripType === 'Round Trip' ? tripDays * minKmPerDay : minKmPerDay;
-  const actualKm = tripType === 'Round Trip' ? distance * 2 : distance;
-  const totalKm = Math.max(actualKm, totalMinKm);
+  const minKmPerDay = selectedVehicle.minKm || (selectedVehicle.category === 'sedan' ? 300 : 350);
+  const totalMinKm = tripType === 'Round Trip' ? tripDays * minKmPerDay : 0;
+  const actualKm = tripType === 'Round Trip' ? effectiveDistance * 2 : effectiveDistance;
+  
+  // For One-Way: calculate based on REAL road distance (with small 20km base for local drops)
+  const totalKm = tripType === 'One Way' ? Math.max(20, actualKm) : Math.max(actualKm, totalMinKm);
   const runningFare = totalKm * selectedVehicle.ratePerKm;
 
   const dailyBatta = selectedVehicle.driverBatta || (selectedVehicle.category === 'sedan' ? 300 : 400);
   const totalDriverBatta = tripDays * dailyBatta;
   const nightHaltRate = selectedVehicle.nightHalt || (selectedVehicle.category === 'sedan' ? 500 : 1000);
   const totalNightHalt = tripDays > 1 ? (tripDays - 1) * nightHaltRate : 0;
+  const oneWayExtra = tripType === 'One Way' ? 2000 : 0;
 
-  const totalFare = runningFare + totalDriverBatta + totalNightHalt;
+  const totalFare = runningFare + totalDriverBatta + totalNightHalt + oneWayExtra;
 
   const handleBooking = () => {
     const msg = `*OUTSTATION CAB RESERVATION* 🚗
@@ -85,7 +95,7 @@ export default function OutstationCabsPage({ onOpenBookingModal }) {
 ${tripType === 'Round Trip' ? `• *Return Date:* ${returnDate}` : ''}
 • *Running KM Rate:* ₹${selectedVehicle.ratePerKm}/km (₹${runningFare.toLocaleString('en-IN')})
 • *Driver Bata:* ${tripDays} Day(s) × ₹${dailyBatta} = ₹${totalDriverBatta}
-${totalNightHalt > 0 ? `• *Night Halt:* ${tripDays - 1} Night(s) × ₹${nightHaltRate} = ₹${totalNightHalt}\n` : ''}• *Estimated Total Fare:* ₹${totalFare.toLocaleString('en-IN')}
+${tripType === 'One Way' ? '• *One Way Extra:* +₹2,000 (Included)\n' : ''}${totalNightHalt > 0 ? `• *Night Halt:* ${tripDays - 1} Night(s) × ₹${nightHaltRate} = ₹${totalNightHalt}\n` : ''}• *Estimated Total Fare:* ₹${totalFare.toLocaleString('en-IN')}
 
 Hello, please check vehicle availability and confirm this outstation cab booking.`;
 
@@ -161,7 +171,7 @@ Hello, please check vehicle availability and confirm this outstation cab booking
                         : 'text-gray-700 hover:text-gray-900'
                       }`}
                   >
-                    <span>One-Way Drop (Save 40%)</span>
+                    <span>One-Way Drop</span>
                   </button>
                   <button
                     type="button"
@@ -268,15 +278,16 @@ Hello, please check vehicle availability and confirm this outstation cab booking
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-stretch">
                   {FLEET_VEHICLES.map((v) => {
                     const isSelected = selectedVehicleId === v.id;
-                    const carMinKm = v.minKm || (v.category === 'sedan' ? 350 : 400);
-                    const carTotalMinKm = tripType === 'Round Trip' ? tripDays * carMinKm : carMinKm;
-                    const carKm = Math.max(actualKm, carTotalMinKm);
+                    const carMinKm = v.minKm || (v.category === 'sedan' ? 300 : 350);
+                    const carTotalMinKm = tripType === 'Round Trip' ? tripDays * carMinKm : 0;
+                    const carKm = tripType === 'One Way' ? Math.max(20, actualKm) : Math.max(actualKm, carTotalMinKm);
                     const carRunningFare = carKm * v.ratePerKm;
                     const carDailyBatta = v.driverBatta || (v.category === 'sedan' ? 300 : 400);
                     const carTotalBatta = tripDays * carDailyBatta;
                     const carNightHaltRate = v.nightHalt || (v.category === 'sedan' ? 500 : 1000);
                     const carTotalNight = tripDays > 1 ? (tripDays - 1) * carNightHaltRate : 0;
-                    const carTotal = carRunningFare + carTotalBatta + carTotalNight;
+                    const carOneWayExtra = tripType === 'One Way' ? 2000 : 0;
+                    const carTotal = carRunningFare + carTotalBatta + carTotalNight + carOneWayExtra;
 
                     return (
                       <div
@@ -384,12 +395,23 @@ Hello, please check vehicle availability and confirm this outstation cab booking
             {/* Right Column: Pricing Receipt & WhatsApp Booking */}
             <div className="lg:col-span-5 space-y-6">
 
+              {/* Live Interactive Leaflet Route Map Visualizer (Real-time GPS Distance Tracking) */}
+              <RouteMapVisualizer
+                pickup={pickupCity}
+                destination={dropCity}
+                tripType={tripType}
+                onDistanceChange={(distKm, durStr) => {
+                  setRouteDistance(distKm);
+                  setRouteDuration(durStr);
+                }}
+              />
+
               <div className="bg-gradient-to-br from-[#070b14] via-[#0f172a] to-[#1e293b] border border-amber-500/30 rounded-[2rem] p-7 text-white shadow-2xl shadow-amber-500/10 space-y-6">
 
                 <div className="flex items-center justify-between pb-4 border-b border-amber-500/20">
                   <span className="text-xs font-bold uppercase tracking-wider text-amber-300">Outstation Fare Estimate</span>
                   <span className="bg-emerald-500 text-white text-[11px] font-black px-2.5 py-0.5 rounded-full">
-                    {tripType === 'One Way' ? 'One Way (Save 40%)' : 'Round Trip'}
+                    {tripType === 'One Way' ? 'One Way Drop' : 'Round Trip'}
                   </span>
                 </div>
 
@@ -427,10 +449,27 @@ Hello, please check vehicle availability and confirm this outstation cab booking
                       <span className="font-bold text-amber-300">₹{totalNightHalt}</span>
                     </div>
                   )}
+                  {tripType === 'One Way' && (
+                    <div className="flex justify-between text-amber-300">
+                      <span>One Way Surcharge:</span>
+                      <span className="font-bold text-amber-300">+₹2,000</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-slate-200 pt-2 border-t border-white/10">
                     <span>Tolls &amp; Parking:</span>
                     <span className="text-amber-300 font-bold">As per actual Fastag</span>
                   </div>
+                </div>
+
+                {/* Transparent Pricing Formula Guarantee (from user's reference) */}
+                <div className="bg-amber-500/10 border border-amber-400/30 rounded-2xl p-3.5 text-xs text-amber-200/90 space-y-1">
+                  <div className="font-bold text-amber-300 flex items-center gap-1.5 uppercase text-[10.5px] tracking-wider">
+                    <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
+                    <span>Transparent Pricing Guarantee</span>
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-relaxed">
+                    • {tripType === 'One Way' ? 'One-Way Drop Formula' : 'Round Trip Formula'}: Distance ({totalKm} KM @ ₹{selectedVehicle.ratePerKm}/km) + Driver Bata (₹{totalDriverBatta}){tripType === 'One Way' ? ' + One-Way Surcharge (₹2,000)' : ''}. Zero return toll or empty charges.
+                  </p>
                 </div>
 
                 <button

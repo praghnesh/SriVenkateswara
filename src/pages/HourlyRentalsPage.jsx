@@ -16,7 +16,6 @@ import {
 } from 'lucide-react';
 import { CONTACT_INFO, FLEET_VEHICLES, HOURLY_RENTAL_TARIFFS } from '../data/travelData';
 import { openWhatsApp } from '../utils/whatsapp';
-import CustomFareCalculator from '../components/CustomFareCalculator';
 import VehiclePricingModal from '../components/VehiclePricingModal';
 
 export default function HourlyRentalsPage({ onOpenBookingModal }) {
@@ -528,23 +527,6 @@ export default function HourlyRentalsPage({ onOpenBookingModal }) {
                 </div>
               );
             })}
-          </div>
-
-          {/* Dynamic Custom Fare Calculator for Any Custom Hours & KMs */}
-          <div className="mt-16 pt-12 border-t border-slate-200">
-            <div className="text-center mb-8">
-              <span className="text-xs font-bold text-amber-600 uppercase tracking-widest bg-amber-50 border border-amber-200/80 px-3.5 py-1 rounded-full">
-                Custom Duration &amp; Distance Calculator
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">
-                Calculate Fare for Any Hours &amp; Kilometers
-              </h2>
-              <p className="text-slate-600 text-xs sm:text-sm max-w-xl mx-auto mt-1">
-                Need 3 hours, 5 hours, 7 hours, 10 hours, or a specific distance? Calculate exact transparent fares dynamically based on official standard base tariffs.
-              </p>
-            </div>
-
-            <CustomFareCalculator defaultMode="hourly" />
           </div>
 
         </div>

@@ -335,7 +335,7 @@ export const SERVICES_LIST = [
   },
   {
     id: 'oneway-drops',
-    title: 'One-Way Drops (Save 40%)',
+    title: 'One-Way Drops',
     route: '/outstation-cabs',
     desc: 'Moving to another city or heading home? Pay only for the one-way distance traveled without paying for return empty fuel.',
     points: [

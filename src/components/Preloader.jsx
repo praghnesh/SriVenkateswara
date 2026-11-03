@@ -124,6 +124,17 @@ export default function Preloader() {
           <span className="w-1 h-1 rounded-full bg-amber-400/50" />
           <span>Reliability</span>
         </div>
+
+        {/* Operating Hub Cities: Guntur, Mangalagiri, Vijayawada, Hyderabad */}
+        <div className="flex items-center justify-center flex-wrap gap-2 pt-2 text-[10.5px] font-bold tracking-wider text-slate-200 uppercase">
+          <span className="text-amber-300">Guntur</span>
+          <span className="text-amber-500/60">•</span>
+          <span className="text-amber-300">Mangalagiri</span>
+          <span className="text-amber-500/60">•</span>
+          <span className="text-amber-300">Vijayawada</span>
+          <span className="text-amber-500/60">•</span>
+          <span className="text-amber-300">Hyderabad</span>
+        </div>
       </div>
 
       {/* Minimal Elegant Gold Pulse Dots */}

@@ -188,7 +188,7 @@ export default function Hero({ onOpenBookingModal }) {
         <div className="hidden lg:block text-white space-y-6">
           <div className="inline-flex items-center bg-amber-500/20 backdrop-blur-md border border-amber-400/40 px-4 py-2 rounded-full text-amber-300 font-semibold text-sm">
             <Star className="w-4 h-4 mr-2 fill-current text-amber-400" />
-            Top Rated Cab Service in Guntur &amp; Vijayawada
+            Best Car Travels in Guntur • Cheapest &amp; Affordable Car Prices
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight tracking-tight">
@@ -197,8 +197,7 @@ export default function Hero({ onOpenBookingModal }) {
           </h1>
 
           <p className="text-base sm:text-lg lg:text-xl text-gray-300 max-w-lg leading-relaxed">
-            Experience comfort, punctuality and safety with Sri Venkateswara Travels. 
-            From doorstep city cabs to Tirupati Balaji pilgrimage packages, we've got you covered.
+            Rated the best car travels in Guntur with the most affordable car prices, transparent per-km billing, and sanitized cars with courteous verified chauffeurs.
           </p>
 
           {/* 4-Box Trust Grid */}

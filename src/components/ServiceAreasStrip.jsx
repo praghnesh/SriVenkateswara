@@ -51,7 +51,6 @@ export default function ServiceAreasStrip() {
               <div>
                 <div className="font-extrabold text-sm sm:text-base flex items-center gap-2">
                   <span>Special One-Way Dropping Service Available!</span>
-                  <span className="bg-gradient-to-r from-amber-400 to-yellow-400 text-slate-950 text-[10px] font-black uppercase px-2 py-0.5 rounded-full shadow-xs">Save 40%</span>
                 </div>
                 <div className="text-xs text-slate-300 mt-0.5">
                   Heading to Hyderabad, Tirupati, Vizag, or Chennai? Pay only one-way trip charges with zero return toll or empty miles.

@@ -280,6 +280,40 @@ export default function Footer() {
           </div>
 
           <div>
+            <h5 className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-3 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+              <span>Guntur Car Travels &amp; Affordable Rates:</span>
+            </h5>
+            <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-xs text-gray-300">
+              <span className="hover:text-amber-400 transition-colors font-semibold text-amber-300/90">Car Travels in Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors font-semibold text-amber-300/90">Best Car Travels in Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors font-semibold text-amber-300/90">Cheapest Car Travels in Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors font-semibold text-amber-300/90">Affordable Car Prices</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors font-medium">Affordable Car Prices in Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors font-medium">Cheap Car Travels in Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors font-medium">Lowest Price Car Travels Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors font-medium">Budget Car Rental in Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors font-medium">Best Taxi Service in Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors font-medium">Top Car Travels in Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors font-medium">Affordable Cab Booking Guntur</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors font-medium">Guntur Car Travels Contact Number</span>
+              <span className="text-gray-600">•</span>
+              <span className="hover:text-amber-400 transition-colors font-medium">Guntur Outstation Cabs Lowest Price</span>
+            </div>
+          </div>
+
+          <div>
             <h5 className="text-xs font-bold uppercase tracking-wider text-amber-400/90 mb-3">
               Popular Searches &amp; Cab Services Near Me:
             </h5>
