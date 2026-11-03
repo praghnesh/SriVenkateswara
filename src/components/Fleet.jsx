@@ -271,23 +271,8 @@ export default function Fleet({ onOpenBookingModal }) {
                       </ul>
                     </div>
 
-                    {/* Action Buttons: Compact */}
-                    <div className="pt-2.5 border-t border-gray-100 grid grid-cols-2 gap-1.5 sm:gap-2">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const minKm = car.minKm || (car.category === 'sedan' ? 350 : 400);
-                          const bata = car.driverBatta || (car.category === 'sedan' ? 300 : 400);
-                          const isRound = tripType === 'Round Trip';
-                          const msg = `*FLEET BOOKING ENQUIRY (${tripType.toUpperCase()})* 🚖\n*Sri Venkateswara Car Travels*\n\n• *Vehicle:* ${car.name} (${car.seats})\n• *Trip Type:* ${tripType} (${isRound ? 'Outstation Round Trip' : 'One Way Drop - Save 40%'})\n• *Running Rate:* ${car.rateText}\n${isRound ? `• *Min Distance:* ${minKm} Kms/Day\n• *Driver Bata:* ₹${bata}/Day\n` : '• *One Way Route:* Single journey drop (pay only 1-way distance)\n'}• *Pickup From:* Guntur / Vijayawada\n\nHello, I want to book this ${car.name} for a ${tripType} trip. Please check availability and confirm.`;
-                          openWhatsApp(msg);
-                        }}
-                        className="bg-emerald-600 hover:bg-emerald-700 text-white py-1.5 sm:py-2 px-2 rounded-xl font-bold text-[11px] sm:text-xs flex items-center justify-center transition-all shadow-xs cursor-pointer"
-                      >
-                        <MessageSquare className="w-3 h-3 mr-1 shrink-0" />
-                        <span>WhatsApp</span>
-                      </button>
-
+                    {/* Action Button: Single Full-Width Book Now */}
+                    <div className="pt-2.5 border-t border-gray-100">
                       <button
                         type="button"
                         onClick={() => {
@@ -301,9 +286,9 @@ export default function Fleet({ onOpenBookingModal }) {
                             window.location.href = `tel:${CONTACT_INFO.primaryPhoneRaw}`;
                           }
                         }}
-                        className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 py-1.5 sm:py-2 px-2 rounded-xl font-bold text-[11px] sm:text-xs flex items-center justify-center transition-all shadow-xs cursor-pointer border border-amber-300/40"
+                        className="w-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-600 hover:to-amber-600 text-slate-950 py-2 sm:py-2.5 px-3 rounded-xl font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all shadow-sm hover:shadow-md cursor-pointer border border-amber-300/60"
                       >
-                        <Phone className="w-3 h-3 mr-1 shrink-0 text-slate-950" />
+                        <Phone className="w-3.5 h-3.5 shrink-0 text-slate-950" />
                         <span>Book Now</span>
                       </button>
                     </div>

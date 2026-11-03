@@ -18,6 +18,87 @@ import {
 import { CONTACT_INFO, FLEET_VEHICLES } from '../data/travelData';
 import { sendVehicleBooking, openWhatsApp } from '../utils/whatsapp';
 import VehiclePricingModal from '../components/VehiclePricingModal';
+import SearchableLocationSelect from '../components/SearchableLocationSelect';
+
+const FLEET_DESTINATIONS = [
+  { name: 'Hyderabad', distance: 280, label: 'Hyderabad (~280 Kms)', state: 'Telangana', tag: 'Top Route' },
+  { name: 'Tirupati', distance: 380, label: 'Tirupati / Tirumala (~380 Kms)', state: 'Andhra Pradesh', tag: 'Pilgrimage' },
+  { name: 'Visakhapatnam (Vizag)', distance: 370, label: 'Visakhapatnam / Vizag (~370 Kms)', state: 'Andhra Pradesh', tag: 'Coastal' },
+  { name: 'Srisailam', distance: 220, label: 'Srisailam Temple (~220 Kms)', state: 'Andhra Pradesh', tag: 'Pilgrimage' },
+  { name: 'Chennai', distance: 390, label: 'Chennai (~390 Kms)', state: 'Tamil Nadu', tag: 'Metro' },
+  { name: 'Bengaluru (Bangalore)', distance: 580, label: 'Bengaluru (~580 Kms)', state: 'Karnataka', tag: 'Tech Hub' },
+  { name: 'Rajahmundry', distance: 210, label: 'Rajahmundry (~210 Kms)', state: 'Andhra Pradesh', tag: 'Godavari' },
+  { name: 'Vijayawada', distance: 35, label: 'Vijayawada (~35 Kms)', state: 'Andhra Pradesh', tag: 'Nearby' },
+  { name: 'Gannavaram Airport (VGA)', distance: 55, label: 'Gannavaram Airport (VGA) (~55 Kms)', state: 'Vijayawada', tag: 'Airport' },
+  { name: 'RGIA Hyderabad Airport (HYD)', distance: 290, label: 'RGIA Hyderabad Airport (~290 Kms)', state: 'Hyderabad', tag: 'Airport' },
+  { name: 'Kakinada', distance: 270, label: 'Kakinada Port (~270 Kms)', state: 'Andhra Pradesh', tag: 'Coastal' },
+  { name: 'Kurnool', distance: 260, label: 'Kurnool (~260 Kms)', state: 'Andhra Pradesh', tag: 'Rayalaseema' },
+  { name: 'Nellore', distance: 240, label: 'Nellore (~240 Kms)', state: 'Andhra Pradesh', tag: 'City' },
+  { name: 'Ongole', distance: 110, label: 'Ongole (~110 Kms)', state: 'Andhra Pradesh', tag: 'Nearby' },
+  { name: 'Warangal', distance: 260, label: 'Warangal (~260 Kms)', state: 'Telangana', tag: 'Heritage' },
+  { name: 'Khammam', distance: 130, label: 'Khammam (~130 Kms)', state: 'Telangana', tag: 'City' },
+  { name: 'Bhadrachalam', distance: 230, label: 'Bhadrachalam Temple (~230 Kms)', state: 'Telangana', tag: 'Pilgrimage' },
+  { name: 'Shirdi', distance: 820, label: 'Shirdi Sai Baba Temple (~820 Kms)', state: 'Maharashtra', tag: 'Pilgrimage' },
+  { name: 'Goa', distance: 780, label: 'Goa Holiday (~780 Kms)', state: 'Goa', tag: 'Holiday' },
+  { name: 'Suryalanka Beach (Bapatla)', distance: 75, label: 'Suryalanka Beach / Bapatla (~75 Kms)', state: 'Andhra Pradesh', tag: 'Beach' },
+  { name: 'Chirala', distance: 70, label: 'Chirala Handlooms (~70 Kms)', state: 'Andhra Pradesh', tag: 'Nearby' },
+  { name: 'Kotappakonda', distance: 45, label: 'Kotappakonda Temple (~45 Kms)', state: 'Andhra Pradesh', tag: 'Pilgrimage' }
+];
+
+const FLEET_PICKUPS = [
+  { name: 'Guntur', label: 'Guntur (Town / Station / Arundelpet / Brodipet)', area: 'Head Office & Citywide', tag: 'Primary Hub' },
+  { name: 'Vijayawada', label: 'Vijayawada (City / Railway Station / Benz Circle)', area: 'Benz Circle / Station', tag: 'Primary Hub' },
+  { name: 'Mangalagiri', label: 'Mangalagiri / AIIMS Hospital', area: 'AIIMS & Temple Town', tag: 'Hub' },
+  { name: 'Amaravati', label: 'Amaravati Capital / Secretariat / High Court', area: 'Velagapudi Secretariat', tag: 'Capital' },
+  { name: 'Tenali', label: 'Tenali Junction / Morrispet', area: 'Tenali Town', tag: 'Hub' },
+  { name: 'Gannavaram', label: 'Gannavaram Airport (VGA)', area: 'Airport Pickup Point', tag: 'Airport' },
+  { name: 'Chilakaluripet', label: 'Chilakaluripet NH-16', area: 'Highway Junction', tag: 'Town' },
+  { name: 'Narasaraopet', label: 'Narasaraopet Clock Tower', area: 'Palnadu Hub', tag: 'Town' },
+  { name: 'Hyderabad', label: 'Hyderabad (Hitec City / Airport / Secunderabad)', area: 'Telangana Hub', tag: 'Metro' }
+];
+
+function estimateDistance(destinationName) {
+  if (!destinationName) return 250;
+  const lower = destinationName.toLowerCase();
+  
+  // Direct match in destinations list
+  const match = FLEET_DESTINATIONS.find(d => 
+    d.name.toLowerCase() === lower || 
+    (d.label && d.label.toLowerCase() === lower)
+  );
+  if (match) return match.distance;
+
+  // Fuzzy keyword matching
+  if (lower.includes('hyderabad') || lower.includes('secunderabad') || lower.includes('shamshabad') || lower.includes('rgia')) return 280;
+  if (lower.includes('tirupati') || lower.includes('tirumala') || lower.includes('alipiri') || lower.includes('renigunta') || lower.includes('srikalahasti')) return 380;
+  if (lower.includes('visakhapatnam') || lower.includes('vizag') || lower.includes('araku') || lower.includes('anakapalle') || lower.includes('bheemili')) return 370;
+  if (lower.includes('srisailam') || lower.includes('sunnipenta')) return 220;
+  if (lower.includes('chennai') || lower.includes('madras')) return 390;
+  if (lower.includes('bengaluru') || lower.includes('bangalore') || lower.includes('whitefield') || lower.includes('electronic city')) return 580;
+  if (lower.includes('rajahmundry') || lower.includes('godavari')) return 210;
+  if (lower.includes('kakinada')) return 270;
+  if (lower.includes('vijayawada') || lower.includes('benz circle') || lower.includes('kanaka durga') || lower.includes('gollapudi')) return 35;
+  if (lower.includes('gannavaram')) return 55;
+  if (lower.includes('kurnool')) return 260;
+  if (lower.includes('nellore')) return 240;
+  if (lower.includes('ongole')) return 110;
+  if (lower.includes('warangal') || lower.includes('hanamkonda')) return 260;
+  if (lower.includes('khammam')) return 130;
+  if (lower.includes('shirdi')) return 820;
+  if (lower.includes('goa')) return 780;
+  if (lower.includes('bhadrachalam')) return 230;
+  if (lower.includes('suryalanka') || lower.includes('bapatla')) return 75;
+  if (lower.includes('chirala')) return 70;
+  if (lower.includes('kotappakonda')) return 45;
+  if (lower.includes('mangalagiri') || lower.includes('aiims')) return 20;
+  if (lower.includes('amaravati') || lower.includes('velagapudi')) return 35;
+  if (lower.includes('tenali')) return 30;
+  if (lower.includes('eluru')) return 95;
+  if (lower.includes('bhimavaram')) return 135;
+  if (lower.includes('mumbai') || lower.includes('pune')) return 920;
+  
+  return 250;
+}
 
 export default function FleetPage({ onOpenBookingModal }) {
   const navigate = useNavigate();
@@ -31,17 +112,6 @@ export default function FleetPage({ onOpenBookingModal }) {
   const [date, setDate] = useState(today);
   const [time, setTime] = useState('06:00');
 
-  const destinationDistances = {
-    'Hyderabad': 280,
-    'Tirupati': 380,
-    'Visakhapatnam (Vizag)': 370,
-    'Srisailam': 220,
-    'Chennai': 390,
-    'Bengaluru (Bangalore)': 580,
-    'Rajahmundry': 210,
-    'Vijayawada': 35
-  };
-
   const quickDestinations = [
     'Hyderabad',
     'Tirupati',
@@ -51,7 +121,7 @@ export default function FleetPage({ onOpenBookingModal }) {
     'Bengaluru (Bangalore)'
   ];
 
-  const distance = destinationDistances[dropCity] || 250;
+  const distance = estimateDistance(dropCity);
   const tripDays = 1;
 
   const filteredVehicles = FLEET_VEHICLES.filter((vehicle) => {
@@ -190,46 +260,27 @@ Hello, please check vehicle availability and confirm this cab booking.`;
             {/* Inputs Grid: Pickup, Drop, Date, Return Date, Time */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
               
-              {/* Pickup City */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-amber-600" />
-                  <span>From (Pickup)</span>
-                </label>
-                <select
-                  value={pickupCity}
-                  onChange={(e) => setPickupCity(e.target.value)}
-                  className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
-                >
-                  <option value="Guntur">Guntur (Town / Station / Arundelpet)</option>
-                  <option value="Vijayawada">Vijayawada (City / Railway Station)</option>
-                  <option value="Mangalagiri">Mangalagiri / AIIMS</option>
-                  <option value="Amaravati">Amaravati Capital Region</option>
-                  <option value="Tenali">Tenali Junction</option>
-                </select>
-              </div>
+              {/* Pickup City (Searchable Autocomplete Input) */}
+              <SearchableLocationSelect
+                label="From (Pickup)"
+                icon={MapPin}
+                value={pickupCity}
+                onChange={setPickupCity}
+                placeholder="Type pickup city or area..."
+                options={FLEET_PICKUPS}
+                isDestination={false}
+              />
 
-              {/* Destination / Drop City */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
-                  <Navigation className="w-3.5 h-3.5 text-amber-600" />
-                  <span>To (Destination)</span>
-                </label>
-                <select
-                  value={dropCity}
-                  onChange={(e) => setDropCity(e.target.value)}
-                  className="w-full bg-slate-50 border border-gray-200 rounded-xl py-2.5 px-3 text-sm text-gray-800 font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
-                >
-                  <option value="Hyderabad">Hyderabad (~280 Kms)</option>
-                  <option value="Tirupati">Tirupati / Tirumala (~380 Kms)</option>
-                  <option value="Visakhapatnam (Vizag)">Visakhapatnam / Vizag (~370 Kms)</option>
-                  <option value="Srisailam">Srisailam Temple (~220 Kms)</option>
-                  <option value="Chennai">Chennai (~390 Kms)</option>
-                  <option value="Bengaluru (Bangalore)">Bengaluru (~580 Kms)</option>
-                  <option value="Rajahmundry">Rajahmundry (~210 Kms)</option>
-                  <option value="Vijayawada">Vijayawada (~35 Kms)</option>
-                </select>
-              </div>
+              {/* Destination / Drop City (Searchable Autocomplete Input) */}
+              <SearchableLocationSelect
+                label="To (Destination)"
+                icon={Navigation}
+                value={dropCity}
+                onChange={setDropCity}
+                placeholder="Type destination (e.g. Hyderabad, Tirupati...)"
+                options={FLEET_DESTINATIONS}
+                isDestination={true}
+              />
 
               {/* Departure Date */}
               <div className="space-y-1.5">
